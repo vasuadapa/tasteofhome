@@ -22,7 +22,7 @@
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
 </head>
 
@@ -330,18 +330,22 @@
                                                                         <h6 class="modal-title">Veg Subscription Plan</h6>
                                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                     </div>
-                                                                    <div class="modal-body text-left px-5">
-                                                                        <label class="">Veg Plan Price</label>
-                                                                        <input placeholder="Plan Price" type="number" class="form-control"/>
-                                                                        <label class="">Roti Price</label>
-                                                                        <input placeholder="Roti Price" type="number" class="form-control"/>
-                                                                        <label class="">Rice Price</label>
-                                                                        <input placeholder="Rice Price" type="number" class="form-control"/>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-success" >Update</button>
-                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                                    </div>
+                                                                    <form action="{% url 'app:subscription_update' %}" method="POST" enctype="multipart/form-data">
+                                                                        {% csrf_token %}
+                                                                        <input type="text" value="veg" name="veg_nv" hidden>
+                                                                        <div class="modal-body text-left px-5">
+                                                                            <label class="">Veg Plan Price</label>
+                                                                            <input placeholder="Plan Price" type="text" class="form-control" name="plan_price" required/>
+                                                                            <label class="">Roti Price</label>
+                                                                            <input placeholder="Roti Price" type="text" class="form-control" name="roti_price" required/>
+                                                                            <label class="">Rice Price</label>
+                                                                            <input placeholder="Rice Price" type="text" class="form-control" name="rice_price" required/>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-success" >Update</button>
+                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -372,18 +376,22 @@
                                                                         <h6 class="modal-title">Non Veg Subscription Plan</h6>
                                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                     </div>
-                                                                    <div class="modal-body text-left px-5">
-                                                                        <label class="">Non Veg Plan Price</label>
-                                                                        <input placeholder="Plan Price" type="number" class="form-control"/>
-                                                                        <label class="">Roti Price</label>
-                                                                        <input placeholder="Roti Price" type="number" class="form-control"/>
-                                                                        <label class="">Rice Price</label>
-                                                                        <input placeholder="Rice Price" type="number" class="form-control"/>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-success" >Update</button>
-                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                                    </div>
+                                                                    <form action="{% url 'app:subscription_update' %}" method="POST" enctype="multipart/form-data">
+                                                                        {% csrf_token %}
+                                                                        <input type="text" value="non veg" name="veg_nv" hidden>
+                                                                        <div class="modal-body text-left px-5">
+                                                                            <label class="">Non Veg Plan Price</label>
+                                                                            <input placeholder="Plan Price" type="text" class="form-control" name="plan_price" required/>
+                                                                            <label class="">Roti Price</label>
+                                                                            <input placeholder="Roti Price" type="text" class="form-control" name="roti_price" required/>
+                                                                            <label class="">Rice Price</label>
+                                                                            <input placeholder="Rice Price" type="text" class="form-control" name="rice_price" required/>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-success" >Update</button>
+                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -424,8 +432,8 @@
     </a>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-admin/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-admin/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
@@ -434,11 +442,11 @@
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
     <!-- Page level plugins -->
-    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-admin/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.js' %}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+    <script src="{% static 'js/datatables-demo.js' %}"></script>
 
 </body>
 

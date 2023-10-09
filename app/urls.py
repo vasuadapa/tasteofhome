@@ -39,6 +39,7 @@ urlpatterns = [
 
     path('subscription/', views.subscription, name='subscription'),
     path('subscription-details/<str:id>/', views.subscription_details, name='subscription_details'),
+    path('subscription-update/', views.subscription_update, name='subscription_update'),
 
 
     path('order/', views.order, name='order'),
@@ -47,6 +48,9 @@ urlpatterns = [
     path('admin-ajax-order-subscription/', views.admin_ajax_order_subscription, name='admin_ajax_order_subscription'),
 
     path('driver/', views.driver1, name='driver1'),
+    path('admin-orders-payment/<int:id>/', views.admin_orders_payment, name='admin_orders_payment'),
+    path('driver-orders-completed/<int:id>/', views.driver_orders_completed, name='driver_orders_completed'),
+    path('driver-orders-decline/<int:id>/', views.driver_orders_decline, name='driver_orders_decline'),
 
     #admin
     path('admin-index/', views.admin_index, name='admin_index'),

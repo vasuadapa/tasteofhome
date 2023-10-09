@@ -110,9 +110,9 @@
           <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
             <div class="card card-bg mb-3 product">
               <div class="card-body">
-                <h5 class="product-name">Veg Subscription Plan</h5>
-                <p class="product-desc">5 * Veg Meals Each Day Monday To Friday</p>
-                <p class="card-text text-success product-price">60 $</p>
+                <h5 class="product-name">{{subscri_plan.0.meals_text}}</h5>
+                <p class="product-desc">{{subscri_plan.0.desc}}</p>
+                <p class="card-text text-success product-price">{{subscri_plan.0.price}} $</p>
                 <button class="btn btn-green mt-2 float-right tohmoclose" type="button" data-toggle="modal" data-target="#myModalveg">Add to cart</button>
               </div>
             </div>
@@ -126,16 +126,16 @@
                 </div>
                 <div class="modal-body">
                   <div class="modalcard-body">
-                    <h5 class="product-name">5 * VEG MEALS WEEKLY SUBSCRIPTION</h5>
-                    <p class="product-desc">5 * Veg Meals Each Day Monday To Friday</p>
-                    <p id="tprice" class="card-text text-success product-price modalproduct-price">60 $</p>
+                    <h5 class="product-name">{{subscri_plan.0.meals_text}}</h5>
+                    <p class="product-desc">{{subscri_plan.0.desc}}</p>
+                    <p id="tprice" class="card-text text-success product-price modalproduct-price">{{subscri_plan.0.price}} $</p>
                     <p class="product-addon">Addons - You can add extras for your Meal(Optional)</p>
                     <div class="row mb-4">
                       <div class="col-lg-10">
                         <div class="input-group">
                           <span class="input-group-btn">
-                            <label class="add-one-first">Roti</label>
-                            <span>0.90 $</span>
+                            <label class="add-one-first">{{subscri_plan.0.Addons1}}</label>
+                            <span>{{subscri_plan.0.Addons1_price}} $</span>
                             <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
                               <span class="bi bi-file-minus-fill"></span>
                             </button>
@@ -153,7 +153,7 @@
                         <div class="col-lg-10">
                           <div class="input-group">
                             <span class="input-group-btn">
-                              <label class="add-one-second">Rice (280ml): 2.00 $</label>
+                              <label class="add-one-second">{{subscri_plan.0.Addons2}}: {{subscri_plan.0.Addons2_price}} $</label>
                               <button type="button" class="quantitya-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
                                 <span class="bi bi-file-minus-fill"></span>
                               </button>
@@ -183,9 +183,9 @@
           <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
             <div class="card card-bg mb-3 product">
               <div class="card-body">
-                <h5 class="product-name">Non Veg Subscription Plan</h5>
-                <p class="product-desc">5 * Non-Veg Meals Each Day Monday To Friday</p>
-                <p class="card-text text-success product-price">65 $</p>
+                <h5 class="product-name">{{subscri_plan.1.meals_text}}</h5>
+                <p class="product-desc">{{subscri_plan.1.desc}}</p>
+                <p class="card-text text-success product-price">{{subscri_plan.1.price}} $</p>
                 <button class="btn btn-green mt-2 float-right tohmoclose" type="button" data-toggle="modal" data-target="#myModalnonveg">Add to cart</button>
               </div>
             </div>
@@ -199,15 +199,15 @@
                 </div>
                 <div class="modal-body">
                   <div class="modalcard-body">
-                    <h5 class="product-name">5 * NON VEG MEALS WEEKLY SUBSCRIPTION</h5>
-                    <p class="product-desc">5 * Non-Veg Meals Each Day Monday To Friday</p>
-                    <p id="tprice1" class="card-text text-success product-price modalproduct-price">65 $</p>
+                    <h5 class="product-name">{{subscri_plan.1.meals_text}}</h5>
+                    <p class="product-desc">{{subscri_plan.1.desc}}</p>
+                    <p id="tprice1" class="card-text text-success product-price modalproduct-price">{{subscri_plan.1.price}} $</p>
                     <p class="product-addon">Addons - You can add extras for your Meal(Optional)</p>
                     <div class="row mb-4">
                       <div class="col-md-8">
                         <div class="input-group">
                           <span class="input-group-btn">
-                            <label class="add-one-first">Roti: 0.90 $</label>
+                            <label class="add-one-first">{{subscri_plan.1.Addons1}}: {{subscri_plan.1.Addons1_price}} $</label>
                             <button type="button" class="quantityb-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
                               <span class="bi bi-file-minus-fill"></span>
                             </button>
@@ -225,7 +225,7 @@
                         <div class="col-md-8">
                           <div class="input-group">
                             <span class="input-group-btn">
-                              <label class="add-one-second">Rice (280ml): 2.00 $</label>
+                              <label class="add-one-second">{{subscri_plan.1.Addons2}}: {{subscri_plan.1.Addons2_price}} $</label>
                               <button type="button" class="quantityc-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
                                 <span class="bi bi-file-minus-fill"></span>
                               </button>

@@ -121,7 +121,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Order Details--{{order_today}}</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Order Details</h1>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                            <a class="nav-link active" data-bs-toggle="tab" href="#todayord">Today Orders</a>
@@ -157,28 +157,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {% for tdord in order_completed %}
+                                            {% for tdord in order_today %}
                                                  <tr>
                                                     <td>{{forloop.counter}}</td>
                                                     <td>{{tdord.order_id}}</td>
                                                     <td>{{tdord.user_date.mobile}}</td>
                                                     <td>{{tdord.user_date.name}}</td>
-                                                    <td>{{tdord.orde_date_time}}</td>
-                                                    <td>{{tdord.order_address_customer.address}}</td>
+                                                    <td>{{tdord.order_date_time}}</td>
+                                                    <td>{{tdord.user_date.address}}</td>
                                                     <td>{{tdord.order_address_customer.name}}&nbsp;&nbsp;{{tdord.order_address_customer.code}}</td>
                                                     <td>{{tdord.total_amt}}</td>
                                                      {% if tdord.order_status != 'Subscription' %}
-                                                        <td>{{tdord.meals_date.meal_text}},{{tdord.meals_date.item}}&nbsp;&nbsp;{{tdord.meals_date.item}}&nbsp;&nbsp;{{tdord.meals_date.fixed_item}}</td>
+                                                        <td>{{tdord.meals_date.meal_text}}</td>
                                                         <td>{{tdord.meals_date.item}}&nbsp;&nbsp;{{tdord.meals_date.fixed_item}}</td>
                                                     {% else %}
-                                                        <td>{{tdord.item}}&nbsp;&nbsp;{{tdord.single_item}}</td>
+                                                        <td>{{tdord.item}}</td>
                                                         <td>{{tdord.single_item}}</td>
                                                      {% endif %}
-                                                     <td><span class="refunds badge badge-success">Received</span></td>
-                                                    <td class="align-items-center"> 
+                                                     {% if tdord.payment_status == "Completed" %}
+                                                     <td><p>Paid</p></td>
+                                                     {% else %}
+                                                     <td><a href="{% url 'app:admin_orders_payment' tdord.id %}" ><span class="refunds badge badge-success">Received</span></a></td>
+                                                    {% endif %}
+                                                     <td class="align-items-center">
                                                         <div>
-                                                           <span class="refunds badge badge-info">Mark Delivered</span>
-                                                           <span class="refunds badge badge-danger">Mark undelivered</span>
+                                                            <a href="{% url 'app:driver_orders_completed' tdord.id %}" ><span class="refunds badge badge-info">Mark Delivered</span></a>
+                                                            <a href="{% url 'app:driver_orders_decline' tdord.id %}" ><span class="refunds badge badge-danger">Mark undelivered</span></a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -213,19 +217,19 @@
                                             {% for tdord1 in order_completed %}
                                                 <tr>
                                                     <td>{{forloop.counter}}</td>
-                                                    <td>{{tdord.order_id}}</td>
-                                                    <td>{{tdord.user_date.mobile}}</td>
-                                                    <td>{{tdord.user_date.name}}</td>
-                                                    <td>{{tdord.orde_date_time}}</td>
-                                                    <td>{{tdord.order_address_customer.address}}</td>
-                                                    <td>{{tdord.order_address_customer.name}}&nbsp;&nbsp;{{tdord.order_address_customer.code}}</td>
-                                                    <td>{{tdord.total_amt}}</td>
-                                                     {% if tdord.order_status != 'Subscription' %}
-                                                        <td>{{tdord.meals_date.meal_text}}</td>
-                                                        <td>{{tdord.meals_date.item}}&nbsp;&nbsp;{{tdord.meals_date.fixed_item}}</td>
+                                                    <td>{{tdord1.order_id}}</td>
+                                                    <td>{{tdord1.user_date.mobile}}</td>
+                                                    <td>{{tdord1.user_date.name}}</td>
+                                                    <td>{{tdord1.order_date_time}}</td>
+                                                    <td>{{tdord1.order_address_customer.address}}</td>
+                                                    <td>{{tdord1.order_address_customer.name}}&nbsp;&nbsp;{{tdord1.order_address_customer.code}}</td>
+                                                    <td>{{tdord1.total_amt}}</td>
+                                                     {% if tdord1.order_status != 'Subscription' %}
+                                                        <td>{{tdord1.meals_date.meal_text}}</td>
+                                                        <td>{{tdord1.meals_date.item}}&nbsp;&nbsp;{{tdord1.meals_date.fixed_item}}</td>
                                                     {% else %}
-                                                        <td>{{tdord.item}}</td>
-                                                        <td>{{tdord.single_item}}</td>
+                                                        <td>{{tdord1.item}}</td>
+                                                        <td>{{tdord1.single_item}}</td>
                                                      {% endif %}
 
                                                     <td><span class="refunds badge badge-success">Delivered</span></td>

@@ -106,10 +106,12 @@ def get_cookies(request):
     get_name = request.COOKIES.get('name')
     type = request.COOKIES.get('type')
     return {"get_email":get_email,"get_name":get_name,"type":type}
-
+subscri_plan =[{'name':"Veg Subscription Plan","meals_text":"5 * VEG MEALS WEEKLY SUBSCRIPTION","desc":"5 * Veg Meals Each Day Monday To Friday","price":60,"Addons1":"Roti","Addons2":"Rice (280ml)","Addons1_price":0.90,"Addons2_price":2.00},
+               {'name':"Non Veg Subscription Plan","meals_text":"5 * NON VEG MEALS WEEKLY SUBSCRIPTION","desc":"5 * Non-Veg Meals Each Day Monday To Friday","price":65,"Addons1":"Roti","Addons2":"Rice (280ml)","Addons1_price":0.90,"Addons2_price":2.00}]
 @api_view(['GET'])
 def index1(request):
     return HttpResponse("Welcomepage Testeohome")
+
 
 def index(request):
     cookies = get_cookies(request)
@@ -241,7 +243,27 @@ def delivery(request):
 
 def subscription(request):
     cookies = get_cookies(request)
-    return render(request, 'subscription.html',{"cookies": cookies})
+    return render(request, 'subscription.html',{"cookies": cookies,"subscri_plan":subscri_plan})
+
+def subscription_update(request):
+    if request.method == "POST":
+        plane = request.POST['plan_price']
+        roti_price = request.POST['roti_price']
+        rice_price = request.POST['rice_price']
+        type = request.POST['veg_nv']
+
+        if type == "veg":
+            subscri_plan[0]['price'] = plane
+            subscri_plan[0]['Addons1_price'] = roti_price
+            subscri_plan[0]['Addons2_price'] = rice_price
+        else:
+            subscri_plan[1]['price'] = plane
+            subscri_plan[1]['Addons1_price'] = roti_price
+            subscri_plan[1]['Addons2_price'] = rice_price
+
+
+    return redirect("app:admin_subscription_plans")
+
 def subscription_details(request,id):
     cookies = get_cookies(request)
     order_data = Order.objects.filter(order_id=id).distinct("order_date")
@@ -260,7 +282,14 @@ def order_details(request,id):
 def driver1(request):
     cookies = get_cookies(request)
     if cookies['type']=="driver":
-        return render(request, 'driver1.html',{"cookies": cookies})
+        driver_data  = Driver.objects.filter(email=cookies['get_email']).last()
+        code_data = Code.objects.filter(driver=driver_data).filter(status=0).last()
+        order_today = Order.objects.filter(order_date=date_1).filter(order_status='In process').filter(
+            order_address_customer_id=code_data)
+        order_completed = Order.objects.filter(order_date=date_1).filter(order_status='Completed').filter(
+            order_address_customer_id=code_data)
+
+        return render(request, 'driver1.html',{"cookies": cookies,"order_today":order_today,"order_completed":order_completed})
     else:
         return redirect("app:login")
 
@@ -881,6 +910,23 @@ def admin_orders_refund(request,id):
     order_data.order_status ="Refunded"
     order_data.save()
     return redirect('app:admin_orders')
+
+def admin_orders_payment(request,id):
+    order_data = Order.objects.filter(id=id).last()
+    order_data.payment_status = "Completed"
+    order_data.save()
+    return redirect('app:driver1')
+def driver_orders_completed(request,id):
+    order_data = Order.objects.filter(id=id).last()
+    order_data.order_status = "Completed"
+    order_data.save()
+    return redirect('app:driver1')
+
+def driver_orders_decline(request,id):
+    order_data = Order.objects.filter(id=id).last()
+    order_data.order_status ="Decline"
+    order_data.save()
+    return redirect('app:driver1')
 
 def admin_orders_edit(request,id):
     order_data = Order.objects.filter(id=id).last()
