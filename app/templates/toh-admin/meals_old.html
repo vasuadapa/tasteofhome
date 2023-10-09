@@ -1,0 +1,2549 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Taste of Home - Dashboard</title>
+    <link href="{% static 'css/styles-admin.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/fontawesome-free-admin/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+        <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <!-- Custom styles for this template -->
+   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+    <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand align-items-center justify-content-center" href="{% url 'app:admin_index' %}">
+               <img src="{% static 'images/logo.png' %}"  class="logo"/>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Tifins
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tifins"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Menu</span>
+                </a>
+                <div id="tifins" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_categories' %}">Categories</a>
+                        <a class="collapse-item" href="{% url 'app:admin_items' %}">Items</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_meals' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-hamburger"></i>
+                    <span>Meals</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_orders' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_todayreport' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Today's Report</span>
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_dailyorder' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Daily Orders</span>
+                </a>
+
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Tracking
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_suburb' %}">
+                    <i class="fas fa-map"></i>
+                    <span>Suburb</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_drivers' %}">
+                    <i class="fas fa-users"></i>
+                    <span>Drivers</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#delivery"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-shuttle-van"></i>
+                    <span>Delivery Van</span>
+                </a>
+                <div id="delivery" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_deliverytifin' %}">Tifin</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Users Desk
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_customers' %}">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_users' %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Users</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_sizes' %}">
+                    <i class="fas fa-list"></i>
+                    <span>Sizes</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_variations' %}">
+                    <i class="fas fa-list"></i>
+                    <span>Variations</span></a>
+            </li>
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Subscription
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_subscription' %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Subscription</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_promocode' %}">
+                    <i class="fas fa-list"></i>
+                    <span>PromoCodes</span></a>
+            </li>
+
+
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Reports
+            </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reports"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="reports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_salesreport' %}">Sales Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_orderreport' %}">Order Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_itemreport' %}">Item Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_suburreport' %}">Suburb Wise Order</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#settings"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <div id="settings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_timing' %}">Timings</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_closedate' %}">Close Dates</a>
+
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Taste of Home</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{% static 'img/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'app:admin_sign_out'%}" >
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Meals</h1>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                           <a class="nav-link active" data-bs-toggle="tab" href="#sun">Sunday</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" data-bs-toggle="tab" href="#mon">Monday</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" data-bs-toggle="tab" href="#tue">Tuesday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#wed">Wednesday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#thur">Thursday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#fri">Friday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#sat">Saturday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#all">All</a>
+                        </li>
+                    </ul>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+
+                          <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane container" id="sun">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold d-inline text-primary">Sunday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelsun">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="dataTable" width="100%" id="sunday" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td class="align-items-center"> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelsunedit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for m in all_meal_data.meal_dt_sun %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{m.name.name}}</td>
+                                                    <td>{{m.item}}</td>
+                                                    <td>{{m.qty}}</td>
+                                                    <td>{{m.fixed_item}}</td>
+                                                    <td>{{m.fixed_item_quantity}}</td>
+                                                    <td>{{m.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{m.day}}</td>
+                                                    <td>{{m.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' m.id %}" ><button class="btn btn-sm"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' m.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade active" id="mon">       
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Monday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                           <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelmon">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries-mon</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td class="align-items-center"> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelmonedit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for j in all_meal_data.meal_dt_mon %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{j.name.name}}</td>
+                                                    <td>{{j.item}}</td>
+                                                    <td>{{j.qty}}</td>
+                                                    <td>{{j.fixed_item}}</td>
+                                                    <td>{{j.fixed_item_quantity}}</td>
+                                                    <td>{{j.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{j.day}}</td>
+                                                    <td>{{j.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' j.id %}" ><button class="btn btn-sm" data-toggle="modal"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' j.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input type="checkbox" name="special" value='{{j.id}}' class="special-btn">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="tue">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Tuesday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModeltue">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModeltueedit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for k in all_meal_data.meal_dt_tues %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{k.name.name}}</td>
+                                                    <td>{{k.item}}</td>
+                                                    <td>{{k.qty}}</td>
+                                                    <td>{{k.fixed_item}}</td>
+                                                    <td>{{k.fixed_item_quantity}}</td>
+                                                    <td>{{k.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{k.day}}</td>
+                                                    <td>{{k.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' k.id %}" ><button class="btn btn-sm" data-toggle="modal"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' k.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="wed">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Wednesday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelwed">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelwededit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for l in all_meal_data.meal_dt_wed  %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{l.name.name}}</td>
+                                                    <td>{{l.item}}</td>
+                                                    <td>{{l.qty}}</td>
+                                                    <td>{{l.fixed_item}}</td>
+                                                    <td>{{l.fixed_item_quantity}}</td>
+                                                    <td>{{l.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{l.day}}</td>
+                                                    <td>{{l.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' l.id %}" ><button class="btn btn-sm"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' l.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="thur">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Thursday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelthu">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelthuedit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for n in all_meal_data.meal_dt_thu %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{n.name.name}}</td>
+                                                    <td>{{n.item}}</td>
+                                                    <td>{{n.qty}}</td>
+                                                    <td>{{n.fixed_item}}</td>
+                                                    <td>{{n.fixed_item_quantity}}</td>
+                                                    <td>{{n.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{n.day}}</td>
+                                                    <td>{{n.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' n.id %}" ><button class="btn btn-sm"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' n.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="fri">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Friday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelfri">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable5" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelfriedit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for o in all_meal_data.meal_dt_fri %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{o.name.name}}</td>
+                                                    <td>{{o.item}}</td>
+                                                    <td>{{o.qty}}</td>
+                                                    <td>{{o.fixed_item}}</td>
+                                                    <td>{{o.fixed_item_quantity}}</td>
+                                                    <td>{{o.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{o.day}}</td>
+                                                    <td>{{o.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' o.id %}" ><button class="btn btn-sm"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' o.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="sat">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Saturday Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelsat">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable6" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelsatedit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for p in all_meal_data.meal_dt_sat %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{p.name.name}}</td>
+                                                    <td>{{p.item}}</td>
+                                                    <td>{{p.qty}}</td>
+                                                    <td>{{p.fixed_item}}</td>
+                                                    <td>{{p.fixed_item_quantity}}</td>
+                                                    <td>{{p.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{p.day}}</td>
+                                                    <td>{{p.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' p.id %}" ><button class="btn btn-sm"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' p.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="all">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">All Meals List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModelall">Add </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable34" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Name</th>
+                                                    <th>Items</th>
+                                                    <th>Items Quantity</th>
+                                                    <th>Fixed Items</th>
+                                                    <th>Fixed Items Quantity</th>
+                                                    <th>Description</th>
+                                                    <th>Image</th>
+                                                    <th>Day</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                    <th>Special</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Veg Curries</td>
+                                                    <td>Paneer Curry+ss+ Multi Select</td>
+                                                    <td>2</td>
+                                                    <td>Fixed Items - Multi select</td>
+                                                    <td>1</td>
+                                                    <td>Descrption - Text Area</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>Sunday</td>
+                                                    <td>Price</td>
+                                                    <td> 
+                                                        <div>
+                                                           <button class="btn btn-sm" data-toggle="modal" data-target="#myModelalledit"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                           <button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% for q in meal_data %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{q.name.name}}</td>
+                                                    <td>{{q.item}}</td>
+                                                    <td>{{q.qty}}</td>
+                                                    <td>{{q.fixed_item}}</td>
+                                                    <td>{{q.fixed_item_quantity}}</td>
+                                                    <td>{{q.description}}</td>
+                                                    <td class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"> </td>
+                                                    <td>{{q.day}}</td>
+                                                    <td>{{q.price}}</td>
+                                                    <td class="align-items-center">
+                                                        <div>
+                                                            <a href="{% url 'app:admin_meals_edit' q.id %}" ><button class="btn btn-sm"><i class="iconbg-edit fa fa-edit"></i></button></a>
+                                                            <a href="{% url 'app:admin_meals_delete' q.id %}" ><button class="btn btn-sm"><i class="iconbg-delete fa fa-trash"></i></button></a>
+                                                        </div>
+                                                    </td>
+                                                    <td>Specials</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Taste of Home 2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Sunday Model -->
+<div id="myModelsun" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+<!--                <select id="choices-multiple-remove-button" placeholder="Select items" multiple>-->
+                <select class="form-control js-select2" placeholder="Select Items" multiple="multiple" style="width:100%">
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-button1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Sunday Model Edit -->
+<div id="myModelsunedit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" placeholder="Select Items" multiple="multiple" style="width:100%">
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-button1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Monday Model -->
+<div id="myModelmon" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        </div>
+          <form action="{% url 'app:admin_meals' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body text-left px-5">
+                    <label class="">Select Days</label>
+                        <select class="form-control" name="day" required>
+                            <option>Select Day</option>
+                            <option>Sunday</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                        </select>
+                    <label class="">Category Name</label>
+                        <select placeholder="Enter Category Name" name="category" class="form-control category_list11">
+                            <option value="">Select Category</option>
+                            {% for i in category_data %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                            {% endfor %}
+                        </select>
+                    <label class="">Select Items</label>
+                    <div class="row d-flex justify-content-center mt-100">
+                        <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                        <select id="choices-multiple-remove-buttonm" name="items" class="choices-multiple-remove-buttonm" placeholder="Select items" multiple>-->
+        <!--                    <option value="abc">abc00</option>-->
+        <!--                    <option value="def">def</option>-->
+        <!--                    <option value="ghi">ghi</option>-->
+        <!--                    <option value="jkl">jkl</option>-->
+        <!--                    <option value="mno">mno</option>-->
+        <!--                    <option value="pqr">pqr</option>-->
+                            {% for j in item_data %}
+                                <option value="{{j.name}}">{{j.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="">Item Quantity</label>
+                    <input placeholder="Item Quantity" type="text" name="qty" class="form-control"/>
+                    <label class="">Select Fixed Items</label>
+                    <div class="row d-flex justify-content-center mt-100">
+<!--                        <select id="choices-multiple-remove-buttonm1" placeholder="Select fixed items" name="items1" multiple>-->
+                        <select class="form-control js-select2" name="items1" placeholder="Select fixed items" multiple="multiple" style="width:100%">
+        <!--                    <option value="abc">abc1</option>-->
+        <!--                    <option value="def">def</option>-->
+        <!--                    <option value="ghi">ghi</option>-->
+        <!--                    <option value="jkl">jkl</option>-->
+        <!--                    <option value="mno">mno</option>-->
+        <!--                    <option value="pqr">pqr</option>-->
+                            {% for k in item_data %}
+                                <option value="{{k.name}}">{{k.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="">Fixed Item Quantity</label>
+                    <input placeholder="Fixed Item Quantity" type="text" name="fix_item_qty" class="form-control"/>
+                    <label class="">Price</label>
+                    <input placeholder="Price" type="number" name="price" class="form-control"/>
+                    <label class="">Meal Text</label>
+                    <input placeholder="Meal Text" name="meal_text" type="text" class="form-control"/>
+                    <label class="">Description</label>
+                    <textarea class="form-control" rows="4" name="description"></textarea>
+                    <label class="">Image</label>
+                    <input type="file" class="form-control" name="image"/>
+                    <label class="">Delivery Type</label>
+                        <select class="form-control" name="select_delivery_type">
+                            <option>Select Delivery Type</option>
+                            <option>Home Delivery</option>
+                            <option>Pickup</option>
+                        </select>
+                    <label class="">Delivery Price</label>
+                    <input placeholder="Delivery price" name="delivery_price" type="number" class="form-control"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" >Submit</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+          </form>
+      </div>
+    </div>
+</div>
+
+<!-- Monday Model Edit -->
+<div id="myModelmonedit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonm2" placeholder="Select items" multiple>-->
+                    <option value="abc">abc2</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttonm1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Tuesday Model -->
+<div id="myModeltue" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttont" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttont1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Tuesday Model Edit -->
+<div id="myModeltueedit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttont" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttont1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Wednesday Model -->
+<div id="myModelwed" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonw" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttonw1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Wednesday Model Edit -->
+<div id="myModelwededit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonw" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttonw1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Thursday Model -->
+<div id="myModelthu" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonth" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttonth1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Thursday Model Edit -->
+<div id="myModelthuedit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonth" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttonth1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Friday Model -->
+<div id="myModelfri" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonf" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttonf1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Friday Model Edit -->
+<div id="myModelfriedit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonf" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttonf1" placeholder="Select fixed items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Saturday Model -->
+<div id="myModelsat" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons1" placeholder="Select fixed items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Saturday Model Edit-->
+<div id="myModelsatedit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons1" placeholder="Select fixed items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- All Model -->
+<div id="myModelall" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Add Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select id="choices-multiple-remove-buttons1" placeholder="Select fixed items" multiple>
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- All Model Edit-->
+<div id="myModelalledit" class="modal fade">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title">Edit Meal</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-left px-5">
+            <label class="">Select Days</label>
+                <select class="form-control">
+                    <option>Select Day</option>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Sunday</option>
+                </select>
+            <label class="">Category Name</label>
+                <select placeholder="Enter Category Name" class="form-control">
+                    <option>Select Category</option>
+                </select>
+            <label class="">Select Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons" placeholder="Select items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Item Quantity</label>
+            <input placeholder="Item Quantity" type="text" class="form-control"/>
+            <label class="">Select Fixed Items</label>
+            <div class="row d-flex justify-content-center mt-100">
+                <select class="form-control js-select2" name="items" placeholder="Select Items" multiple="multiple" style="width:100%">
+<!--                <select id="choices-multiple-remove-buttons1" placeholder="Select fixed items" multiple>-->
+                    <option value="abc">abc</option>
+                    <option value="def">def</option>
+                    <option value="ghi">ghi</option>
+                    <option value="jkl">jkl</option>
+                    <option value="mno">mno</option>
+                    <option value="pqr">pqr</option>
+                </select> 
+            </div>
+            <label class="">Fixed Item Quantity</label>
+            <input placeholder="Fixed Item Quantity" type="text" class="form-control"/>
+            <label class="">Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+            <label class="">Meal Text</label>
+            <input placeholder="Price" type="text" class="form-control"/>
+            <label class="">Description</label>
+            <textarea class="form-control" rows="4"></textarea>
+            <label class="">Image</label>
+            <input type="file" class="form-control"/>
+            <label class="">Delivery Type</label>
+                <select class="form-control">
+                    <option>Select Delivery Type</option>
+                    <option>Home Delivery</option>
+                    <option>Pickup</option>
+                </select>
+            <label class="">Delivery Price</label>
+            <input placeholder="Price" type="number" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" >Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery-admin/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-admin/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing-admin/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+     <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables-admin/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/datatables-demo.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+<!--<script type="text/javascript">-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-button1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonm', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonm2', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  });-->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonm1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttont', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttont1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonw', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonw1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonth', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonth1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonf', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttonf1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttons', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--$(document).ready(function(){-->
+<!--    var multipleCancelButton = new Choices('#choices-multiple-remove-buttons1', {-->
+<!--    removeItemButton: true,-->
+<!--    maxItemCount:20,-->
+<!--  }); -->
+<!--});-->
+<!--</script>-->
+<script>
+    $(".category_list").change(function (e) {
+        e.preventDefault();
+        var id = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'app:admin_ajax_get_items' %}",
+            data: {"id": id},
+            success: function (response) {
+                console.log("test",response.data.item_data);
+
+
+                var select = $('.choices-multiple-remove-buttonm');
+
+                select.empty();
+                for (var i = 0; i < response.data.item_data.length; i++) {
+
+                    var option = $('<option>', {
+                        value: response.data.item_data[i].name,
+                        text: response.data.item_data[i].name
+                    });
+                    select.append(option);
+                }
+            },
+            error: function (error) {
+                console.log("error",error);
+            }
+        })
+    })
+    $('.special-btn').change(function(e) {
+        e.preventDefault();
+        var id = $(this).val();
+        console.log(id);
+        if ($(this).is(':checked')) {
+            //$(this).prop('checked',false);
+            alert("is checked");
+        } else {
+             //$(this).prop('checked',true);
+            alert("not checked");
+        }
+    });
+
+
+</script>
+
+
+</body>
+
+</html>

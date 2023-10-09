@@ -1,0 +1,390 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Taste Of Home | Homemade Indian Tiffin Delivery Service</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <!-- <link href="assets/vendor/aos/aos.css" rel="stylesheet"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
+      <i class="bi bi-phone d-flex align-items-center"><span>+61 417 923 930</span></i>
+      <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Open: 12:05 AM - 06:00 PM</span></i>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <div class="logo me-auto">
+        <!-- <h1><a href="index.html">Taste of Home</a></h1> -->
+
+         <a href="{% url 'app:index' %}"><img src="{% static 'img/logo.png' %}" alt="" class="img-fluid"></a>
+      </div>
+
+
+     {% if cookies.get_name == None or cookies.get_name == "" %}
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link active" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+         {% if get_email == "test"%}
+            <nav id="navbar" class="navbar order-last order-lg-0">
+              <ul>
+                <li><a class="nav-link active" href="{% url 'app:index' %}">Home</a></li>
+                <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--                <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+                <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+                <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+         {% else%}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+              <ul>
+                <li><a class="nav-link active" href="{% url 'app:index' %}">Home</a></li>
+                <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+                <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+                <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+                <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+          <div class="dropdown p-2">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              {{cookies.get_name}}
+              </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+              <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+            </div>
+          </div>
+
+        {% endif %}
+
+      {% endif %}
+
+    </div>
+  </header>
+  
+<section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide 1 -->
+          <div class="carousel-item active" style="background-image: url(../static/img/slide-1.jpg);">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2><span>Authentic Indian Food </span> Tiffin!</h2>
+                <p>Taste the best of Indian cuisine with freshly prepared veg and non-veg meals served hot in tiffin. Doorstep delivery and pickup available.</p>
+                  <!-- <div class="container-fluid">
+                    <div class="row p-3">
+                      <div class="col-lg-3"></div>
+                        <div class="postal col-lg-6">
+                          <h4 class="p-1">Please Select Your Postal code</h4>
+                            <form method="post">
+                              <div class="form-group">
+                                <select class="form-control select2">
+                                  <option value="">Select</option>
+                                  <option value="1">Keysborough    3173</option>
+                                  <option value="2">Springvale    3171</option>
+                                  <option value="4">Noble Park    3174</option>
+                                  <option value="5">Dandenong    3175</option>
+                                  <option value="6">Dandenong South    3175</option>
+                                  <option value="7">Clayton    3168</option>
+                                  <option value="8">Clayton South    3169</option>
+                                  <option value="9">Oakleigh    3166</option>
+                                  <option value="10">Oakleigh South    3167</option>
+                                  <option value="11">Mulgrave    3170</option>
+                                  <option value="12">Wheelers Hill    3150</option>
+                                  <option value="15">Clarinda     3169</option>
+                                  <option value="18">Cranbourne North    3977</option>
+                                  <option value="19">Lynbrook     3975</option>
+                                  <option value="20">Lyndhurst    3975</option>
+                                  <option value="21">Cranbourne    3977</option>
+                                  <option value="22">Cranbourne North    3977</option>
+                                  <option value="25">Chadstone     3148</option>
+                                  <option value="30">Mount Waverley    3149</option>
+                                  <option value="31">Clayton (Monash Uni Only)    3800</option>
+                                  <option value="32">Springvale South    3172</option>
+                                  <option value="37">Hampton Park    3976</option>
+                                </select>
+                              </div>
+                                <div class="p-1">
+                                  <button class="book-a-table-btn" type="submit">Submit</button>
+                                </div>
+                            </form>
+                          <div class="col-lg-3"></div>
+                        </div>
+                    </div>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section><!-- End Hero -->
+
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu section-bg1">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title1">
+          <h2>Menu</h2>
+          <p>Check Our Today's Menu</p>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="menu-flters">
+              <li data-filter="*" class="filter-active">Today's Menu</li>
+              <li data-filter=".filter-specialty">Specials</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
+          {% for m in meals_data %}
+          <div class="col-lg-6 menu-item filter-starters">
+            <img src="../static/img/{{m.image}}" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">{{m.meal_text}} </a><span>${{m.price}}</span>
+            </div>
+            <div class="menu-ingredients">
+             {{m.description}}
+            </div>
+          </div>
+          {% endfor %}
+          {% for s in specials_data %}
+          <div class="col-lg-6 menu-item filter-specialty">
+            <img src="{% static 'img/menu/bread-barrel.jpg' %}" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">{{s.meal_text}} </a><span>${{s.price}}</span>
+            </div>
+            <div class="menu-ingredients">
+              {{s.description}}
+            </div>
+          </div>
+          {% endfor%}
+
+        </div>
+
+      </div>
+    </section><!-- End Menu Section -->
+
+     <!-- ======= Specials Section ======= -->
+    <section id="specials" class="specials section-bg2">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Taste of Home Combos</h2>
+          <p>Check Our Combos</p>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              {% for co in combo_data %}
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-{{co.id}}">{{co.meal_text}}</a>
+              </li>
+              {% endfor %}
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Combo 2</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Combo 3</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Combo 4</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Combo 5</a>-->
+<!--              </li>-->
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              {% for co in combo_data %}
+                <div class="tab-pane active show" id="tab-{{co.id}}">
+                  <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                      <h3>{{co.meal_text}}</h3>
+                      <p class="fst-italic">{{co.description}}</p>
+                    </div>
+                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                      <img src="../static/img/{{co.image}}" alt="" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+<!--              <div class="tab-pane" id="tab-2">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
+<!--                    <h3>Combo - Title</h3>-->
+<!--                    <p class="fst-italic">combo description in detail</p>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
+<!--                    <img src="{% static 'img/specials-2.png' %}" alt="" class="img-fluid">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="tab-pane" id="tab-3">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
+<!--                    <h3>Combo - Title</h3>-->
+<!--                    <p class="fst-italic">combo description in detail</p>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
+<!--                    <img src="{% static 'img/specials-3.png' %}" alt="" class="img-fluid">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="tab-pane" id="tab-4">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
+<!--                    <h3>Combo - Title</h3>-->
+<!--                    <p class="fst-italic">combo description in detail</p>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
+<!--                    <img src="{% static 'img/specials-4.png' %}" alt="" class="img-fluid">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="tab-pane" id="tab-5">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
+<!--                   <h3>Combo - Title</h3>-->
+<!--                    <p class="fst-italic">combo description in detail</p>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
+<!--                    <img src="{% static 'img/specials-5.png' %}" alt="" class="img-fluid">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Specials Section -->
+<!-- ======= About Section ======= -->
+<section id="about" class="about">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-5 align-items-stretch video-box" style="background-image: url('../static/img/about.jpg');">
+      </div>
+      <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
+        <div class="content">
+          <h2>WELCOME TO <strong> TASTE OF HOME</strong></h2>
+          <h3>Delivering Homemade Indian Meals In Tiffin</h3>
+          <p>
+            Craving for home style food on your lunch and dinner plate? Taste Of Home serves the best Indian tiffin in Melbourne and surroundings. Every dish is prepared by expert chefs having hands-on experience in cooking home style Indian meals delivered to your doorstep every Monday to Friday. Whether you are craving for North Indian vegetarian meal or South Indian non-vegetarian thali, we pack them hot and fresh in tiffin and deliver to you. Pickups are also available from our facility.
+          </p>
+          <h3>Hot & Fresh Indian Tiffin Service</h3>
+          <p>
+            Everything we serve is cooked fresh and with love in a professional kitchen. We use the local produce and quality ingredients to make sure the food is delicious and relishing. Our menu is different every day and we never repeat dishes for a week so that you can experience the taste of recipes all around from India. We never compromise with health and hygiene and promise to deliver good food.
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- End About Section -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+<div class="container">
+  <div class="row">
+    <div class="logo me-auto col-lg-4">
+      <h4>Taste of Home</h4>
+      <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="Taste of Home" class="img-fluid" width="40%"></a>
+      <div class="social-links">
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h4>Areas We Serve</h4>
+      <ul>
+        <li><a href="#">Melbourne</a></li>
+        <li><a href="#">Springvale & Noble Park</a></li>
+        <li><a href="#">Dandenong</a></li>
+        <li><a href="#">Cranbourne</a></li>
+        <li><a href="#">Hampton Park</a></li>
+        <li><a href="#">Mount Waverley</a></li>
+        <li><a href="#">Clayton & Keysborough</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-4">
+      <h4>More Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Refund Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="copyright credits">
+      &copy; Copyright <strong><span>Taste of Home</span></strong>. All Rights Reserved | Designed and Developed By <a href="https://kreativdigimarketing.com/">Kreativ Digi Marketing</a>
+    </div>
+  </div>
+</div>
+</footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!--   <script>
+    $('.select2').select2();
+  </script>
+ -->
+</body>
+</html>
+

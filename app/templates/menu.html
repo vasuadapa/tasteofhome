@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Menu{% endblock %}
+{% block nav %}
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+          <li><a class="nav-link active" href="{% url 'app:menu' %}">Menu</a></li>
+            <li><a class="nav-link" href="{% url 'app:subscription' %}">Subscription</a></li>
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        {% if get_email == "test"%}
+            <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+        {% else%}
+        <div class="dropdown p-2">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            {{get_email}}
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+              <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+            </div>
+          </div>
+
+        {% endif %}
+      {% else %}
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Menu{% endblock %}
+{% block htmlbody %}
+   <!-- ======= Menu ======= -->
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xs-12"></div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xs-12">
+          <h4 class="badge-pill badge-green mt-3 mb-3 p-2 text-center">Choose Order Type</h4>
+              <a href="{% url 'app:delivery' %}" class="badge-pill alink delivery"><i class="bx bxs-truck"></i>&nbsp;Home Delivery</a>
+              <a href="{% url 'app:takeaway' %}" class="badge-pill alink takeaway"><i class="bx bx-restaurant"></i>&nbsp;Take Away</a>
+
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xs-12"></div>
+      </div>
+    </div>
+    <!-- Menu -->
+
+</div>
+{% endblock %}

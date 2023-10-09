@@ -1,0 +1,691 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Taste Of Home | Admin</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"> -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.bootstrap4.min.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
+      <i class="bi bi-phone d-flex align-items-center"><span>+61 417 923 930</span></i>
+      <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Open: 12:05 AM - 06:00 PM</span></i>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <div class="logo me-auto">
+        <!-- <h1><a href="index.html">Taste of Home</a></h1> -->
+        
+         <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:subscription' %}">Subscription</a></li>
+          <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+          <!-- <li><a class="nav-link" href="notifications.html"><i class="bi bi-bell-fill"></i></a></li> -->
+ <!--          <li>
+            <a class="nav-link icon" id="bell"><i class="bi bi-bell-fill"></i></a>
+              <div class="notifications" id="box">
+                <h2>Notifications - <span>1</span></h2>
+                  <div class="notifications-item">
+                      <div class="text">
+                          <h4>Subscription</h4>
+                          <p>text for subscription notification</p>
+                      </div>
+                  </div>
+                  <div class="notifications-item">
+                      <div class="text">
+                          <h4>Subscription</h4>
+                          <p>text for subscription notification</p>
+                      </div>
+                  </div>
+              </div>
+          </li> -->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+         <div class="dropdown p-2">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            {{cookies.get_name}}
+            </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+            <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+          </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </header>
+<section class="aboutus">
+  <div class="container position-relative">
+      <div class="row">
+        <h1 class="section-header">Profile</h1>
+        <p class="text-white">Welcome User Name</p>
+      </div>
+  </div>
+</section><!-- End Hero -->
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="d-flex flex-row border rounded">
+        <div class="p-0 w-25">
+          <img src="{% static 'img/thumbnail.png' %}" class="img-thumbnail border-0" width="100px" />
+        </div>
+        <div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
+          <h4 class="text-primary">User Name</h4>
+          <!-- <h5 class="text-info">Photographer</h5> -->
+          <p class="text-right m-0"><a href="#" class="btn btn-primary btn-sm"><i class="bx bx-bell"></i>&nbsp;Notification <span class="badge badge-light">0</span></a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+   <!-- ======= User Info ======= -->
+<div class="container card shadow d-flex justify-content-center mt-5 mb-3">
+  <!-- nav options -->
+  <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="true">Order Info</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-payments-tab" data-toggle="pill" href="#pills-payments" role="tab" aria-controls="pills-payments" aria-selected="false">Pending Payments</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false">Address</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-promocode-tab" data-toggle="pill" href="#pills-promocode" role="tab" aria-controls="pills-promocode" aria-selected="false">Promocodes</a>
+    </li>
+     <li class="nav-item">
+      <a class="nav-link" id="pills-sub-tab" data-toggle="pill" href="#pills-sub" role="tab" aria-controls="pills-sub" aria-selected="false">Subscriptions</a>
+    </li>
+  </ul>
+
+  <!-- content -->
+  <div class="tab-content" id="pills-tabContent p-3">
+    <!-- 1st card -->
+    <div class="tab-pane fade show active" id="pills-order" role="tabpanel" aria-labelledby="pills-order-tab">
+      <div class="table-responsive-sm">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Order Number</th>
+                  <th>Date</th>
+                  <th>Mode</th>
+                  <th>Payment Status</th>
+                  <th>Total</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for k in order_data %}
+              <tr>
+                  <td><a href="{% url 'app:order_details' k.id %}" class="customer-name">{{k.order_id}}</a></td>
+                  <td>{{k.order_date}}</td>
+                  <td>{{k.order_status}}</td>
+                  <td>{{k.payment_status}}</td>
+                  <td>$ {{k.total_amt}}</td>
+              </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- 2nd card -->
+    <div class="tab-pane fade show second" id="pills-payments" role="tabpanel" aria-labelledby="pills-payments-tab">
+      <div class="form-group addinfo">
+        <div class="table-responsive-sm">
+
+              <table id="example1" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Date & Time</th>
+                        <th>Payment Status</th>
+                        <th>Outstanding Total</th>
+                        <th>Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for pp in pending_payments%}
+                    <tr>
+                        <td>{{pp.order_id}}</td>
+                        <td>{{pp.order_date}}</td>
+                        <td>{{pp.order_status}}</td>
+                        <td>{{pp.total_amt}}</td>
+                        {% if pp.payment_status == "Completed" %}
+                            <td>Completed</td>
+                        {% else %}
+                            <td><button type="button" class="btn btn-primary">Pay here</button></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 3rd card -->
+    <div class="tab-pane fade show third" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="header-md">
+          <h5>Personal Information</h5>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <label>Name:</label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user_data.name}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <label>Email:</label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user_data.email}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <label>Contact Number:</label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user_data.mobile}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <label>Password:</label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user_data.password}}</p>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success align-items-center" data-toggle="modal" data-target="#myModal">Edit Profile</button>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Edit Profile</h4>
+                </div>
+                  <form action="{% url 'app:profile_update'%}" method="POST" class="signin-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="email1">Name</label>
+                        <input type="text" class="form-control" value="{{user_data.name}}" name="name" id="text1" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email1">Email address</label>
+                        <input type="email" class="form-control" name="email" value="{{user_data.email}}" id="email1" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Number">Contact Number</label>
+                        <input type="text" class="form-control" name="mobile" value="{{user_data.mobile}}" id="contact1" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password1">Change Password</label>
+                        <input type="password" class="form-control" name="password" id="password2" value="{{user_data.password}}" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="">Update Profile Picture</label>
+                        <input type="file" name="filename" class="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success align-items-center">Update Profile</button>
+                    </div>
+                 </form>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- 4th card -->
+    <div class="tab-pane fade show fourth" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
+        <div class="header-md add-right">
+          <button type="button" class="btn btn-success align-items-center" data-toggle="modal" data-target="#myModaladdress">Add Address</button>
+        </div>
+            <div class="table-responsive-sm">
+              <table id="example2" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Suburb</th>
+                        <th>Address</th>
+                        <th>Check as Default</th>
+                        <th>Action</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                {% for i in user_address %}
+                    <tr>
+                        <td>{{i.pincode}}</td>
+                        <td>{{i.address}}</td>
+                        <td class="checkadd">
+                            {% if i.address_active == "active" %}
+                            <label class="form-check-label">
+                                <input class="form-check-input address_active" value="{{i.id}}" type="checkbox" checked>
+                              </label>
+                            {% else %}
+                            <label class="form-check-label">
+                                <input class="form-check-input address_active" value="{{i.id}}" type="checkbox">
+                              </label>
+                            {% endif %}
+                           </td>
+                        <td>
+                          <div>
+                            <button class="btn btn-sm edit_address" data-toggle="modal" value="{{i.id}}" data-target="#myModaladdressedit"><i class="fa fa-edit"></i></button>
+                            <a href="{% url 'app:driver1' %}"> <i class="fa fa-trash"></i></a>
+                          </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>  
+       
+          <div class="modal fade" id="myModaladdress" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add Address</h4>
+                </div>
+
+                <div class="modal-body">
+                  <form action="{% url 'app:address_update'%}" method="POST" class="address_form">
+                        {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="id" value="{{user_data.id}}" required hidden>
+                      <select class="form-control selectdrop" id="aj_pincode" name="pincode" required>
+                            <option value="">Select Pincode</option>
+                            <option value="Keysborough    3173">Keysborough    3173</option>
+                            <option value="Springvale    3171">Springvale    3171</option>
+                            <option value="Noble Park    3174">Noble Park    3174</option>
+                            <option value="Dandenong    3175">Dandenong    3175</option>
+                            <option value="Dandenong South    3175">Dandenong South    3175</option>
+                            <option value="Clayton    3168">Clayton    3168</option>
+                            <option value="Clayton South    3169">Clayton South    3169</option>
+                            <option value="Oakleigh    3166">Oakleigh    3166</option>
+                            <option value="Oakleigh South    3167">Oakleigh South    3167</option>
+                            <option value="Mulgrave    3170">Mulgrave    3170</option>
+                            <option value="Wheelers Hill    3150">Wheelers Hill    3150</option>
+                            <option value="Clarinda     3169">Clarinda     3169</option>
+                            <option value="Cranbourne North    3977">Cranbourne North    3977</option>
+                            <option value="Lynbrook     3975">Lynbrook     3975</option>
+                            <option value="Lyndhurst    3975">Lyndhurst    3975</option>
+                            <option value="Cranbourne    3977">Cranbourne    3977</option>
+                            <option value="Cranbourne North    3977">Cranbourne North    3977</option>
+                            <option value="Chadstone     3148">Chadstone     3148</option>
+                            <option value="Mount Waverley    3149">Mount Waverley    3149</option>
+                            <option value="Clayton (Monash Uni Only)    3800">Clayton (Monash Uni Only)    3800</option>
+                            <option value="Springvale South    3172">Springvale South    3172</option>
+                            <option value="Hampton Park    3976">Hampton Park    3976</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="addresstexted" id="addressedit" name="address"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success align-items-center">Add Address</button>
+                    </div>
+                  </form>
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="modal fade" id="myModaladdressedit" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Edit Address</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="{% url 'app:user_edit_address_update'%}" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" value="" name="id" id="user_id" hidden>
+                      <select class="form-control selectdrop" name="pincode" id="user_edit_pincode">
+                        <option value="">Select Pincode</option>
+                        <option value="1">Keysborough    3173</option>
+                        <option value="2">Springvale    3171</option>
+                        <option value="4">Noble Park    3174</option>
+                        <option value="5">Dandenong    3175</option>
+                        <option value="6">Dandenong South    3175</option>
+                        <option value="7">Clayton    3168</option>
+                        <option value="8">Clayton South    3169</option>
+                        <option value="9">Oakleigh    3166</option>
+                        <option value="10">Oakleigh South    3167</option>
+                        <option value="11">Mulgrave    3170</option>
+                        <option value="12">Wheelers Hill    3150</option>
+                        <option value="15">Clarinda     3169</option>
+                        <option value="18">Cranbourne North    3977</option>
+                        <option value="19">Lynbrook     3975</option>
+                        <option value="20">Lyndhurst    3975</option>
+                        <option value="21">Cranbourne    3977</option>
+                        <option value="22">Cranbourne North    3977</option>
+                        <option value="25">Chadstone     3148</option>
+                        <option value="30">Mount Waverley    3149</option>
+                        <option value="31">Clayton (Monash Uni Only)    3800</option>
+                        <option value="32">Springvale South    3172</option>
+                        <option value="37">Hampton Park    3976</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="addresstexted" name="address" id="user_edit_address"></textarea>
+                    </div>
+                      <div class="modal-footer">
+                      <button type="submit" class="btn btn-success align-items-center">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              
+
+              </div> 
+            </div>
+          </div>
+    </div>
+    <!-- 5th card -->
+    <div class="tab-pane fade show fifth" id="pills-promocode" role="tabpanel" aria-labelledby="pills-promocode-tab">
+      <div class="table-responsive-sm">
+        <table id="example3" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+              <tr>
+                  <th>SNo</th>
+                  <th>Promocode</th>
+                  <th>End Date & Time</th>
+                  <th>Discount Amount</th>
+                  <th>Discount Type</th>
+<!--                  <th>Service</th>-->
+              </tr>
+          </thead>
+          <tbody>
+          {% for l in promo_code_data %}
+              <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{l.promo_code}}</td>
+                  <td>{{l.end_date}} & {{l.end_time}}</td>
+                  <td>{{l.amount}}</td>
+                  <td>{{l.discount_type}}</td>
+<!--                  <td>{{l.services}}</td>-->
+              </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade show sixth" id="pills-sub" role="tabpanel" aria-labelledby="pills-sub-tab">
+      <div class="table-responsive-sm">
+        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+              <tr>
+                  <th>SNo</th>
+                  <th>Subscription Number</th>
+                  <th>Sub Amount</th>
+                  <th>Date & Time</th>
+                  <th>Meal</th>
+                  <th>Status</th>
+                  <th>Subscribe Again</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for scr in subscri_order_data %}
+              <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td><a href="{% url 'app:subscription_details' scr.order_id %}" class="customer-name">{{scr.order_id}}</a></td>
+                  <td>${{scr.total_amt}}</td>
+                  <td>{{scr.order_date_time}}</td>
+                  <td>{{scr.items}}</td>
+                  <td class="align-items-center"> 
+                    <div>
+                      <span class="orderdet"><span class="orderdetbg">{{scr.order_status}}</span>
+                    </div>
+                </td>
+                <td><i class="iconbg-check bi-cart-plus"></i></td>
+              </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- End User Tabs -->
+
+ <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="logo me-auto col-lg-4">
+          <h4>Taste of Home</h4>
+          <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="Taste of Home" class="img-fluid" width="40%"></a>
+          <div class="social-links">
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h4>Areas We Serve</h4>
+          <ul>
+            <li><a href="#">Melbourne</a></li>
+            <li><a href="#">Springvale & Noble Park</a></li>
+            <li><a href="#">Dandenong</a></li>
+            <li><a href="#">Cranbourne</a></li>
+            <li><a href="#">Hampton Park</a></li>
+            <li><a href="#">Mount Waverley</a></li>
+            <li><a href="#">Clayton & Keysborough</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h4>More Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="copyright credits">
+          &copy; Copyright <strong><span>Taste of Home</span></strong>. All Rights Reserved | Designed and Developed By <a href="https://kreativdigimarketing.com/">Kreativ Digi Marketing</a>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- Template Main JS File -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    $(".edit_address").click(function (e) {
+        console.log("hello all");
+        e.preventDefault();
+        var id = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'app:user_ajax_address_edit' %}",
+            data: {"id": id},
+            success: function (response) {
+                $("#user_edit_pincode").val(response.data.pincode);
+                $("#user_edit_address").val(response.data.address);
+                $("#user_id").val(response.data.id);
+
+                var select = $('#user_edit_pincode');
+                select.empty();
+                for (var i = 0; i < response.data.sub_dt.length; i++) {
+
+                    var option = $('<option>', {
+                        value: response.data.sub_dt[i].id,
+                        text: response.data.sub_dt[i].name+' '+response.data.sub_dt[i].code
+                    });
+
+                    if (response.data.sub_dt[i].name+' '+response.data.sub_dt[i].code==response.data.pincode){
+                        option.prop('selected', true);
+                        console.log("exit");
+                    }
+                    select.append(option);
+                }
+
+            },
+            error: function (error) {
+                console.log("error",error);
+            }
+        })
+    })
+
+    $('.address_active').change(function(e) {
+        e.preventDefault();
+<!--        alert("checked");-->
+        var id = $(this).val();
+        console.log(id);
+        if ($(this).is(':checked')) {
+            $.ajax({
+            type: 'POST',
+            url: "{% url 'app:user_admin_address_active' %}",
+            data: {"id": id,"address_status": "active" },
+            success: function (response) {
+                console.log("test",response.data);
+            },
+            error: function (error) {
+                console.log("error",error);
+            }
+        })
+        } else {
+             //$(this).prop('checked',true);
+<!--             alert("not checked");-->
+             $.ajax({
+            type: 'POST',
+            url: "{% url 'app:user_admin_address_active' %}",
+            data: {"id": id,"address_status": "In active" },
+            success: function (response) {
+                console.log("test",response.data);
+            },
+            error: function (error) {
+                console.log("error",error);
+            }
+        })
+        }
+    });
+</script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/main-login.js' %}"></script>
+
+  <script type="text/javascript">
+    new DataTable('#example', {
+    fixedHeader: true
+    });
+    new DataTable('#example1', {
+    fixedHeader: true
+    });
+    new DataTable('#example2', {
+    fixedHeader: true
+    });
+    new DataTable('#example3', {
+    fixedHeader: true
+    });
+    new DataTable('#example4', {
+    fixedHeader: true
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        var down = false;
+        
+        $('#bell').click(function(e){
+          
+            var color = $(this).text();
+            if(down){
+                
+                $('#box').css('height','0px');
+                $('#box').css('opacity','0');
+                down = false;
+            }else{
+                
+                $('#box').css('height','auto');
+                $('#box').css('opacity','1');
+                down = true;
+                
+            }
+            
+        });
+            
+            });
+  </script>
+
+</body>
+</html>

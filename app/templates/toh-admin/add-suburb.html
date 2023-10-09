@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Taste of Home - Dashboard</title>
+    <link href="{% static 'css/styles-admin.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/fontawesome-free-admin/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+   <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand align-items-center justify-content-center" href="{% url 'app:admin_index' %}">
+               <img src="{% static 'images/logo.png' %}"  class="logo"/>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Tifins
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tifins"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Menu</span>
+                </a>
+                <div id="tifins" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_categories' %}">Categories</a>
+                        <a class="collapse-item" href="{% url 'app:admin_items' %}">Items</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_meals' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-hamburger"></i>
+                    <span>Meals</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_orders' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_todayreport' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Today's Report</span>
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_dailyorder' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Daily Orders</span>
+                </a>
+
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Tracking
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_suburb' %}">
+                    <i class="fas fa-map"></i>
+                    <span>Suburb</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_drivers' %}">
+                    <i class="fas fa-users"></i>
+                    <span>Drivers</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#delivery"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-shuttle-van"></i>
+                    <span>Delivery Van</span>
+                </a>
+                <div id="delivery" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_deliverytifin' %}">Tifin</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Users Desk
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_customers' %}">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_users' %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Users</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_sizes' %}">
+                    <i class="fas fa-list"></i>
+                    <span>Sizes</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_variations' %}">
+                    <i class="fas fa-list"></i>
+                    <span>Variations</span></a>
+            </li>
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Subscription
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_subscription' %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Subscription</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_promocode' %}">
+                    <i class="fas fa-list"></i>
+                    <span>PromoCodes</span></a>
+            </li>
+
+
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Reports
+            </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reports"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="reports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_salesreport' %}">Sales Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_orderreport' %}">Order Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_itemreport' %}">Item Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_suburreport' %}">Suburb Wise Order</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#settings"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <div id="settings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_timing' %}">Timings</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_closedate' %}">Close Dates</a>
+
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Taste of Home</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{% static 'img/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Add Suburb</h1>
+                    {% for message in messages %}
+                        <div class="container-fluid p-0">
+                          <div class="alert {{ message.tags }} alert-{{ message.tags }}" role="alert" >
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="True">&times;</span>
+                            </button>
+                            {{ message }}
+                          </div>
+                        </div>
+                    {% endfor %}
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <h6 class="m-0 font-weight-bold  d-inline text-primary">Add Suburb</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <form action="{% url 'app:admin_add_suburb'%}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <label for="usr">Name:</label>
+                                                <input type="text" class="form-control" name="name" required>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label for="pin">Pin Code:</label>
+                                                <input type="text" class="form-control" name="pincode" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <label for="tiffin">Tiffin Available:</label>
+                                                    <select class="form-control" name="available">
+                                                        <option value="" disabled>Select</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                              <label for="driver">Select Driver For Tiffin:</label>
+                                                    <select class="form-control" name="driver">
+                                                        <option value="" disabled>Select</option>
+                                                        {% for k in driver_dt %}
+                                                            <option value="{{k.id}}">{{k.name}}</option>
+                                                        {% endfor %}
+
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <label for="timefrom">Order Taken From (Time):</label>
+                                                    <div>
+                                                        <input class="timeclass" type="time" id="timefrom" name="timefrom">
+                                                    </div>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                               <label for="timeto">Order Taken To (Time):</label>
+                                                    <div>
+                                                        <input class="timeclass" type="time" id="timeto" name="timeto">
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <label for="delfrom">Delivery From (Time):</label>
+                                                    <div>
+                                                        <input class="timeclass" type="time" id="delfrom" name="delfrom">
+                                                    </div>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                               <label for="delto">Delivery To (Time):</label>
+                                                    <div>
+                                                        <input class="timeclass" type="time" id="delto" name="delto">
+                                                    </div>
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <label for="usr">Minimun Order Amount:</label>
+                                                <input type="number" class="form-control" name="amount">
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label for="driver">Delivery Type:</label>
+                                                    <select class="form-control" name="deliver_type">
+                                                        <option value="" disabled>Select</option>
+                                                        <option value="Paid">Paid</option>
+                                                        <option value="Free">Free</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                                           
+                                </div>
+                            </div>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Taste of Home 2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery-admin/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-admin/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing-admin/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+     <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables-admin/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/datatables-demo.js' %}"></script>
+
+</body>
+
+</html>

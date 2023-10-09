@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Login{% endblock %}
+{% block nav %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <a href="{% url 'app:register' %}" class="book-a-table-btn scrollto">Register</a>
+{% endblock %}
+{% block head %}Login{% endblock %}
+{% block htmlbody %}
+   <!-- ======= Login Form ======= -->
+    <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+          <div class="wrap">
+            <div class="img" style="background-image: url(../static/img/login-img.jpg);"></div>
+            <div class="login-wrap p-4 p-md-5">
+              <div class="d-flex">
+                <div class="w-100">
+                  <h3 class="mb-4 text-center">Sign In</h3>
+                </div>
+ 
+              </div>
+              {% if messages %}
+                  <div class="messages">
+                  {% for message in messages %}
+                      <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+                  </div>
+              {% endif %}
+
+              <form action="{% url 'app:login'%}" method="POST" class="signin-form">
+                {% csrf_token %}
+                <div class="form-group mt-3">
+                  <input type="text" class="form-control" name="email" required>
+                  <label class="form-control-placeholder" for="username">Enter Mail Id</label>
+                </div>
+                <div class="form-group">
+                  <input id="password-field" type="password" name="password" class="form-control" required>
+                  <label class="form-control-placeholder" for="password">Password</label>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+                </div>
+                <div class="form-group d-md-flex">
+                  <div class="w-50 text-left">
+                    <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                    </label>
+                  </div>
+                  <div class="w-50 text-right">
+                    <a href="{% url 'app:forgot_password' %}">Forgot Password</a>
+                  </div>
+                </div>
+              </form>
+              <p class="text-center">Not a member? <a data-toggle="tab" href="{% url 'app:register' %}">Sign Up</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- End Login -->
+{% endblock %}

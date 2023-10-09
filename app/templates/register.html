@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Register{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None  or cookies.get_name == "" %}
+         <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+         <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Register{% endblock %}
+{% block htmlbody %}
+   <!-- ======= Login Form ======= -->
+    <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+          <div class="wrap">
+            <div class="img" style="background-image: url(../static/img/register-img.jpg);"></div>
+            <div class="login-wrap p-4 p-md-5">
+              <div class="d-flex">
+                <div class="w-100">
+                  <h3 class="mb-4 text-center">Sign Up</h3>
+                </div>
+ 
+              </div>
+
+              {% if messages %}
+                  <div class="messages">
+                  {% for message in messages %}
+                      <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+                  </div>
+              {% endif %}
+
+              <form action="{% url 'app:register'%}" method="POST" class="signin-form">
+                {% csrf_token %}
+                <div class="form-group mt-3">
+                  <input type="text" name="name" class="form-control" required>
+                  <label class="form-control-placeholder" for="name">Name</label>
+                </div>
+                <div class="form-group mt-3">
+                  <input type="email" class="form-control" name="email" required>
+                  <label class="form-control-placeholder" for="email">Mail Id</label>
+                </div>
+                <div class="form-group mt-3">
+                  
+                  <input type="tel" class="form-control" name="mobile" required>
+                  <label class="form-control-placeholder" for="mobile">Contact Number</label>
+                </div>
+                <div class="form-group">
+                  <input id="password-field" type="password" class="form-control" name="password" required>
+                  <label class="form-control-placeholder" for="password">New Password</label>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                </div>
+                 <div class="form-group">
+                  <input id="password-field1" type="password" class="form-control" name="cpassword" required>
+                  <label class="form-control-placeholder" for="cpassword">Confirm New Password</label>
+                  <span toggle="#password-field1" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Create Account</button>
+                </div>
+              </form>
+              <p class="text-center">Have an account ? <a data-toggle="tab" href="{% url 'app:login' %}">Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- End Login -->
+{% endblock %}
+

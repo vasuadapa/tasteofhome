@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | About Us{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}About Us{% endblock %}
+{% block htmlbody %}
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              <h2>ABOUT <strong> TASTE OF HOME</strong></h2>
+              <p>
+               Taste Of Home is your local Indian tiffin delivery service in Melbourne serving the best tiffin to students and workers who have little to no time for preparing their food. We deliver a personalised eating experience from the comfort of your home with our daily and monthly tiffin delivery subscription.
+              </p>
+              <p>
+                Cooked with love and care, every dish on our tiffin menu is cooked perfectly with quality ingredients and local produce. We never compromise with health and hygiene. Every tiffin is packed to perfection with home cooked recipes.Cooked with love and care, every dish on our tiffin menu is cooked perfectly with quality ingredients and local produce. We never compromise with health and hygiene. Every tiffin is packed to perfection with home cooked recipes.
+              </p>
+              <p>
+                Our chef very well knows that not everybody has the time to prepare tasty food, that is why we strive to deliver a healthy tiffin on time, no matter what time of the day or night it is. Whether you have love for a vegetarian meal or prefer a non-vegetarian tiffin, we serve everything you love to eat without any repetition of dishes for the entire week.
+              </p>
+              <p>
+                For the best Indian tiffin delivery in Melbourne and surroundings, feel free to place an order with Taste Of Home. Give us a call today or visit our facility. Doorstep delivery and pickup service available.
+              </p>
+            </div>
+
+          </div>
+          <div class="col-lg-5 align-items-stretch" style="background-image: url('../static/img/about.jpg');">
+            
+          </div>
+
+
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+ {% endblock %}

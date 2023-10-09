@@ -1,0 +1,784 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Taste Of Home | Subscription</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
+      <i class="bi bi-phone d-flex align-items-center"><span>+61 417 923 930</span></i>
+      <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Open: 12:05 AM - 06:00 PM</span></i>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <div class="logo me-auto">
+        <!-- <h1><a href="index.html">Taste of Home</a></h1> -->
+        
+         <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:subscription' %}">Subscription</a></li>
+          <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        {% if get_email == "test"%}
+            <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+        {% else%}
+        <div class="dropdown p-2">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            {{get_email}}
+            </button>
+            <input type="text" value="{{cookies.get_email}}" id="userId" hidden>
+            <div class="dropdown-menu">
+
+              <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+              <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+            </div>
+          </div>
+
+        {% endif %}
+      {% else %}
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+           <input type="text" value="{{cookies.get_email}}" id="userId" hidden>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+ <section id="aboutus" class="aboutus">
+  <div class="container position-relative">
+      <div class="row">
+        <h1 class="section-header">Subscription Plans</h1>
+      
+    </div>
+  </section><!-- End Hero -->
+   <!-- ======= Menu ======= -->
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+        <h4 class="badge-pill badge-green mt-3 mb-3 p-2 text-center">Choose your Subscription Plan</h4>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+            <div class="card card-bg mb-3 product">
+              <div class="card-body">
+                <h5 class="product-name">Veg Subscription Plan</h5>
+                <p class="product-desc">5 * Veg Meals Each Day Monday To Friday</p>
+                <p class="card-text text-success product-price">60 $</p>
+                <button class="btn btn-green mt-2 float-right tohmoclose" type="button" data-toggle="modal" data-target="#myModalveg">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal mymodalveg" id="myModalveg">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="momodal-title">Veg Subscription Plan</h4>
+                  <button type="button" id="closehid" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div class="modalcard-body">
+                    <h5 class="product-name">5 * VEG MEALS WEEKLY SUBSCRIPTION</h5>
+                    <p class="product-desc">5 * Veg Meals Each Day Monday To Friday</p>
+                    <p id="tprice" class="card-text text-success product-price modalproduct-price">60 $</p>
+                    <p class="product-addon">Addons - You can add extras for your Meal(Optional)</p>
+                    <div class="row mb-4">
+                      <div class="col-lg-10">
+                        <div class="input-group">
+                          <span class="input-group-btn">
+                            <label class="add-one-first">Roti</label>
+                            <span>0.90 $</span>
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                              <span class="bi bi-file-minus-fill"></span>
+                            </button>
+                          </span>
+                            <input type="text" id="quantity" name="quantity" class="form-control input-number" data-item="Roti" value="0" min="1" max="100">
+                              <span class="input-group-btn">
+                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                  <span class="bi bi-file-plus-fill"></span>
+                                </button>
+                              </span>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row mb-4">
+                        <div class="col-lg-10">
+                          <div class="input-group">
+                            <span class="input-group-btn">
+                              <label class="add-one-second">Rice (280ml): 2.00 $</label>
+                              <button type="button" class="quantitya-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                <span class="bi bi-file-minus-fill"></span>
+                              </button>
+                            </span>
+                              <input type="text" id="quantity1" name="quantitya" class="form-control input-number" data-item="Rice" value="0" min="1" max="100">
+                                <span class="input-group-btn">
+                                  <button type="button" class="quantitya-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                    <span class="bi bi-file-plus-fill"></span>
+                                  </button>
+                                </span>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="modiv">
+                      <button class="btn btn-green mt-2 float-right checkval closem" type="button" data-action="add-to-cart">Add to cart</button>
+                      <script type="text/javascript">
+                        $('.closem').click( function(){
+                          $('#closehid').click();
+                          });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+            <div class="card card-bg mb-3 product">
+              <div class="card-body">
+                <h5 class="product-name">Non Veg Subscription Plan</h5>
+                <p class="product-desc">5 * Non-Veg Meals Each Day Monday To Friday</p>
+                <p class="card-text text-success product-price">65 $</p>
+                <button class="btn btn-green mt-2 float-right tohmoclose" type="button" data-toggle="modal" data-target="#myModalnonveg">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal mymodalveg" id="myModalnonveg">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="momodal-title">Non Veg Subscription Plan</h4>
+                  <button type="button" id="closehid1" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div class="modalcard-body">
+                    <h5 class="product-name">5 * NON VEG MEALS WEEKLY SUBSCRIPTION</h5>
+                    <p class="product-desc">5 * Non-Veg Meals Each Day Monday To Friday</p>
+                    <p id="tprice1" class="card-text text-success product-price modalproduct-price">65 $</p>
+                    <p class="product-addon">Addons - You can add extras for your Meal(Optional)</p>
+                    <div class="row mb-4">
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <span class="input-group-btn">
+                            <label class="add-one-first">Roti: 0.90 $</label>
+                            <button type="button" class="quantityb-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                              <span class="bi bi-file-minus-fill"></span>
+                            </button>
+                          </span>
+                            <input type="text" id="quantity2" name="quantityb" class="form-control input-number" data-item="Roti" value="0" min="1" max="100">
+                              <span class="input-group-btn">
+                                <button type="button" class="quantityb-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                  <span class="bi bi-file-plus-fill"></span>
+                                </button>
+                              </span>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row mb-4">
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <span class="input-group-btn">
+                              <label class="add-one-second">Rice (280ml): 2.00 $</label>
+                              <button type="button" class="quantityc-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                <span class="bi bi-file-minus-fill"></span>
+                              </button>
+                            </span>
+                              <input type="text" id="quantity3" name="quantityc" class="form-control input-number" data-item="Rice" value="0" min="1" max="100">
+                                <span class="input-group-btn">
+                                  <button type="button" class="quantityc-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                    <span class="bi bi-file-plus-fill"></span>
+                                  </button>
+                                </span>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="modiv">
+                      <button class="btn btn-green mt-2 float-right checkval closem" type="button" data-action="add-to-cart" data-dismiss="modal">Add to cart</button>
+                      <script type="text/javascript">
+                        $('.closem').click( function(){
+                          $('#closehid1').click();
+                          });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+          <h4 class="badge-pill badge-green mt-3 mb-3 p-2 text-center">Your Orders</h4>
+          <div class="cart"></div>
+        </div>
+    </div>
+  
+</main>
+    <!-- Menu -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="logo me-auto col-lg-4">
+          <h4>Taste of Home</h4>
+          <a href="index.html"><img src="assets/img/logo.png" alt="Taste of Home" class="img-fluid" width="40%"></a>
+          <div class="social-links">
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h4>Areas We Serve</h4>
+          <ul>
+            <li><a href="#">Melbourne</a></li>
+            <li><a href="#">Springvale & Noble Park</a></li>
+            <li><a href="#">Dandenong</a></li>
+            <li><a href="#">Cranbourne</a></li>
+            <li><a href="#">Hampton Park</a></li>
+            <li><a href="#">Mount Waverley</a></li>
+            <li><a href="#">Clayton & Keysborough</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h4>More Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="copyright credits">
+          &copy; Copyright <strong><span>Taste of Home</span></strong>. All Rights Reserved | Designed and Developed By <a href="https://kreativdigimarketing.com/">Kreativ Digi Marketing</a>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/main-login.js' %}"></script>
+  <script>
+"use strict";                        
+let cart = [];
+var cartTotal;
+var updateCart  = false;
+const cartDom = document.querySelector(".cart");
+const addtocartbtnDom = document.querySelectorAll('[data-action="add-to-cart"]');
+addtocartbtnDom.forEach(addtocartbtnDom => {
+  addtocartbtnDom.addEventListener("click", () => {
+    var selectedItem = [];
+    addtocartbtnDom.closest('div.modal').querySelectorAll('.input-number').forEach(item =>{
+        if(item.value > 0){
+          selectedItem.push(item.getAttribute('data-item')+' X '+ item.value);
+        }
+    });
+    var description = "";
+    if(selectedItem.length > 0){
+      description = selectedItem.join(" , ");
+    }
+    const productDom = addtocartbtnDom.parentNode.parentNode;
+    let pprice = productDom.querySelector(".product-price").innerText;
+    updateCart = true;
+    const product = {
+      // img: productDom.querySelector(".product-img").getAttribute("src"),
+      name: productDom.querySelector(".product-name").innerText,
+      price: pprice.substring(1),
+      description:description,
+      // class1: $("#result").html(),
+      // class1a: $("#result1").html(),
+      //selection: productDom.querySelector(".product-selection").innerText,
+      //quantity: productDom.querySelector(".input-number").value
+      quantity:1
+    };
+    console.log(product);
+
+    const IsinCart = cart.filter(cartItem => cartItem.name === product.name).length > 0;
+    //console.log(IsinCart);
+    if (IsinCart === false && updateCart === true) {
+      cartDom.insertAdjacentHTML("beforeend",`
+      <div class="d-flex flex-row shadow-sm card cart-items mt-2 mb-3 animated flipInX">
+        
+        <div class="p-2 mt-3">
+            <p class="cart_item_name">${product.name}</p>
+            <p class="cart_item_desc">${product.description}</p>
+        </div>
+        <div class="p-2 mt-3">
+            <p class="text-success cart_item_price">${product.price}</p>
+        </div>
+      
+        <div class="p-2 mt-3 ml-auto">
+            <button class="btn badge badge-secondary" type="button" data-action="increase-item">&plus;
+        </div>
+        <div class="p-2 mt-3">
+          <p class="text-success cart_item_quantity">${product.quantity}</p>
+        </div>
+        <div class="p-2 mt-3">
+          <button class="btn badge badge-info" type="button" data-action="decrease-item">&minus;
+        </div>
+        <div class="p-2 mt-3">
+          <button class="btn badge badge-danger" type="button" data-action="remove-item">&times;
+        </div>
+      </div> `);
+
+      if(document.querySelector('.cart-footer') === null){
+        cartDom.insertAdjacentHTML("afterend",  `
+          <div class="d-flex flex-row shadow-sm card cart-footer mt-2 mb-3 animated flipInX">
+            <div class="p-2">
+              <button class="btn badge-danger" type="button" data-action="clear-cart">Clear Cart
+            </div>
+            <div class="p-2 ml-auto">
+              <button class="btn badge-dark" type="button" data-action="check-out">Pay <span class="pay"></span> 
+                &#10137;
+            </div>
+          </div>`); 
+        }
+        addtocartbtnDom.innerText = "In cart";
+        addtocartbtnDom.disabled = true;
+        cart.push(product);
+        updateCart = false;
+        console.log(updateCart);
+        console.log("cart--ravi-->",cart);
+        const cartItemsDom = cartDom.querySelectorAll(".cart-items");
+
+        cartItemsDom.forEach(cartItemDom => {
+
+        if (cartItemDom.querySelector(".cart_item_name").innerText === product.name) {
+          
+          //console.log('cartTotal:', cartItemDom.querySelector(".cart_item_quantity").innerText, cartItemDom.querySelector(".cart_item_price").innerText);
+        
+          cartTotal = (parseFloat(cartItemDom.querySelector(".cart_item_quantity").innerText) * parseFloat(cartItemDom.querySelector(".cart_item_price").innerText)).toFixed(2);
+          cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+         // console.log(document.querySelectorAll(".cart_item_quantity"));
+          document.querySelector('.pay').innerText = cartTotal + " $";
+
+          // increase item in cart
+          cartItemDom.querySelector('[data-action="increase-item"]').addEventListener("click", () => {
+            cart.forEach(cartItem => {
+              if (cartItem.name === product.name) {
+                cartItemDom.querySelector(".cart_item_quantity").innerText = ++cartItem.quantity;
+                cartItemDom.querySelector(".cart_item_price").innerText = (parseFloat(cartItem.quantity) *
+                parseFloat(cartItem.price)).toFixed(2);
+                
+                cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+                //console.log('cartTotal:', cartItemDom.querySelector(".cart_item_quantity").innerText, cartItemDom.querySelector(".cart_item_price").innerText, cartTotal);
+                document.querySelector('.pay').innerText = cartTotal + " $";
+                cartItem.quantity = cartItemDom.querySelector(".cart_item_quantity").innerText;
+              }
+            });
+            console.log("add cart",cart);
+          });
+
+          // decrease item in cart
+          cartItemDom.querySelector('[data-action="decrease-item"]').addEventListener("click", () => {
+            cart.forEach(cartItem => {
+              if (cartItem.name === product.name) {
+                if (cartItem.quantity > 1) {
+                  cartItemDom.querySelector(".cart_item_quantity").innerText = --cartItem.quantity;
+                  cartItemDom.querySelector(".cart_item_price").innerText = (parseFloat(cartItem.quantity) * parseFloat(cartItem.price)).toFixed(2);
+                  //cartTotal = cartItemDom.querySelector(".cart_item_price").innerText;
+                  //console.log('cartTotal:', cartTotal);
+                  cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+                  document.querySelector('.pay').innerText = cartTotal + " $";
+                  cartItem.quantity = cartItemDom.querySelector(".cart_item_quantity").innerText;
+                }
+              }
+            });
+            console.log("remove cart",cart);
+          });
+
+          //remove item from cart
+          cartItemDom.querySelector('[data-action="remove-item"]').addEventListener("click", () => {
+            cart.forEach(cartItem => {
+              if (cartItem.name === product.name) {
+                  cartTotal -= parseFloat(cartItemDom.querySelector(".cart_item_price").innerText);
+                  //console.log('cartTotal:', cartTotal);
+                  document.querySelector('.pay').innerText = toString(cartTotal) + " $";
+                  cartItemDom.remove();
+                  cart = cart.filter(cartItem => cartItem.name !== product.name);
+                  addtocartbtnDom.innerText = "Add to cart";
+                  addtocartbtnDom.disabled = false;
+              }
+              if(cart.length < 1){
+                document.querySelector('.cart-footer').remove();
+              }
+            });
+          });
+
+          //clear cart
+          document.querySelector('[data-action="clear-cart"]').addEventListener("click" , () => {
+            cartItemDom.remove();
+            cart = [];
+            cartTotal = 0;
+            if(document.querySelector('.cart-footer') !== null){
+              document.querySelector('.cart-footer').remove();
+            }
+            document.querySelectorAll('.input-number').forEach(item => {
+                item.value = 0;
+            });
+            addtocartbtnDom.innerText = "Add to cart";
+            addtocartbtnDom.disabled = false;
+          });
+
+          document.querySelector('[data-action="check-out"]').addEventListener("click" , () => {
+            if(document.getElementById('paypal-form') === null){
+<!--              checkOut();-->
+              var text = "";
+                     for (let i = 0; i < cart.length; i++) {
+<!--                        console.log(cart[i].name+"&#45;&#45;"+cart[i].price+"&#45;&#45;"+cart[i].description+"&#45;&#45;"+cart[i].quantity);-->
+                        text = text + cart[i].name+"--"+cart[i].price+"--"+cart[i].description+"--"+cart[i].quantity+"^^"
+                      }
+                      var userID = $("#userId").val();
+                      console.log("text",text,userID,cartTotal);
+                     $.ajax({
+                        type: 'POST',
+                        url: "{% url 'app:admin_ajax_order_subscription' %}",
+                        data: { 'cart': text ,"order_type":"Subscription","user_id":userID,"cartTotal":cartTotal},
+                        success: function (response) {
+                            alert("Order placed successfully");
+                            setTimeout(function() {
+                                document.location.reload()
+                            }, 2000);
+                        },
+                        error: function (error) {
+                            console.log("error",error);
+                        }
+                    })
+            }
+          });
+        }
+      });
+    }else{
+      var prodIndex = cart.findIndex((prod => prod.name === product.name));
+
+      //Log object to Console.
+      console.log("Before update: ", cart[prodIndex])
+
+      //Update object's name property.
+      cart[prodIndex].price = product.price;
+
+      //Log object to console again.
+      console.log("After update: ", cart[prodIndex])
+      let cartItemsDom = cartDom.querySelectorAll(".cart-items");
+      // var firstVal=0;
+      // var secondVal = 0;
+      // var selectedItem = [];
+      // addtocartbtnDom.closest('div.modal').querySelectorAll('.input-number').forEach(item =>{
+      //     if(item.value > 0){
+      //       selectedItem.push(item.value);
+      //     }
+      // });
+    console.log(selectedItem);
+      cartItemsDom.forEach(cartItemDom => {
+        console.log(cartItemDom.querySelector(".cart_item_name").innerText == product.name);
+        if (cartItemDom.querySelector(".cart_item_name").innerText == product.name) {
+          cartItemDom.querySelector(".cart_item_price").innerText = (parseFloat(product.price) * parseFloat(cartItemDom.querySelector(".cart_item_quantity").innerText)).toFixed(2);
+          cartItemDom.querySelector(".cart_item_desc").innerText = product.description;
+          cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+          document.querySelector('.pay').innerText = cartTotal + " $";
+        }
+      });
+    }
+  });
+});
+
+function getCartTotal(priceList,quantity) {
+  var price = 0;
+  console.log(priceList);
+  for (var i = 0; i < priceList.length; i++) {
+    console.log(parseFloat(quantity[i].innerText));
+    (parseFloat(quantity[i].innerText) * parseFloat(priceList[i].innerText)).toFixed(2)
+    price += parseFloat(priceList[i].innerText);
+  }
+  return price.toFixed(2);
+}
+
+function animateImg(img) {
+  img.classList.add("animated","shake");
+}
+
+function normalImg(img) {
+  img.classList.remove("animated","shake");
+}
+</script>
+<script type="text/javascript">
+  // Document ready function to ensure the DOM is fully loaded
+  $(document).ready(function(){
+
+    // Quantity adjustment for Roti
+    $('.quantity-right-plus').click(function(e){
+      e.preventDefault();
+      var quantity = parseFloat($('#quantity').val());
+      $('#quantity').val(quantity + 1);
+      document.querySelector('.checkval').innerText = "Add to Cart";
+      document.querySelector('.checkval').disabled = false;
+      // $('#tprice').empty();
+      // Calculate and display the total amount
+      calculateTotalAmount();
+    });
+
+    $('.quantity-left-minus').click(function(e){
+      e.preventDefault();
+      var quantity = parseFloat($('#quantity').val());
+      if (quantity > 0) {
+        $('#quantity').val(quantity - 1);
+        document.querySelector('.checkval').innerText = "Add to Cart";
+      document.querySelector('.checkval').disabled = false;
+        // $('#tprice').empty();
+        // Calculate and display the total amount
+        calculateTotalAmount();
+      }
+    });
+
+    // Quantity adjustment for Rice (quantity1)
+    $('.quantitya-right-plus').click(function(e){
+      e.preventDefault();
+      var quantitya = parseFloat($('#quantity1').val());
+      $('#quantity1').val(quantitya + 1);
+      document.querySelector('.checkval').innerText = "Add to Cart";
+      document.querySelector('.checkval').disabled = false;
+      // $('#tprice').empty();
+      // Calculate and display the total amount
+      calculateTotalAmount();
+    });
+
+    $('.quantitya-left-minus').click(function(e){
+      e.preventDefault();
+      var quantitya = parseFloat($('#quantity1').val());
+      if (quantitya > 0) {
+        $('#quantity1').val(quantitya - 1);
+        document.querySelector('.checkval').innerText = "Add to Cart";
+      document.querySelector('.checkval').disabled = false;
+        // $('#tprice').empty();
+        // Calculate and display the total amount
+        calculateTotalAmount();
+      }
+    });
+
+    // Quantity adjustment for other items (quantity2, quantity3, etc.)
+    // Add similar code for other quantity adjustments
+
+    // Calculate and display the total amount
+    function calculateTotalAmount() {
+      // Define the price per item (e.g., Roti price)
+      $('#tprice').empty();
+      const pricePerItemRoti = 0.90;
+      const pricePerItemRice = 2.00; // Price per item for Rice
+
+      // Get the quantity from the input fields
+      let quantityRoti = parseFloat($('#quantity').val());
+      let quantityRice = parseFloat($('#quantity1').val());
+
+      // Calculate the total amount for Roti and Rice separately
+      let amountRoti = pricePerItemRoti * quantityRoti;
+      let amountRice = pricePerItemRice * quantityRice;
+
+      // Calculate the total amount for all items
+      let totalAmount = 60 + amountRoti + amountRice;
+      //console.log('Total Amount:', totalAmount);
+      // Display the total amount in the popup
+      var tot_amt;
+      tot_amt = '$' + totalAmount.toFixed(2);
+      $('#tprice').html(tot_amt);
+      // document.getElementById('tprice').empty();
+      
+
+      // Show the popup
+      // document.getElementById('popup').style.display = 'block';
+
+      // Log the total amount to the console
+      //console.log('Total Amount:', totalAmount);
+    }
+
+    // Close the popup when the close button is clicked
+    document.getElementById('close-popup').addEventListener('click', function() {
+      document.getElementById('popup').style.display = 'none';
+    });
+
+    // Add a click event listener to the "Add to cart" button
+    document.querySelector('.checkval').addEventListener('click', function() {
+      // Calculate and display the total amount
+      
+      calculateTotalAmount();
+    });
+
+    // Add an event listener for manual input
+    $('#quantity, #quantity1').on('input', function() {
+      // Calculate and display the total amount
+      calculateTotalAmount();
+    });
+    
+    // Add similar event listeners for other input fields (e.g., quantity2, quantity3, etc.)
+  });
+</script>
+<script type="text/javascript">
+  // Document ready function to ensure the DOM is fully loaded
+  $(document).ready(function(){
+
+    // Quantity adjustment for Roti
+    $('.quantityb-right-plus').click(function(e){
+      e.preventDefault();
+      console.log(document.getElementsByClassName('.checkval').innerText);
+      var quantityb = parseFloat($('#quantity2').val());
+      $('#quantity2').val(quantityb + 1);
+      // $('#tprice').empty();
+      // Calculate and display the total amount
+      $(document).find('.checkval').text("Add to Cart");
+      $(document).find('.checkval').attr("disabled",false);
+      calculateTotalAmount();
+    });
+
+    $('.quantityb-left-minus').click(function(e){
+      e.preventDefault();
+      var quantityb = parseFloat($('#quantity2').val());
+      if (quantityb > 0) {
+        $('#quantity2').val(quantityb - 1);
+        // $('#tprice').empty();
+        // Calculate and display the total amount
+        $(document).find('.checkval').text("Add to Cart");
+        $(document).find('.checkval').attr("disabled",false);
+        calculateTotalAmount();
+      }
+    });
+
+    // Quantity adjustment for Rice (quantity1)
+    $('.quantityc-right-plus').click(function(e){
+      e.preventDefault();
+      var quantityc = parseFloat($('#quantity3').val());
+      $('#quantity3').val(quantityc + 1);
+      // $('#tprice').empty();
+      // Calculate and display the total amount
+      document.querySelector('.checkval').innerText = "Update Cart";
+      document.querySelector('.checkval').disabled = false;
+      calculateTotalAmount();
+    });
+
+    $('.quantityc-left-minus').click(function(e){
+      e.preventDefault();
+      var quantityc = parseFloat($('#quantity3').val());
+      if (quantityc > 0) {
+        $('#quantity3').val(quantityc - 1);
+        // $('#tprice').empty();
+        // Calculate and display the total amount
+        document.querySelector('.checkval').innerText = "Update Cart";
+      document.querySelector('.checkval').disabled = false;
+        calculateTotalAmount();
+      }
+    });
+
+    // Quantity adjustment for other items (quantity2, quantity3, etc.)
+    // Add similar code for other quantity adjustments
+
+    // Calculate and display the total amount
+    function calculateTotalAmount() {
+      // Define the price per item (e.g., Roti price)
+      $('#tprice1').empty();
+      const pricePerItemRoti = 0.90;
+      const pricePerItemRice = 2.00; // Price per item for Rice
+
+      // Get the quantity from the input fields
+      let quantityRoti = parseFloat($('#quantity2').val());
+      let quantityRice = parseFloat($('#quantity3').val());
+
+      // Calculate the total amount for Roti and Rice separately
+      let amountRoti = pricePerItemRoti * quantityRoti;
+      let amountRice = pricePerItemRice * quantityRice;
+
+      // Calculate the total amount for all items
+      let totalAmount = 65 + amountRoti + amountRice;
+      //console.log('Total Amount:', totalAmount);
+      // Display the total amount in the popup
+      var tot_amt;
+      tot_amt = '$' + totalAmount.toFixed(2);
+      $('#tprice1').html(tot_amt);
+      // document.getElementById('tprice').empty();
+      
+
+      // Show the popup
+      // document.getElementById('popup').style.display = 'block';
+
+      // Log the total amount to the console
+      //console.log('Total Amount:', totalAmount);
+    }
+
+    // Close the popup when the close button is clicked
+    document.getElementById('close-popup').addEventListener('click', function() {
+      document.getElementById('popup').style.display = 'none';
+    });
+
+    // Add a click event listener to the "Add to cart" button
+    document.querySelector('.checkval').addEventListener('click', function() {
+      // Calculate and display the total amount
+      calculateTotalAmount();
+    });
+
+    // Add an event listener for manual input
+    $('#quantity2, #quantity3').on('input', function() {
+      // Calculate and display the total amount
+      calculateTotalAmount();
+    });
+    
+    // Add similar event listeners for other input fields (e.g., quantity2, quantity3, etc.)
+  });
+</script>
+
+
+</body>
+</html>

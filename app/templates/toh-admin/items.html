@@ -1,0 +1,601 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Taste of Home - Dashboard</title>
+    <link href="{% static 'css/styles-admin.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/fontawesome-free-admin/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+    <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand align-items-center justify-content-center" href="{% url 'app:admin_index' %}">
+               <img src="{% static 'images/logo.png' %}"  class="logo"/>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Tifins
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tifins"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Menu</span>
+                </a>
+                <div id="tifins" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_categories' %}">Categories</a>
+                        <a class="collapse-item" href="{% url 'app:admin_items' %}">Items</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_meals' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-hamburger"></i>
+                    <span>Meals</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_orders' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_todayreport' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Today's Report</span>
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'app:admin_dailyorder' %}"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Daily Orders</span>
+                </a>
+
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Tracking
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_suburb' %}">
+                    <i class="fas fa-map"></i>
+                    <span>Suburb</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_drivers' %}">
+                    <i class="fas fa-users"></i>
+                    <span>Drivers</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#delivery"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-shuttle-van"></i>
+                    <span>Delivery Van</span>
+                </a>
+                <div id="delivery" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_deliverytifin' %}">Tifin</a>
+
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Users Desk
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_customers' %}">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_users' %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Users</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_sizes' %}">
+                    <i class="fas fa-list"></i>
+                    <span>Sizes</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_variations' %}">
+                    <i class="fas fa-list"></i>
+                    <span>Variations</span></a>
+            </li>
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Subscription
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_subscription' %}">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Subscription</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:admin_promocode' %}">
+                    <i class="fas fa-list"></i>
+                    <span>PromoCodes</span></a>
+            </li>
+
+
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Reports
+            </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reports"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-list"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="reports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_salesreport' %}">Sales Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_orderreport' %}">Order Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_itemreport' %}">Item Report</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_suburreport' %}">Suburb Wise Order</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#settings"
+                    aria-expanded="true" aria-controls="tifins">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <div id="settings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-light py-2 collapse-inner ">
+
+                        <a class="collapse-item" href="{% url 'app:admin_timing' %}">Timings</a>
+
+                        <a class="collapse-item" href="{% url 'app:admin_closedate' %}">Close Dates</a>
+
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Taste of Home</span>
+                                <img class="img-profile rounded-circle"
+                                       src="{% static 'img/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Items List </h1>
+                    {% for message in messages %}
+                        <div class="container-fluid p-0">
+                          <div class="alert {{ message.tags }} alert-{{ message.tags }}" role="alert" >
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="True">&times;</span>
+                            </button>
+                            {{ message }}
+                          </div>
+                        </div>
+                    {% endfor %}
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-8">
+                                    <h6 class="m-0 font-weight-bold  d-inline text-primary">Items List</h6>
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-right">
+                       
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addcategory">Add </button>
+                             
+                                    <div id="addcategory" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                      
+                                          <!-- Modal content-->
+                                            <form action="{% url 'app:admin_items'%}" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title">Add Item</h6>
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                                </div>
+                                                <div class="modal-body text-left px-5">
+                                                    <label class="">Category Name</label>
+                                                    <select class="form-control" name="category">
+                                                        <option value="" disabled>Select Category</option>
+                                                        {% for i in category_data %}
+                                                            <option value="{{i.id}}">{{i.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <label class=""> Name</label>
+                                                    <input placeholder="Enter Category Name" name="name" type="text" class="form-control" required/>
+                                                    <label class=""> Price</label>
+                                                    <input placeholder="Enter Price" type="number" name="price" class="form-control" required />
+                                                    <label class=""> Description</label>
+                                                        <textarea class="form-control" rows="6" name="description" ></textarea>
+                                                    <label class=""> Image</label>
+                                                    <input type="file" class="form-control" name="filename" multiple/>
+                                                    <label class="">Delivery Type</label>
+                                                        <select class="form-control" name="delivery_type" required>
+                                                            <option>Select Delivery Type</option>
+                                                            <option>Home Delivery</option>
+                                                            <option>Takeaway</option>
+                                                        </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success" >Submit</button>
+                                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>SNo</th>
+                                            <th>Category</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                            <th>Active</th>
+                                            <th>Specials</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>SNo</th>
+                                            <th>Category</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                            <th>Active</th>
+                                            <th>Specials</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for i in menu_data %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{i.category.name}}</td>
+                                            <td>{{i.name}}</td>
+                                            <td>{{i.price}}</td>
+                                            <th class="align-items-center"><img src="{% static 'images/thumbnail.png' %}" class="img-thumbnail" alt="toh" width="48" height="48"></th>
+                                            <td>
+                                                <div>
+                                                    <button class="btn btn-sm edit_items" data-toggle="modal" data-target="#edititems" value="{{i.id}}"><i class="iconbg-edit fa fa-edit"></i></button>
+                                                    <button class="btn btn-sm"><a href="{% url 'app:admin_items_delete' i.id %}"><i class="iconbg-delete fa fa-trash"></i></a></button>
+                                                    <div id="edititems" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
+                                                          <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h6 class="modal-title">Edit Item</h6>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div>
+                                                                <form action="{% url 'app:admin_item_edit'%}" method="POST" enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                                    <input type="text" value="" name="item_id" id="aj_item_id" hidden>
+                                                                    <div class="modal-body text-left px-5">
+                                                                        <label class="">Category Name</label>
+                                                                        <select class="form-control aj_category" value="" name="aj_category" id="aj_category">
+                                                                            <option value="">Select Category</option>
+                                                                            {% for i in category_data %}
+                                                                            <option value="{{i.id}}">{{i.name}}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <label class=""> Name</label>
+                                                                        <input placeholder="Enter Category Name" value="" name="aj_item" id="aj_item" type="text" class="form-control"/>
+                                                                        <label class=""> Price</label>
+                                                                        <input placeholder="Enter Price" type="number" value="" name="aj_price" id="aj_price" class="form-control"/>
+                                                                        <label class=""> Description</label>
+                                                                            <textarea class="form-control" rows="6" value="" name="aj_description" id="aj_description"></textarea>
+                                                                        <label class=""> Image</label>
+                                                                        <input type="file" class="form-control" name="aj_item_old_img" multiple/>
+                                                                        <input type="text" value="" name="item_img" id="aj_item_img" hidden>
+                                                                        <label class="">Delivery Type</label>
+                                                                            <select class="form-control" value="" name="aj_delivery_type" id="aj_delivery_type">
+                                                                                <option>Select Delivery Type</option>
+                                                                                <option>Home Delivery</option>
+                                                                                <option>Takeaway</option>
+                                                                            </select>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-success" >Submit</button>
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><label class="switch">
+                                                    <input type="checkbox">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Taste of Home 2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery-admin/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-admin/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing-admin/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+     <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables-admin/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-admin/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/datatables-demo.js' %}"></script>
+<script>
+    $(".edit_items").click(function (e) {
+        e.preventDefault();
+        var id = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'app:admin_item_ajax_edit' %}",
+            data: {"id": id},
+            success: function (response) {
+                $("#aj_item").val(response.data.name);
+                $("#aj_item_id").val(response.data.id);
+                $("#aj_price").val(response.data.price);
+                $("#aj_description").val(response.data.description);
+<!--                $("#aj_delivery_type").val(response.data.delivery_type);-->
+
+                $("#aj_item_img").val(response.data.image);
+
+                var select = $('#aj_category');
+                select.empty();
+                for (var i = 0; i < response.data.category_data.length; i++) {
+
+                    var option = $('<option>', {
+                        value: response.data.category_data[i].id,
+                        text: response.data.category_data[i].name
+                    });
+                    if (response.data.category_data[i].name==response.data.category){
+                        option.prop('selected', true);
+                    }
+                    select.append(option);
+                }
+
+                var select = $('#aj_delivery_type');
+                select.empty();
+                for (var i = 0; i < response.data.delivery_type_data.length; i++) {
+
+                    var option = $('<option>', {
+                        value: response.data.delivery_type_data[i].name,
+                        text: response.data.delivery_type_data[i].name
+                    });
+                    if (response.data.delivery_type_data[i].name==response.data.deliver_type){
+                        option.prop('selected', true);
+                    }
+                    select.append(option);
+                }
+
+            },
+            error: function (error) {
+                console.log("error",error);
+            }
+        })
+    })
+</script>
+
+</body>
+
+</html>

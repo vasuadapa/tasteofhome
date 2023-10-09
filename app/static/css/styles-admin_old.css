@@ -1,0 +1,138 @@
+.logo {
+    width: 120px;
+    height: auto;
+ 
+}
+  .sidebar .sidebar-brand{
+    height: auto !important;
+  }
+
+  .bg-gradient-primary {
+    background-color: #d5d6d9 !important;
+    background-image: linear-gradient(180deg,#02113b 50%,#000000 65%,#052172 100%) !important;
+    background-size: cover;
+}
+
+.sidebar-toggled .logo{
+    width: 70px;
+}
+
+.sidebar{
+    transition: ease all 0.2s;
+}
+
+.sidebar .nav-item .collapse, .sidebar .nav-item .collapsing{
+    margin:0px !important;
+}
+
+.sidebar .nav-item .nav-link{
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+.iconbg-edit{
+    background-color: #006E37;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.iconbg-delete{
+    background-color: darkred;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.iconbg-check{
+    background-color: blue;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.iconbg-cross{
+    background-color: red;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.iconbg-refresh{
+    background-color: #222222;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.iconbg-excl{
+    background-color: #F6CF59;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.refunds{
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+}
+.timeclass{
+    width:505px;
+    border-radius: 3px;
+    height: 40px;
+    border-color: #e5e5e5;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.mt-100{margin-top: 10px}

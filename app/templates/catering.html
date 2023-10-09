@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Taste Of Home | Catering Menu{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+              <li><a class="nav-link active" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link active" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Catering Menu{% endblock %}
+{% block htmlbody %}
+   <!-- ======= Menu ======= -->
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-6">
+        <img class="cater-img" src="../static/images/{{img_name}}" img-responsive>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+  </div>
+</main>
+    <!-- Menu -->
+
+   {% endblock %}

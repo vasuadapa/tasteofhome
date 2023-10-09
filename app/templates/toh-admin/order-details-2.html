@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Taste of Home - Dashboard</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+        <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand align-items-center justify-content-center" href="index.html">
+           <img src="./images/logo.png"  class="logo"/>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Tifins
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tifins"
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-bread-slice"></i>
+                <span>Menu</span>
+            </a>
+            <div id="tifins" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-light py-2 collapse-inner ">
+              
+                    <a class="collapse-item" href="categories.html">Categories</a>
+                    <a class="collapse-item" href="items.html">Items</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link " href="meals.html" 
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-hamburger"></i>
+                <span>Meals</span>
+            </a>
+        
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="orders.html" 
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-list"></i>
+                <span>Orders</span>
+            </a>
+        
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="todayreport.html" 
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-list"></i>
+                <span>Today's Report</span>
+            </a>
+        
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link " href="dailyorder.html" 
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-list"></i>
+                <span>Daily Orders</span>
+            </a>
+        
+        </li>
+
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Tracking
+        </div>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="suburb.html">
+                <i class="fas fa-map"></i>
+                <span>Suburb</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="drivers.html">
+                <i class="fas fa-users"></i>
+                <span>Drivers</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#delivery"
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-shuttle-van"></i>
+                <span>Delivery Van</span>
+            </a>
+            <div id="delivery" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-light py-2 collapse-inner ">
+              
+                    <a class="collapse-item" href="deliverytifin.html">Tifin</a>
+      
+                </div>
+            </div>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Users Desk
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="customers.html">
+                <i class="fas fa-users"></i>
+                <span>Customers</span></a>
+        </li>
+
+    
+        <li class="nav-item">
+            <a class="nav-link" href="users.html">
+                <i class="fas fa-credit-card"></i>
+                <span>Users</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="sizes.html">
+                <i class="fas fa-list"></i>
+                <span>Sizes</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="variations.html">
+                <i class="fas fa-list"></i>
+                <span>Variations</span></a>
+        </li>
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Subscription
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link" href="subscription.html">
+                <i class="fas fa-credit-card"></i>
+                <span>Subscription</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="promocode.html">
+                <i class="fas fa-list"></i>
+                <span>PromoCodes</span></a>
+        </li>
+
+
+
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Reports
+        </div>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reports"
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-list"></i>
+                <span>Reports</span>
+            </a>
+            <div id="reports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-light py-2 collapse-inner ">
+              
+                    <a class="collapse-item" href="salesreport.html">Sales Report</a>
+
+                    <a class="collapse-item" href="orderreport.html">Order Report</a>
+      
+                    <a class="collapse-item" href="itemreport.html">Item Report</a>
+
+                    <a class="collapse-item" href="Suburreport.html">Suburb Wise Order</a>
+                </div>
+            </div>
+        </li>
+
+
+
+        
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#settings"
+                aria-expanded="true" aria-controls="tifins">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <div id="settings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-light py-2 collapse-inner ">
+              
+                    <a class="collapse-item" href="timing.html">Timings</a>
+
+                    <a class="collapse-item" href="closedate.html">Close Dates</a>
+      
+                </div>
+            </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+
+
+    </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Taste of Home</span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Order Details</h1>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                           <a class="nav-link active" data-bs-toggle="tab" href="#pendingord">Pending Orders</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" data-bs-toggle="tab" href="#completedord">Completed Orders</a>
+                        </li>
+                    </ul>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+
+                          <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane container active" id="pendingord">        
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold d-inline text-primary">Orders List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <button type="button" class="btn btn-info btn-sm">Print</button>
+                                            <button type="button" class="btn btn-success btn-sm">Excel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="dataTable19" width="100%" id="drvord" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Order Number</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Order Placed Date/Time</th>
+                                                    <th>Address</th>
+                                                    <th>Suburb</th>
+                                                    <th>Price</th>
+                                                    <th>Meal Items</th>
+                                                    <th>Single Items</th>
+                                                    <th>Order Instrustion</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane container fade" id="completedord">       
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8">
+                                            <h6 class="m-0 font-weight-bold  d-inline text-primary">Orders List</h6>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                                <button type="button" class="btn btn-info btn-sm">Print</button>
+                                                <button type="button" class="btn btn-success btn-sm">Excel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable20" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>SNo</th>
+                                                    <th>Order Number</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Order Placed Date/Time</th>
+                                                    <th>Address</th>
+                                                    <th>Suburb</th>
+                                                    <th>Price</th>
+                                                    <th>Meal Items</th>
+                                                    <th>Single Items</th>
+                                                    <th>Order Instrustion</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Taste of Home 2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>

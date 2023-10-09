@@ -1,0 +1,8 @@
+Django==3.2.5
+django-widget-tweaks==1.4.8
+pathspec==0.8.1
+Pillow==8.3.2
+regex==2021.7.6
+psycopg2
+django_rest_framework
+requests

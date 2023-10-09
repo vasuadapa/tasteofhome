@@ -1,0 +1,834 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Taste Of Home | Delivery Menu</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <style>
+    .fnt_12 {
+      font-size: 12px;
+      font-family: 'Poppins';
+  }
+  </style>
+</head>
+<body>
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
+      <i class="bi bi-phone d-flex align-items-center"><span>+61 417 923 930</span></i>
+      <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Open: 12:05 AM - 06:00 PM</span></i>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <div class="logo me-auto">
+        <!-- <h1><a href="index.html">Taste of Home</a></h1> -->
+        
+         <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="" class="img-fluid"></a>
+      </div>
+
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+          <ul>
+            <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+            <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--            <li><a class="nav-link active" href="{% url 'app:menu' %}">Menu</a></li>-->
+            <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+            <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+          <ul>
+            <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+            <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+            <li><a class="nav-link active" href="{% url 'app:menu' %}">Menu</a></li>
+            <li><a class="nav-link" href="{% url 'app:subscription' %}">Subscription</a></li>
+            <li><a class="nav-link " href="{% url 'app:catering' %}">Catering Menu</a></li>
+            <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+         <div class="dropdown p-2">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            {{cookies.get_name}}
+            </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+            <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+          </div>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+ <section id="aboutus" class="aboutus">
+  <div class="container position-relative">
+      <div class="row">
+        <h1 class="section-header">Delivery Menu</h1>
+      
+    </div>
+  </section><!-- End Hero -->
+   <!-- ======= Menu ======= -->
+  <main>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+          <h4 class="badge-pill badge-green mt-3 mb-3 p-2 text-center">Special Menu</h4>
+          {% for j in specials_data %}
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xs-6">
+              <div class="card card-bg mb-3 product">
+                <div class="card-body">
+                  <h5 class="product-name text-uppercase">{{j.item}</h5>
+                  <p class="product-desc fnt_12">{{j.description}}</p>
+                  <p class="card-text text-success product-price"> {{j.price}} $</p>
+                  <button class="btn btn-green mt-2 w-100 " type="button" data-toggle="modal" data-target="#myModal1">Add to cart</button>                   
+                </div>
+              </div>
+            </div>
+            <div class="modal mymodal1" id="myModal1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="momodal-title">Add to Cart</h4>
+                    <button type="button" id="closehid" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="modalcard-body">
+                      <h5 class="product-name">Roti</h5>
+                      <p class="product-desc">description sdfsfsd</p>
+                      <p class="card-text text-success product-price">0.90 $</p>
+                      <div class="product-selection">
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6 mx-auto">
+                            <div class="form-group ">
+                              <div class="input-group">
+                                <div class="input-group-btn">
+                                  <button id="down1" type="button" class="quantity-left-minus btn btn-danger btn-number rounded-0 btn-subtract-one"  data-type="minus" data-field="">
+                                    <span class="bi bi-file-minus-fill"></span>
+                                  </button>
+                                </div>
+                                <input type="text" id="myNumber1" class="form-control text-center person-quantity rounded-0 item-quantity-one" value="1" />
+                                <div class="input-group-btn">
+                                  <button id="up1" type="button" class="quantity-right-plus btn btn-success btn-number rounded-0 btn-add-one"  data-type="plus" data-field="">
+                                    <span class="bi bi-file-plus-fill"></span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modiv">
+                        <button class="btn btn-green mt-2 float-right checkval closem" type="button" data-action="add-to-cart" data-dismiss="modal">Add to cart</button>
+                        <script type="text/javascript">
+                          $('.closem').click( function(){
+                            $('#closehid').click();
+                            });
+                        </script>
+                      </div>
+                      <div id="result" style="display: none;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+            <h4 class="badge-pill badge-green mt-3 mb-3 p-2 text-center">Today's Menu <span class="todaybadge badge badge-warning float-right">{{day_name}}</span></h4>
+            {% for i in meals_data %}
+              <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xs-6">
+                  <div class="card card-bg mb-3 product">
+                    <div class="card-body">
+                      <h5 class="product-name">{{i.item}}</h5>
+                      <p class="product-desc">{{i.description}}</p>
+                      <p class="card-text text-success product-price">{{i.price}} $</p>
+                      <button class="btn btn-green mt-2 float-right tohmoclose add_to_cart" type="button" value="{{i.id}}" data-toggle="modal" data-target="#myModal2">Add to cart</button>
+                        <script>
+                          $(".tohmoclose").click(function(){
+                            $("#result1").empty();
+                          });
+                        </script>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="modal mymodal2" id="myModal2">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="momodal-title">Add to Cart</h4>
+                      <button type="button" class="close" id="closehid2" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="modalcard-body">
+                        <h5 class="product-name">Rotiss</h5>
+                        <p class="product-desc">description sdfsfsd</p>
+                        <p class="card-text text-success product-price">20.80 $</p>
+                        <hr class="hr-2">
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6 mx-auto">
+                            <div class="form-group ">
+                              <div class="input-group">
+                                <div class="input-group-btn">
+                                  <button id="down1" type="button" class="quantity-left-minus btn btn-danger btn-number rounded-0 btn-subtract-one"  data-type="minus" data-field="">
+                                    <span class="bi bi-file-minus-fill"></span>
+                                  </button>
+                                </div>
+                                <input type="text" id="myNumber1" class="form-control input-number text-center person-quantity rounded-0 item-quantity-one" value="1" />
+                                <div class="input-group-btn">
+                                  <button id="up1" type="button" class="quantity-right-plus btn btn-success btn-number rounded-0 btn-add-one"  data-type="plus" data-field="">
+                                    <span class="bi bi-file-plus-fill"></span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="hr-2">
+                        <div class="product-selection"><h5 class="product-select1">YOU CAN CHOOSE 2 ITEMS OUT OF 4</h5>
+                          <div class="row sub_group">
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group">
+                                <label class="fnt_12">Rotis</label>
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button id="down" type="button" class="quantity-left-minus btn btn-danger btn-number btn-subtract"  data-type="minus" data-field="">
+                                      <span class="bi bi-file-minus-fill"></span>
+                                    </button>
+                                  </div>
+                                  <input type="text" id="myNumber" class="form-control input-number inputtext1 text-center item-quantity" data-item="Rotis" value="0" />
+                                  <div class="input-group-btn">
+                                    <button id="up" type="button" class="quantity-right-plus btn btn-success btn-number btn-add"  data-type="plus" data-field="">
+                                      <span class="bi bi-file-plus-fill"></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group">
+                                <label class="fnt_12">Rice</label>
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button id="down1" type="button" class="quantity-left-minus btn btn-danger btn-number btn-subtract" >
+                                      <span class="bi bi-file-minus-fill"></span>
+                                    </button>
+                                  </div>
+                                  <input type="text" id="myNumber1" class="form-control input-number inputtext1 text-center item-quantity" data-item="Rice" value="0" />
+                                  <div class="input-group-btn">
+                                    <button id="up1" type="button" class="quantity-right-plus btn btn-success btn-number btn-add" >
+                                      <span class="bi bi-file-plus-fill"></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group">
+                                <label class="fnt_12">Mutter Paneer</label>
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button id="down2" type="button" class="quantity-left-minus btn btn-danger btn-number btn-subtract" >
+                                      <span class="bi bi-file-minus-fill"></span>
+                                    </button>
+                                  </div>
+                                  <input type="text" id="myNumber2" class="form-control input-number inputtext1 item-quantity text-center" data-item="Mutter Paneer" value="0" />
+                                  <div class="input-group-btn">
+                                    <button id="up2" type="button" class="quantity-right-plus btn btn-success btn-number btn-add" >
+                                      <span class="bi bi-file-plus-fill"></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group">
+                                <label class="fnt_12">Dal Makhani</label>
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button id="down3" type="button" class="quantity-left-minus btn btn-danger btn-number btn-subtract" >
+                                      <span class="bi bi-file-minus-fill"></span>
+                                    </button>
+                                  </div>
+                                  <input type="text" id="myNumber3" class="form-control input-number inputtext1 text-center item-quantity" data-item="Dal Makhani" value="0" />
+                                  <div class="input-group-btn">
+                                    <button id="up3" type="button" class="quantity-right-plus btn btn-success btn-number btn-add" >
+                                      <span class="bi bi-file-plus-fill"></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <hr class="hr-2">
+                          <h5 class="product-select2">YOU CAN CHOOSE 1 ITEMS OUT OF 2</h5>
+                          <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group">
+                                <label class="fnt_12">Gulab Jamun</label>
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button id="down4" type="button" class="quantity-left-minus btn btn-danger btn-number btn-subtract-two" >
+                                      <span class="bi bi-file-minus-fill"></span>
+                                    </button>
+                                  </div>
+                                  <input type="text" id="myNumber4" class="form-control input-number inputtext1 text-center item-quantity-two" data-item="Gulab Jamun" value="0" />
+                                  <div class="input-group-btn">
+                                    <button id="up4" type="button" class="quantity-right-plus btn btn-success btn-number btn-add-two" >
+                                      <span class="bi bi-file-plus-fill"></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group ">
+                                <label class="fnt_12">Jalebi</label>
+                                <div class="input-group">
+                                  <div class="input-group-btn">
+                                    <button id="down5" type="button" class="quantity-left-minus btn btn-danger btn-number btn-subtract-two" >
+                                      <span class="bi bi-file-minus-fill"></span>
+                                    </button>
+                                  </div>
+                                  <input type="text" id="myNumber5" class="form-control input-number inputtext1 text-center item-quantity-two" data-item="Jalebi" value="0" />
+                                  <div class="input-group-btn">
+                                    <button id="up5" type="button" class="quantity-right-plus btn btn-success btn-number btn-add-two" >
+                                      <span class="bi bi-file-plus-fill"></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="modiv">
+                          <button class="btn btn-green mt-2 float-right checkval closem2" type="button" data-action="add-to-cart" data-dismiss="modal">Add to cart</button>
+                          <script>
+                            $('.closem2').click( function(){
+                                $('#closehid2').click();
+                            });
+                          </script>
+                        </div>
+                        <div id="result" style="display: none;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  <!--             <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+              </div>
+              <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+              </div> -->
+            </div>
+          </div>
+        </div>
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+            <h4 class="badge-pill badge-green mt-3 mb-3 p-2 text-center">Your Orders</h4>
+            <div class="cart"></div>
+          </div>
+    </div>    
+  </main>
+    <!-- Menu -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="logo me-auto col-lg-4">
+          <h4>Taste of Home</h4>
+          <a href="index.html"><img src="assets/img/logo.png" alt="Taste of Home" class="img-fluid" width="40%"></a>
+          <div class="social-links">
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h4>Areas We Serve</h4>
+          <ul>
+            <li><a href="#">Melbourne</a></li>
+            <li><a href="#">Springvale & Noble Park</a></li>
+            <li><a href="#">Dandenong</a></li>
+            <li><a href="#">Cranbourne</a></li>
+            <li><a href="#">Hampton Park</a></li>
+            <li><a href="#">Mount Waverley</a></li>
+            <li><a href="#">Clayton & Keysborough</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h4>More Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="copyright credits">
+          &copy; Copyright <strong><span>Taste of Home</span></strong>. All Rights Reserved | Designed and Developed By <a href="https://kreativdigimarketing.com/">Kreativ Digi Marketing</a>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    $(".add_to_cart").click(function (e) {
+        console.log("hello all");
+        e.preventDefault();
+        var id = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'app:user_ajax_addtocart' %}",
+            data: {"id": id},
+            success: function (response) {
+                console.log(response.data);
+                $(".product-name").text(response.data.meal_text);
+                $(".product-desc").text(response.data.description);
+                $(".product-price").text(response.data.price+ " $");
+                $(".product-select1").text(response.data.fixed_item_quantity);
+
+                $(".sub_group").remove();
+                var txt = "<div class='col-md-6 col-sm-6'>
+                            <div class='form-group'>
+                            <label class='fnt_12'>Rotis</label>
+                            <div class="input-group">
+                               <div class='input-group-btn'>
+                                    <button id='down' type='button' class='quantity-left-minus btn btn-danger btn-number btn-subtract'  data-type='minus' data-field=''>
+                                      <span class='bi bi-file-minus-fill'></span>
+                                    </button>
+                                  </div>
+                                  <input type='text' id='myNumber' class='form-control input-number inputtext1 text-center item-quantity' data-item='Rotis' value='0' />
+                                  <div class='input-group-btn'>
+                                    <button id='up' type='button' class='quantity-right-plus btn btn-success btn-number btn-add'  data-type='plus' data-field=''>
+                                      <span class='bi bi-file-plus-fill'></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>"
+                const collection = document.getElementsByClassName("sub_group");
+
+                collection.appendChild(txt);
+                console.log(collection);
+
+
+
+
+
+                $("#user_id").val(response.data.id);
+
+
+            },
+            error: function (error) {
+                console.log("error",error);
+            }
+        })
+    })
+</script>
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'js/main-login.js' %}"></script>
+  <script>
+"use strict";                        
+let cart = [];
+var cartTotal;
+var updateCart  = false;
+var totItemOne = 0;
+var totItemTwo = 0;
+var limit = 2;
+var limitTwo = 1;
+const cartDom = document.querySelector(".cart");
+const addtocartbtnDom = document.querySelectorAll('[data-action="add-to-cart"]');
+addtocartbtnDom.forEach(addtocartbtnDom => {
+  addtocartbtnDom.addEventListener("click", () => {
+    var selectedItem = [];
+    addtocartbtnDom.closest('div.modal').querySelectorAll('.inputtext1').forEach(item =>{
+        if(item.value > 0){
+          selectedItem.push(item.getAttribute('data-item')+' X '+ item.value);
+        }
+    });
+    var description = "";
+    if(selectedItem.length > 0){
+      description = selectedItem.join(" , ");
+    }
+    const productDom = addtocartbtnDom.parentNode.parentNode;
+    let pprice = productDom.querySelector(".product-price").innerText;
+    updateCart = true;
+    const product = {
+      name: productDom.querySelector(".product-name").innerText,
+      price: productDom.querySelector(".product-price").innerText,
+      quantity: productDom.querySelector(".person-quantity").value,
+      description:description,
+      class1: $("#result").html(),
+      class1a: $("#result1").html(),
+   };
+    const IsinCart = cart.filter(cartItem => cartItem.name === product.name).length > 0;
+    if (IsinCart === false && updateCart === true) {
+      cartDom.insertAdjacentHTML("beforeend",`
+      <div class="d-flex flex-row shadow-sm card cart-items mt-2 mb-3 animated flipInX">
+        
+        <div class="p-2 mt-3">
+            <p class="cart_item_name">${product.name}</p>
+            <p class="cart_item_desc w-50 fnt_12">${product.description}</p>
+        </div>
+        <div class="p-2 mt-3">
+            <p class="text-success cart_item_price">${(parseFloat(product.price) * product.quantity).toFixed(2)}</p>
+        </div>
+      
+        <div class="p-2 mt-3 ml-auto">
+            <button class="btn badge badge-secondary" type="button" data-action="increase-item">&plus;
+        </div>
+        <div class="p-2 mt-3">
+          <p class="text-success cart_item_quantity">${product.quantity}</p>
+        </div>
+        <div class="p-2 mt-3">
+          <button class="btn badge badge-info" type="button" data-action="decrease-item">&minus;
+        </div>
+        <div class="p-2 mt-3">
+          <button class="btn badge badge-danger" type="button" data-action="remove-item">&times;
+        </div>
+      </div> `);
+
+      if(document.querySelector('.cart-footer') === null){
+        cartDom.insertAdjacentHTML("afterend",  `
+          <div class="d-flex flex-row shadow-sm card cart-footer mt-2 mb-3 animated flipInX">
+            <div class="p-2">
+              <button class="btn badge-danger" type="button" data-action="clear-cart">Clear Cart
+            </div>
+            <div class="p-2 ml-auto">
+              <button class="btn badge-dark" type="button" data-action="check-out">Pay <span class="pay"></span> 
+                &#10137;
+            </div>
+          </div>`); 
+        }
+        addtocartbtnDom.innerText = "In cart";
+        addtocartbtnDom.disabled = true;
+        cart.push(product);
+        updateCart = false;
+        console.log(updateCart);
+        const cartItemsDom = cartDom.querySelectorAll(".cart-items");
+
+        cartItemsDom.forEach(cartItemDom => {
+
+        if (cartItemDom.querySelector(".cart_item_name").innerText === product.name) {
+          
+          //console.log('cartTotal:', cartItemDom.querySelector(".cart_item_quantity").innerText, cartItemDom.querySelector(".cart_item_price").innerText);
+        
+          cartTotal = (parseFloat(cartItemDom.querySelector(".cart_item_quantity").innerText) * parseFloat(cartItemDom.querySelector(".cart_item_price").innerText)).toFixed(2);
+          cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+         // console.log(document.querySelectorAll(".cart_item_quantity"));
+          document.querySelector('.pay').innerText = cartTotal + " $";
+
+          // increase item in cart
+          cartItemDom.querySelector('[data-action="increase-item"]').addEventListener("click", () => {
+            cart.forEach(cartItem => {
+              if (cartItem.name === product.name) {
+                cartItemDom.querySelector(".cart_item_quantity").innerText = ++cartItem.quantity;
+                cartItemDom.querySelector(".cart_item_price").innerText = (parseFloat(cartItem.quantity) *
+                parseFloat(cartItem.price)).toFixed(2);
+                
+                cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+                //console.log('cartTotal:', cartItemDom.querySelector(".cart_item_quantity").innerText, cartItemDom.querySelector(".cart_item_price").innerText, cartTotal);
+                document.querySelector('.pay').innerText = cartTotal + " $";
+              }
+            });
+          });
+
+          // decrease item in cart
+          cartItemDom.querySelector('[data-action="decrease-item"]').addEventListener("click", () => {
+            cart.forEach(cartItem => {
+              if (cartItem.name === product.name) {
+                if (cartItem.quantity > 1) {
+                  cartItemDom.querySelector(".cart_item_quantity").innerText = --cartItem.quantity;
+                  cartItemDom.querySelector(".cart_item_price").innerText = (parseFloat(cartItem.quantity) * parseFloat(cartItem.price)).toFixed(2);
+                  //cartTotal = cartItemDom.querySelector(".cart_item_price").innerText;
+                  //console.log('cartTotal:', cartTotal);
+                  cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+                  document.querySelector('.pay').innerText = cartTotal + " $";
+                }
+              }
+            });
+          });
+
+          //remove item from cart
+          cartItemDom.querySelector('[data-action="remove-item"]').addEventListener("click", () => {
+            cart.forEach(cartItem => {
+              if (cartItem.name === product.name) {
+                  cartTotal -= parseFloat(cartItemDom.querySelector(".cart_item_price").innerText);
+                  //console.log('cartTotal:', cartTotal);
+                  document.querySelector('.pay').innerText = toString(cartTotal) + " $";
+                  cartItemDom.remove();
+                  cart = cart.filter(cartItem => cartItem.name !== product.name);
+                  addtocartbtnDom.innerText = "Add to cart";
+                  addtocartbtnDom.disabled = false;
+              }
+              if(cart.length < 1){
+                document.querySelector('.cart-footer').remove();
+              }
+            });
+          });
+
+          //clear cart
+          document.querySelector('[data-action="clear-cart"]').addEventListener("click" , () => {
+            cartItemDom.remove();
+            cart = [];
+            cartTotal = 0;
+            if(document.querySelector('.cart-footer') !== null){
+              document.querySelector('.cart-footer').remove();
+            }
+            document.querySelectorAll('.input-number').forEach(item => {
+                item.value = 0;
+            });
+            addtocartbtnDom.innerText = "Add to cart";
+            addtocartbtnDom.disabled = false;
+          });
+
+          document.querySelector('[data-action="check-out"]').addEventListener("click" , () => {
+            if(document.getElementById('paypal-form') === null){
+              checkOut();
+            }
+          });
+        }
+      });
+    }else{
+      var prodIndex = cart.findIndex((prod => prod.name === product.name));
+
+      //Log object to Console.
+      console.log("Before update: ", cart[prodIndex])
+
+      //Update object's name property.
+      cart[prodIndex].price = product.price;
+
+      //Log object to console again.
+      console.log("After update: ", cart[prodIndex])
+      let cartItemsDom = cartDom.querySelectorAll(".cart-items");
+      addtocartbtnDom.innerText = "In cart";
+      addtocartbtnDom.disabled = true;
+      cartItemsDom.forEach(cartItemDom => {
+        console.log(cartItemDom.querySelector(".cart_item_name").innerText == product.name);
+        if (cartItemDom.querySelector(".cart_item_name").innerText == product.name) {
+          cartItemDom.querySelector(".cart_item_price").innerText = (parseFloat(product.price) * parseFloat(product.quantity)).toFixed(2);
+          cartItemDom.querySelector(".cart_item_quantity").innerText = parseFloat(product.quantity);
+          cartItemDom.querySelector(".cart_item_desc").innerText = product.description;
+          cartTotal = getCartTotal(document.querySelectorAll(".cart_item_price"),document.querySelectorAll(".cart_item_quantity"));
+          document.querySelector('.pay').innerText = cartTotal + " $";
+        }
+      });
+    }
+  });
+});
+
+function getCartTotal(priceList,quantity) {
+  var price = 0;
+  console.log(priceList);
+  for (var i = 0; i < priceList.length; i++) {
+    console.log(parseFloat(quantity[i].innerText));
+    (parseFloat(quantity[i].innerText) * parseFloat(priceList[i].innerText)).toFixed(2)
+    price += parseFloat(priceList[i].innerText);
+  }
+  return price.toFixed(2);
+}
+  
+function animateImg(img) {
+  img.classList.add("animated","shake");
+}
+
+function normalImg(img) {
+  img.classList.remove("animated","shake");
+}
+</script>
+<script type="text/javascript">
+  var currentValue = 0;
+  $(document).ready(function(){
+    $(document).on('click', '.btn-subtract-one', function (e) {
+      e.preventDefault();
+      console.log($('.cart').html().length);
+      var currValue = $(this).closest('div.input-group').find('.item-quantity-one').val();
+      $(this).closest('div.modal').find('.inputtext1').each(function(){
+        $(this).val(0);
+        totItemOne = 0;
+        totItemTwo = 0;
+      });
+      currValue -= 1
+      if(currValue >= 0){
+        $(this).closest('div.input-group').find('.item-quantity-one').val(currValue);
+      }else{
+        $(this).closest('div.input-group').find('.item-quantity-one').val(currentValue);
+      }
+      $(this).closest('div.modal').find('.checkval').html("Add to Cart");
+      $(this).closest('div.modal').find('.checkval').attr('disabled',false);
+    });
+
+    $(document).on('click', '.btn-add-one', function (e) {
+      e.preventDefault();
+      var currValue = $(this).closest('div.input-group').find('.item-quantity-one').val();
+      var newValue = parseInt(currValue) + 1
+      $(this).closest('div.input-group').find('.item-quantity-one').val(newValue);
+      $(this).closest('div.modal').find('.checkval').html("Add to Cart");
+      $(this).closest('div.modal').find('.checkval').attr('disabled',false);
+    });
+
+    document.getElementById('close-popup').addEventListener('click', function() {
+      document.getElementById('popup').style.display = 'none';
+    });
+  });
+
+
+</script>
+    <script type="text/javascript">
+      var currentValue = 0;
+      $(document).ready(function(){
+        $(document).on('click', '.btn-subtract', function (e) {
+          e.preventDefault();
+          var currValue = $(this).closest('div.input-group').find('.item-quantity').val();
+          var currValue = $(this).closest('div.input-group').find('.item-quantity').val();
+          currValue -= 1
+          if(currValue >= 0){
+            $(this).closest('div.input-group').find('.item-quantity').val(currValue);
+          }else{
+            $(this).closest('div.input-group').find('.item-quantity').val(currentValue);
+          }
+          var selectedItem = 0;
+          $('.item-quantity').each(function() {
+                if($(this).val() != 0){
+                  selectedItem += parseInt($(this).val());
+                  return selectedItem;
+                }             
+            });
+            totItemOne = selectedItem;
+          $(this).closest('div.modal').find('.checkval').html("Add to Cart");
+          $(this).closest('div.modal').find('.checkval').attr('disabled',false);
+        });
+
+        $(document).on('click', '.btn-add', function (e) {
+          e.preventDefault();
+          var limitVal = $(this).closest('div.modal').find('.item-quantity-one').val();
+          console.log(limitVal);
+          if(totItemOne < (limit * limitVal)){
+            var currValue = $(this).closest('div.input-group').find('.item-quantity').val();
+            var newValue = parseInt(currValue) + 1
+            $(this).closest('div.input-group').find('.item-quantity').val(newValue);
+            var selectedItem = 0;
+            $('.item-quantity').each(function() {
+                  if($(this).val() != 0){
+                    selectedItem += parseInt($(this).val());
+                    return selectedItem;
+                  }             
+              });
+              totItemOne = selectedItem;
+          }else{
+            Swal.fire("Sorry !!", "You can't choose the items more than "+(limit * limitVal));
+          }            
+          $(this).closest('div.modal').find('.checkval').html("Add to Cart");
+          $(this).closest('div.modal').find('.checkval').attr('disabled',false);
+        });
+
+        $(document).on('click', '.btn-subtract-two', function (e) {
+          e.preventDefault();
+          var currValue = $(this).closest('div.input-group').find('.item-quantity-two').val();
+          var currValue = $(this).closest('div.input-group').find('.item-quantity-two').val();
+          currValue -= 1
+          if(currValue >= 0){
+            $(this).closest('div.input-group').find('.item-quantity-two').val(currValue);
+          }else{
+            $(this).closest('div.input-group').find('.item-quantity-two').val(currentValue);
+          }
+          var selectedItem = 0;
+          $('.item-quantity-two').each(function() {
+                if($(this).val() != 0){
+                  selectedItem += parseInt($(this).val());
+                  return selectedItem;
+                }             
+            });
+          totItemTwo = selectedItem;
+          $(this).closest('div.modal').find('.checkval').html("Add to Cart");
+          $(this).closest('div.modal').find('.checkval').attr('disabled',false);
+        });
+
+        $(document).on('click', '.btn-add-two', function (e) {
+          e.preventDefault();
+          var limitVal = $(this).closest('div.modal').find('.item-quantity-one').val();
+          
+          if(totItemTwo < (limitTwo * limitVal)){
+            var currValue = $(this).closest('div.input-group').find('.item-quantity-two').val();
+            var newValue = parseInt(currValue) + 1
+            $(this).closest('div.input-group').find('.item-quantity-two').val(newValue);
+            var selectedItem = 0;
+            $('.item-quantity-two').each(function() {
+                  if($(this).val() != 0){
+                    selectedItem += parseInt($(this).val());
+                    return selectedItem;
+                  }             
+              });
+              totItemTwo = selectedItem;
+          }else{
+            Swal.fire("Sorry !!", "You can't choose the items more than " + (limitTwo * limitVal));
+          }            
+          $(this).closest('div.modal').find('.checkval').html("Add to Cart");
+          $(this).closest('div.modal').find('.checkval').attr('disabled',false);
+        });
+
+        document.getElementById('close-popup').addEventListener('click', function() {
+          document.getElementById('popup').style.display = 'none';
+        });
+      });
+      
+    </script>
+</body>
+</html>
