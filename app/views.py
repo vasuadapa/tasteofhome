@@ -948,7 +948,9 @@ def admin_orders_delivered(request,id):
     return redirect('app:admin_orders')
 
 def admin_todayreport(request):
-    return render(request, 'toh-admin/todayreport.html',{})
+    order_today = Order.objects.filter(order_date=date_1)
+
+    return render(request, 'toh-admin/todayreport.html',{"order_today":order_today})
 def admin_dailyorder(request):
     return render(request, 'toh-admin/dailyorder.html',{})
 

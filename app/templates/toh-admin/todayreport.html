@@ -427,15 +427,21 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                        {% for ordtd in order_today%}
                                             <tr>
-                                                <td>123456</td>
-                                                <td>Srinath</td>
-                                                <td>Dandenong, kkjhkjhd, kjkjh</td>
-                                                <td>Dandenong</td>
-                                                <td>+61123456789</td>
-                                                <td>Rara Chicken 280ml, Veg Kofta 280ml x 3, 3 Rotis + 1 Roti X 3, Paneer Taka Tak 280ml</td>
-                                                <th>Roti x 2</th>
-                                                <th>blah blahhhhh</th>
+                                                <td>{{ordtd.order_id}}</td>
+                                                <td>{{ordtd.user_date.name}}</td>
+                                                <td>{{ordtd.order_address}}</td>
+                                                <td>{{ordtd.order_address_customer.name}}&nbsp;&nbsp;{{ordtd.order_address_customer.code}}</td>
+                                                <td>{{ordtd.user_date.mobile}}</td>
+                                                {% if ordtd.order_type == "Subscription" %}
+                                                <td>{{ordtd.items}}</td>
+                                                <th>{{ordtd.meals_date.single_item}}</th>
+                                                {%else%}
+                                                <td>{{ordtd.meals_date.items}}</td>
+                                                <th>{{ordtd.meals_date.fixed_item}}</th>
+                                                {% endif %}
+                                                <th></th>
                                                 <th>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
@@ -444,6 +450,7 @@
                                                     </div>
                                                 </th>
                                             </tr>
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
