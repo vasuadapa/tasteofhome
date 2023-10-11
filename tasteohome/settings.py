@@ -83,11 +83,11 @@ DATABASES = {
 
         'NAME': 'tasteohome',
 
-        'USER': 'postgres',
+        'USER': 'postgre',
 
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'GL9Upj4LlgaOf8A30sBwlFxxvOlvYU4g',
 
-        'HOST': 'localhost',
+        'HOST': 'dpg-ckjdg8mlv21c73ej2p80-a',
 
         'PORT': '5432',
     }
