@@ -159,6 +159,19 @@ urlpatterns = [
     path('admin-timing/', views.admin_timing, name='admin_timing'),
     path('admin-subrreport/', views.admin_closedate, name='admin_closedate'),
 
+    # footer links
+    path('terms-conditions/', views.terms_conditions, name='terms_conditions'),
+    path('refund-policy/', views.refund_policy, name='refund_policy'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('indian-tiffin-service-springvale-noble-park/', views.indian_tiffin_service_springvale_noble_park, name='indian_tiffin_service_springvale_noble_park'),
+    path('indian-tiffin-service-mount-waverley/', views.indian_tiffin_service_mount_waverley, name='indian_tiffin_service_mount_waverley'),
+    path('indian-tiffin-service-melbourne/', views.indian_tiffin_service_melbourne, name='indian_tiffin_service_melbourne'),
+    path('indian-tiffin-service-hampton-park/', views.indian_tiffin_service_hampton_park, name='indian_tiffin_service_hampton_park'),
+    path('indian-tiffin-service-cranbourne/', views.indian_tiffin_service_cranbourne, name='indian_tiffin_service_cranbourne'),
+    path('indian-tiffin-service-dandenong/', views.indian_tiffin_service_dandenong, name='indian_tiffin_service_dandenong'),
+    path('indian-tiffin-service-clayton-keysborough/', views.indian_tiffin_service_clayton_keysborough, name='indian_tiffin_service_clayton_keysborough'),
+
+
 
 
     ]

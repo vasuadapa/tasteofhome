@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Refund Policy{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Refund Policy{% endblock %}
+{% block htmlbody %}
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                As such all orders and services purchases through Taste Of Home cannot be returned except for wrong order delivery, incomplete orders, and food order errors.
+             </p>
+             <h4>CANCELLATION OF ORDER</h4>
+             <p>
+                Taste Of Home reserves the exclusive right to refuse or cancel any transaction/order that is listed at an incorrect price or are not available. This is enforceable irrespective of order confirmation or payment confirmation. In such events, if the payment has been processed by Taste Of Home, the amount will be refunded via the same mode of original payment and user will be notified of the same with a reasonable mode of communication.
+              </p>
+              <h4>DELIVERY </h4>
+              <p>
+                The title and the risk of the orders shall pass onto you upon Taste Of Home delivering the orders to you and you accepting the orders. Every care shall be taken to deliver the orders to the intended recipient. But Taste Of Home shall not be held responsible for any wrong delivery of the order based on the address given by the User or if any person imposes to be the actual recipient and takes delivery of orders.
+              </p>
+              <h4>FOOD ORDER INCOMPLETE</h4>
+              <p>
+                In the rare occasion that you do not receive food that is on your receipt, we will make it up to you. Please call us or your third-party delivery service as soon as you notice that any food items were not received in your order. You may cancel the missed food before we prepare it without any question, and we will refund the amount to a credit card or we will refund you with a store credit. No cash refunds.</a>
+              </p>
+              <h4>FOOD DISSATISFACTION</h4>
+              <p>
+                We cook our food fresh to order with only the finest and freshest ingredients. We take great care and pride in all of the dishes we make. Refunds and/or replacement food are available upon request for orders in which the food is wrong, omitted and other similar circumstances. Refunds are not typically provided for food that a guest simply does not like.
+              </p>
+              <h4>PICK UP ORDERS</h4>
+              <p>
+                We strive to prepare and package our pick up items to preserve the high quality of the food. To help ensure this, please arrive at the scheduled time confirmed by the restaurant to ensure your order is picked up at the best quality with respect to temperature and freshness. If you are going to arrive after the confirmed pick-up time, please provide notification 15 mins prior to the pick up time. If the customer arrives after the pick up time, without notifications, no refund will be issued.
+              </p>
+              <h4>CANCEL ORDER</h4>
+              <p>
+                Sorry, we cannot cancel, refund or give store credit if you change your mind or mistakenly order an item after the order is prepared. We cannot provide any refund or store credit for non-food items or beverages. Feel free to contact us if you have any questions regarding the Return & Refund Policy by emailing us. We cannot accept cancellations once your order has been confirmed with the restaurant or third party.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+ {% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Indian Tiffin Service Clayton and Keysborough{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Indian Tiffin Service Clayton and Keysborough{% endblock %}
+{% block htmlbody %}
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                Are you a newcomer to the city and craving for home cooked Indian meals? Don't worry, Taste Of India is here to satisfy your taste buds with delicious tiffin service in Clayton & Keysborough.
+             </p>
+             <p>
+                With freshly prepared meals, we bring you the flavour of fine Indian cuisine you were missing here away from home. Regardless of whether you are a working professional or a student, we can provide meals three times a day as needed by you.
+              </p>
+              <p>
+                If you are looking for an Indian tiffin service near me, we are the ones you can rely on with confidence. From vegetarian to non-vegetarian meals, our customers can enjoy a variety of North Indian and South Indian delicacies at an affordable cost.
+              </p>
+              <h2>Healthy & Hot Food Served In Tiffin</h2>
+              <p>
+               With our ready-to-eat Clayton & Keysborough Indian tiffin service, we provide hot and fresh food to people having little to no time for preparing homemade meals. When you place a tiffin order with us or subscribe to any weekly or monthly tiffin delivery, our delivery man will serve you with doorstep delivery.
+              </p>
+              <p>
+                Our food is best in the town, and we never serve the same dishes twice in a row. Some reasons to order your Indian tiffin service in Clayton & Keysborough include:
+              </p>
+              <ul>
+                <li><i class="bx bx-arrow-from-left"></i>Freshly prepared and delicious meals</li>
+                <li><i class="bx bx-arrow-from-left"></i>Little oil used in the preparation</li>
+                <li><i class="bx bx-arrow-from-left"></i>Doorstep delivery and pickup available</li>
+                <li><i class="bx bx-arrow-from-left"></i>Weekly & monthly subscriptions</li>
+                <li><i class="bx bx-arrow-from-left"></i>Wholesome and homemade food</li>
+                <li><i class="bx bx-arrow-from-left"></i>No repetition of dishes for a week</li>
+              </ul>
+              <p>
+                Your health and hygiene is of topmost priority to us, that’s why, we always use the best quality oil, spices, and ingredients. Our chefs always cook fresh and serve with love. If you are looking for a trustworthy Indian tiffin service near me, rely on no other than Taste Of Home.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+{% endblock %}

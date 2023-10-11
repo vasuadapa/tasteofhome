@@ -149,7 +149,10 @@ def contact(request):
 def catering(request):
     cookies = get_cookies(request)
     cat_data = Catering_menu.objects.all().order_by('-id')
-    img_name = cat_data[0].image
+    if cat_data:
+        img_name = cat_data[0].image
+    else:
+        img_name = catering-menu.jpg
     return render(request, 'catering.html', {"cookies": cookies,"img_name":img_name})
 def forgot_password(request):
     cookies = get_cookies(request)
@@ -269,6 +272,7 @@ def subscription_details(request,id):
     order_data = Order.objects.filter(order_id=id).distinct("order_date")
 
     return render(request, 'subscription-details.html',{"order_end_date":order_data[len(order_data)-1].order_date,"order_data_len":len(order_data)-1,"cookies": cookies,"order_data":order_data,"order_id":id})
+
 
 def order_details(request,id):
     cookies = get_cookies(request)
@@ -952,7 +956,12 @@ def admin_todayreport(request):
 
     return render(request, 'toh-admin/todayreport.html',{"order_today":order_today})
 def admin_dailyorder(request):
-    return render(request, 'toh-admin/dailyorder.html',{})
+    order_today = Order.objects.filter(order_date=date_1).filter(payment_status="Not Paid")
+    total_un_paid_amt=0
+    for ordnp in order_today:
+        total_un_paid_amt += float(ordnp.total_amt)
+
+    return render(request, 'toh-admin/dailyorder.html',{"order_today":order_today,"total_un_paid_amt":total_un_paid_amt})
 
 def admin_takeaway_close_time(request):
     if request.method=="POST":
@@ -1723,5 +1732,28 @@ def admin_sign_out(request):
     logout(request)
     response = render(request, 'toh-admin/login.html', {})
     return response
+
+# footer links
+def terms_conditions(request):
+    return render(request, 'terms-conditions.html',{})
+def refund_policy(request):
+    return render(request, 'refund-policy.html',{})
+def privacy_policy(request):
+    return render(request, 'privacy-policy.html',{})
+def indian_tiffin_service_springvale_noble_park(request):
+    return render(request, 'indian-tiffin-service-springvale-noble-park.html',{})
+def indian_tiffin_service_mount_waverley(request):
+    return render(request, 'indian-tiffin-service-mount-waverley.html',{})
+def indian_tiffin_service_melbourne(request):
+    return render(request, 'indian-tiffin-service-melbourne.html',{})
+def indian_tiffin_service_hampton_park(request):
+    return render(request, 'indian-tiffin-service-hampton-park.html',{})
+def indian_tiffin_service_cranbourne(request):
+    return render(request, 'indian-tiffin-service-cranbourne.html',{})
+def indian_tiffin_service_dandenong(request):
+    return render(request, 'indian-tiffin-service-dandenong.html',{})
+def indian_tiffin_service_clayton_keysborough(request):
+    return render(request, 'indian-tiffin-service-clayton-keysborough.html',{})
+
 
 

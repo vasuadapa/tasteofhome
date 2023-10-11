@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Indian Tiffin Service Cranbourne{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Indian Tiffin Service Cranbourne{% endblock %}
+{% block htmlbody %}
+
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                Taste Of Home is one of the best Indian tiffin service in Cranbourne serving freshly prepared and perfectly cooked meals. We proudly deliver tiffin to those craving authentic Indian dishes while away from home, be it students or working professionals. No matter, what time of the day or night you order, we always deliver homemade food prepared with love.
+             </p>
+             <p>
+               Looking for the best Indian tiffin service near me? We have got you covered with chefs having years of experience in cooking good food and tiffin delivery at reasonable prices. To make sure you always get hot and fresh food every time, pickup service directly from our facility is also available.
+              <p>
+               Whether you have love for vegetarian or non-vegetarian food, we have meal options for both. Our sumptuous meals are enough to satisfy your hunger pangs. If you want Cranbourne tiffin service, just give us a call, let us know your meal choice of veg or non-veg food, and the time you want tiffin delivery. Our team will surely reach of time with hot sizzling food packed hygienically. 
+              </p>
+              </p>
+              <h2>Authentic Indian Meals Delivered in Tiffin</h2>
+              <p>
+                With tiffin from Taste Of Home, rest assured that everything you’ll get is hot, nutritious, healthy, and freshly prepared with the best produce, local ingredients, Indian spices, and organic herbs. Our tiffin is available at a low cost and served Monday to Friday.
+              </p>
+              <p>
+                Our non-vegetarian meal comprises one non-veg dish, one seasonal vegetable, lentil, rice and roti. Our vegetarian meal comprises two seasonal vegetables, lentil, rice, raita and rotis served hot. Salads and chutneys are available at an extra cost.
+              </p>
+              <ul>
+                <li><i class="bx bx-arrow-from-left"></i>Value for money</li>
+                <li><i class="bx bx-arrow-from-left"></i>Affordable pricing</li>
+                <li><i class="bx bx-arrow-from-left"></i>Doorstep delivery</li>
+                <li><i class="bx bx-arrow-from-left"></i>Pickup available</li>
+                <li><i class="bx bx-arrow-from-left"></i>Weekly & monthly packages</li>
+                <li><i class="bx bx-arrow-from-left"></i>Homemade meals</li>
+              </ul>
+              <p>
+                Our family roots inspire us and we want to excel at it with fusion of exotic meals that combine traditional cooking methods and popular recipes. Whether it's a holiday or bad weather outside, we will always be on time with a hot and healthy meal cooked with love. For best Indian tiffin service near me, you can rely on Taste Of Home.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+{% endblock %}

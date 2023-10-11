@@ -53,7 +53,7 @@
       <div class="logo me-auto">
         <!-- <h1><a href="index.html">Taste of Home</a></h1> -->
         
-         <a href="index.html"><img src="{% static 'img/logo.png' %}" alt="" class="img-fluid"></a>
+         <a href="{% url 'app:index' %}"><img src="{% static 'img/logo.png' %}" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
@@ -229,12 +229,12 @@
         <div class="col-lg-4">
           <h4>More Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Refund Policy</a></li>
+            <li><a href="{% url 'app:index' %}">Home</a></li>
+            <li><a href="{% url 'app:about' %}">About</a></li>
+            <li><a href="{% url 'app:contact' %}">Contact</a></li>
+            <li><a href="{% url 'app:privacy_policy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'app:terms_conditions' %}">Terms & Conditions</a></li>
+            <li><a href="{% url 'app:refund_policy' %}">Refund Policy</a></li>
           </ul>
         </div>
       </div>

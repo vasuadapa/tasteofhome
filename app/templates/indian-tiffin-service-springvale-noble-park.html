@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Indian Tiffin Service Springvale and Noble Park{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Indian Tiffin Service Springvale and Noble Park{% endblock %}
+{% block htmlbody %}
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                Tired after a hectic day at work and craving for a delicious and wholesome meal? Want a hot Indian tiffin service in Springvale and Noble Park? If so, Taste Of Home is available next door to assist you. We are loved and trusted by students and adults looking for home-style food away from home. Our chefs prepare fresh Indian cuisine that is both healthy and nutritious to keep your hunger pangs away. For wholesome Indian tiffin service in Springvale and Noble Park, rely on no other than us.
+             </p>
+             <p>
+               With fresh ingredients and mild spices, we serve authentic vegetarian and non-vegetarian meals to satiate your taste buds. Our main course tiffin meals include a non-veg dish, lentil, roti, rice, and a dessert for non-veg meals and a veg dish, lentil, roti, rice, and a dessert for a veg meal. We are the ones to choose if you are looking for a delicious Indian tiffin service near me.
+              </p>
+              <h2>Delicious Yet Reasonable Indian Tiffin Service</h2>
+              <p>
+                Whether you wish to order lunch or dinner tiffin, our chefs always serve hot, fresh, nutritious, and healthy meals from Monday to Friday. We promise not to serve repetitive dishes for a week. Our delivery guy is always on time, no matter what time of the day or night it is. Some benefits of placing an order with us include:
+              </p>
+              <ul>
+                <li><i class="bx bx-arrow-from-left"></i>Fresh and wholesome meals</li>
+                <li><i class="bx bx-arrow-from-left"></i>Reasonable costs</li>
+                <li><i class="bx bx-arrow-from-left"></i>Discount on monthly subscriptions</li>
+                <li><i class="bx bx-arrow-from-left"></i>No repetitive dishes for a week</li>
+                <li><i class="bx bx-arrow-from-left"></i>Authentic Indian taste</li>
+                <li><i class="bx bx-arrow-from-left"></i>Veg and non-veg meals</li>
+                <li><i class="bx bx-arrow-from-left"></i>Convenient doorstep delivery</li>
+                <li><i class="bx bx-arrow-from-left"></i>Pick-up available</li>
+              </ul>
+              <h2>Springvale's Best Indian Tiffin Service</h2>
+              <p>
+                In order to prepare the best Indian tiffin in Noble Park and Springvale, we use quality cooking oil, fresh ingredients, Indian spices, and local produce. Our chefs who are inspired by the Indian cuisine and its rich flavours have years of culinary experience that allows them to prepare the best Indian tiffin in Noble Park and Springvale.
+              </p>
+              <p>
+                We place a high priority on our clients' health and hygiene and cook tiffin with great love and care so that it tastes better than they could have imagined.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+{% endblock %}

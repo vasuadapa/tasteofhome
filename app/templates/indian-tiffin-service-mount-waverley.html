@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Indian Tiffin Service Mount Waverley{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Indian Tiffin Service Mount Waverley{% endblock %}
+{% block htmlbody %}
+
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                Are you looking for the best Indian tiffin service in Mount Waverley? Craving for a hot tiffin with delicious homemade meals? If yes, Taste Of Home has got you covered. With expert chefs who have years of experience cooking good food, we deliver hot and healthy tiffin to students, workers, and all those craving homemade Indian food. Whatsoever your meal choice is, we serve both vegetarian and non-vegetarian tiffin at an affordable cost.
+             </p>
+             <p>
+                To provide you with delicious tiffin service Mount Waverley, we select the best local ingredients, Indian spices, and fresh herbs to ensure you get healthy and nutritious food that is worth every dollar spent. Our tiffin are reasonably priced and served Monday to Friday with weekly and monthly subscriptions available.
+              </p>
+              <h2>Best Indian Veg & Non-veg Tiffin Service</h2>
+              <p>
+                If you're looking for an Indian tiffin service near me, look no further than Taste Of Home. Our chefs take pride in serving rich Indian cuisine with an exotic homemade flavour you are craving for. We deliver at your convenience; no matter what time of day or night you are available. You can even arrange for a pick-up from our facility. With us, you get:
+              </p>
+              <ul>
+                <li><i class="bx bx-arrow-from-left"></i>Veg and non-veg meals</li>
+                <li><i class="bx bx-arrow-from-left"></i>Tiffin delivery</li>
+                <li><i class="bx bx-arrow-from-left"></i>Pick-up service</li>
+                <li><i class="bx bx-arrow-from-left"></i>Homemade fresh meals</li>
+              </ul>
+              <p>
+                Do you need hot and fresh food? Why wait when you can place your tiffin order today and have it delivered within an hour. Our goal is to provide you with a healthy and nutritious home-cooked meal at a reasonable and affordable price. Our Mount Waverley Indian tiffin service is second to none and recommended by most of the locals.
+              </p>
+              <p>
+                We never serve the same dish twice in a row and guarantee hot tiffin delivery every time you place an order. Our delivery guy is always on time and delivers according to your schedule and convenience.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+{% endblock %}

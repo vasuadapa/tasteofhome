@@ -329,7 +329,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-sm-12 col-md-8">
-                                    <h6 class="m-0 font-weight-bold  d-inline text-primary">Unpaid-Amount: $0.00</h6>
+                                    <h6 class="m-0 font-weight-bold  d-inline text-primary">Unpaid-Amount: $&nbsp;{{total_un_paid_amt}}</h6>
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-right">
                                   
@@ -366,16 +366,17 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    {% for ordtd in order_today%}
                                         <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <td>{{ordtd.user_date.mobile}}</td>
+                                           <td>{{ordtd.user_date.name}}</td><td>{{ordtd.order_address}}</td>
+                                            <td>{{ordtd.order_address_customer.name}}&nbsp;&nbsp;{{ordtd.order_address_customer.code}}</td>
+                                            <td>{{ordtd.total_amt}}</td>
+                                            <td>{{ordtd.order_date}}</td>
+                                            <td>{{ordtd.updated_at}}</td>
                                             <th></th>
                                         </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Indian Tiffin Service Dandenong{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Indian Tiffin Service Dandenong{% endblock %}
+{% block htmlbody %}
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                Are you looking for a monthly Indian tiffin service in Dandenong? Do you want homemade veg or non-veg tiffin delivered right at your doorstep? If yes, order it from Taste Of Home. As our name depicts, we prepare fresh home cooked meals with a taste that reminds you of home. Living away from your family, we know how badly you miss everything, right from people to food.
+             </p>
+             <p>
+               To make sure you get healthy and nutritious food, we select the best local ingredients, Indian spices, and fresh garnishing to provide you the best Indian tiffin service Dandenong. Our tiffin are available at a low cost and served Monday to Friday.
+              </p>
+              <h2>Preparing Fresh & Healthy Food Everyday</h2>
+              <p>
+                Whether you are a student or a working individual, we promise to serve hot and fresh Dandenong Indian tiffin service every time you need. Both vegetarian and non-vegetarian options are available with one non-veg item, one seasonal vegetable, lentil, and rotis for a non-veg meal and two seasonal vegetables, lentil, and rotis served with cool raita for veg meal. Salads and chutneys are also available at an extra cost.
+              </p>
+              <ul>
+                <li><i class="bx bx-arrow-from-left"></i>Veg & Non-veg Options</li>
+                <li><i class="bx bx-arrow-from-left"></i>Home Delivery</li>
+                <li><i class="bx bx-arrow-from-left"></i>Freshly Prepared Food</li>
+                <li><i class="bx bx-arrow-from-left"></i>Pick-up Available</li>
+                <li><i class="bx bx-arrow-from-left"></i>Authentic Indian taste</li>
+                <li><i class="bx bx-arrow-from-left"></i>Homemade Meals</li>
+              </ul>
+              <p>
+                If you are looking for the best Indian tiffin service near me, your search ends here at Taste Of Home. Our chefs pride themselves for delivering the rich Indian food with the homemade taste you were craving for. No matter, at what time of the day or night you are available, we are a reputed Indian tiffin service near me that delivers as per your convenience. You can even schedule a pick-up.
+              </p>
+              <p>
+                Our goal is to make sure you get healthy and nutritious home cooked meal at a price that is economical and affordable. Need hot food? Why wait, place your tiffin order today and get your food delivered within an hour. We bet you’ll definitely love everything packed in it.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+{% endblock %}

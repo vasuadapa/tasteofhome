@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Taste Of Home | Indian Tiffin Service Hampton Park{% endblock %}
+{% block nav %}
+
+      {% if cookies.get_name == None or cookies.get_name == "" %}
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+<!--          <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>-->
+          <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+          <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+        <a href="{% url 'app:login' %}" class="book-a-table-btn scrollto">Login</a>
+      {% else %}
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link" href="{% url 'app:index' %}">Home</a></li>
+              <li><a class="nav-link active" href="{% url 'app:about' %}">About</a></li>
+              <li><a class="nav-link" href="{% url 'app:menu' %}">Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:catering' %}">Catering Menu</a></li>
+              <li><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         <div class="dropdown p-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {{cookies.get_name}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'app:user_admin' %}">Dashboard</a>
+          <a class="dropdown-item" href="{% url 'app:sign_out' %}">Logout</a>
+        </div>
+      </div>
+      {% endif %}
+{% endblock %}
+{% block head %}Indian Tiffin Service Hampton Park{% endblock %}
+{% block htmlbody %}
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-stretch">
+            <div class="content">
+              
+              <p>
+                Need home cooked meals in Hampton Park? Taste Of Home is your best choice for fresh and delectable Indian tiffin service in Hampton Park. We deliver homemade Indian meals to people who are craving authentic homemade food away from home. No matter, what your meal choices are, our goal is to provide students, working professionals, and almost everyone with hot, healthy, and delicious meals cooked to perfection by our chefs.
+             </p>
+             <p>
+                From Monday to Friday tiffin to once in a week or month, we have crafted a package of weekly and monthly tiffin subscriptions at reasonable rates. Every order is perfectly packed in a hot case to make sure it is served hot and fresh. If you are in need of Indian tiffin service near me, we are the ones to trust on. Our delivery guy is always on time with properly packed tiffin containing good food.
+              </p>
+              <h2>Fresh, Hot, & Healthy Tiffin Service</h2>
+              <p>
+                We always cook something different on every day of the week, this means there is no repetition of dishes. Our tiffin consist of two veggies, lentils, roti, and raita for veg options and one veggie, one non-veg dish, lentil, roti, and raita for non-veg meal. Rice and dessert can be added on request. Salads and chutneys are complimentary. With us, you get:
+              </p>
+              <ul>
+                <li><i class="bx bx-arrow-from-left"></i>Meals With Fresh Ingredients</li>
+                <li><i class="bx bx-arrow-from-left"></i>Authentic Indian Flavors</li>
+                <li><i class="bx bx-arrow-from-left"></i>Multiple Food Options</li>
+                <li><i class="bx bx-arrow-from-left"></i>Convenience of Delivery</li>
+              </ul>
+              <p>
+                Our meals are sprinkled with a touch of deliciousness because everything is picked fresh and cooked with love. This makes Hampton Park Indian tiffin services among one of the best in the region.
+              </p>
+              <p>
+                Not only this, our homemade Indian-style cooked food will undoubtedly remind you of the taste you are missing away from home. No need to munch on snacks, place your tiffin order with us and enjoy delicious food in the comfort of your home. Call us right away for the best tiffin service in Hampton Park.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+{% endblock %}
