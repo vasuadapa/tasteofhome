@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'tasteohome.wsgi.application'
 DATABASES = {
     'default': {
 
-        'ENGINE': 'dpg-ckjdg8mlv21c73ej2p80-a.oregon-postgres.render.com',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
         'NAME': 'tasteohome',
 
@@ -87,7 +87,7 @@ DATABASES = {
 
         'PASSWORD': 'GL9Upj4LlgaOf8A30sBwlFxxvOlvYU4g',
 
-        'HOST': 'dpg-ckjdg8mlv21c73ej2p80-a',
+        'HOST': 'dpg-ckjdg8mlv21c73ej2p80-a.oregon-postgres.render.com',
 
         'PORT': '5432',
     }
