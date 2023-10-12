@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-r8qgq=93%=p)*^wfbnqazu48dl-kvaymdd7k5cq1k@5^ak3w7j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -76,22 +77,26 @@ WSGI_APPLICATION = 'tasteohome.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#
+#         'NAME': 'tasteohome',
+#
+#         'USER': 'postgre',
+#
+#         'PASSWORD': 'GL9Upj4LlgaOf8A30sBwlFxxvOlvYU4g',
+#
+#         'HOST': 'dpg-ckjdg8mlv21c73ej2p80-a',
+#
+#         'PORT': '5432',
+#     }
+# }
+import os
+
 DATABASES = {
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'tasteohome',
-
-        'USER': 'postgre',
-
-        'PASSWORD': 'GL9Upj4LlgaOf8A30sBwlFxxvOlvYU4g',
-
-        'HOST': 'dpg-ckjdg8mlv21c73ej2p80-a',
-
-        'PORT': '5432',
-    }
-}
+    'default': dj_database_url.parse|os.environ.get("postgres://postgre:GL9Upj4LlgaOf8A30sBwlFxxvOlvYU4g@dpg-ckjdg8mlv21c73ej2p80-a.oregon-postgres.render.com/tasteofhome")}
 
 
 # Password validation

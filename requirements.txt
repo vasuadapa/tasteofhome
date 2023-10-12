@@ -7,3 +7,5 @@ psycopg2
 django_rest_framework
 requests
 uvicorn
+gunicorn
+dj_database_url
