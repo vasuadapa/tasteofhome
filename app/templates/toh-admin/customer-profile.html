@@ -617,6 +617,10 @@
                                         <div class="col-sm-12 col-md-4 text-right">
                                             <h4>$ {{un_paid_amt}}</h4>
                                         </div>
+                                        <div class="col-sm-12 col-md-4 text-right">
+                                            <a href="cust-due-orders.html"><button type="button" class="btn btn-info btn-sm">Send Reminder Mail</button></a>
+                                            <a href="cust-due-orders.html"><button type="button" class="btn btn-danger btn-sm">PDF</button></a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -640,7 +644,9 @@
                                                     <td>{{np.created_at}}</td>
                                                     <td>{{np.user_date.name}}</td>
                                                     <td>{{np.total_amt}}</td>
-                                                    <td></td>
+                                                    <td><a href="cust-due-orders.html"><span class="orderdet"><span class="refunds badge badge-danger">Send Reminder</span></a>
+                                                        <span class="orderdet"><span class="refunds badge badge-success">Mark as Paid</span>
+                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
