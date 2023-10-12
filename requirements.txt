@@ -6,3 +6,4 @@ regex==2021.7.6
 psycopg2
 django_rest_framework
 requests
+uvicorn
