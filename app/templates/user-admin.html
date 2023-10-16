@@ -106,7 +106,7 @@
   <div class="container position-relative">
       <div class="row">
         <h1 class="section-header">Profile</h1>
-        <p class="text-white">Welcome User Name</p>
+        <p class="text-white">Welcome {{cookies.get_name}}</p>
       </div>
   </div>
 </section><!-- End Hero -->
@@ -119,7 +119,7 @@
           <img src="{% static 'img/thumbnail.png' %}" class="img-thumbnail border-0" width="100px" />
         </div>
         <div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
-          <h4 class="text-primary">User Name</h4>
+          <h4 class="text-primary">{{cookies.get_name}}</h4>
           <!-- <h5 class="text-info">Photographer</h5> -->
           <p class="text-right m-0"><a href="#" class="btn btn-primary btn-sm"><i class="bx bx-bell"></i>&nbsp;Notification <span class="badge badge-light">0</span></a></p>
         </div>
@@ -529,8 +529,8 @@
           <h4>Taste of Home</h4>
           <a href="{% url 'app:index' %}"><img src="{% static 'img/logo.png' %}" alt="Taste of Home" class="img-fluid" width="40%"></a>
           <div class="social-links">
-            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="https://www.facebook.com/TOHMelb/" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="https://www.instagram.com/tasteofhomemelb/" class="instagram"><i class="bx bxl-instagram"></i></a>
           </div>
         </div>
         <div class="col-lg-4">

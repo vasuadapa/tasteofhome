@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -99,11 +99,11 @@ DATABASES = {
 #
 #         'NAME': 'tasteohome',
 #
-#         'USER': 'postgre',
+#         'USER': 'postgres',
 #
-#         'PASSWORD': 'GL9Upj4LlgaOf8A30sBwlFxxvOlvYU4g',
+#         'PASSWORD': 'postgres',
 #
-#         'HOST': 'dpg-ckjdg8mlv21c73ej2p80-a',
+#         'HOST': 'localhost',
 #
 #         'PORT': '5432',
 #     }

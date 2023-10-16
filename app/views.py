@@ -152,7 +152,7 @@ def catering(request):
     if cat_data:
         img_name = cat_data[0].image
     else:
-        img_name = catering-menu.jpg
+        img_name = "None"
     return render(request, 'catering.html', {"cookies": cookies,"img_name":img_name})
 def forgot_password(request):
     cookies = get_cookies(request)
@@ -337,7 +337,7 @@ def register(request):
                 user.save()
                 try:
                     to = (email,)
-                    subject = 'welcome to Teohome'
+                    subject = 'welcome to Tasteofhome'
                     message = f'Hi, thank you for Registering'
                     email_from = settings.EMAIL_HOST_USER
                     recipient_list = to
@@ -386,15 +386,18 @@ def profile_update(request):
         mobile = request.POST['mobile']
         password = request.POST['password']
 
-        image = request.FILES['filename']
-        static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-        image_path = os.path.join(static_folder, 'images', image.name)
-        with open(image_path, 'wb') as f:
-            for chunk in image.chunks():
-                f.write(chunk)
+        try:
+            image = request.FILES['filename']
+            static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+            image_path = os.path.join(static_folder, 'images', image.name)
+            with open(image_path, 'wb') as f:
+                for chunk in image.chunks():
+                    f.write(chunk)
 
-        image_name = image.name.split(".")
-        img_name = image_name[0] + dt_string + "." + image_name[1]
+            image_name = image.name.split(".")
+            img_name = image_name[0] + dt_string + "." + image_name[1]
+        except:
+            img_name = ''
 
         user_data = User_data.objects.filter(email=email).last()
         user_data.name = name

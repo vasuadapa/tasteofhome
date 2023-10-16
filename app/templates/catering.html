@@ -47,7 +47,13 @@
       <div class="col-md-3">
       </div>
       <div class="col-md-6">
-        <img class="cater-img" src="../static/images/{{img_name}}" img-responsive>
+          {% if img_name == "None" %}
+          <br>
+          <p class="text-center"><b>No data to show</b></p>
+          <br>
+          {% else %}
+            <img class="cater-img" src="../static/images/{{img_name}}" img-responsive>
+          {% endif %}
       </div>
       <div class="col-md-3">
       </div>
