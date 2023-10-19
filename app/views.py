@@ -466,38 +466,51 @@ from datetime import datetime, timedelta, time,date
 
 # admin dashboard functions
 def admin_index(request):
-    today_start = datetime.combine(date_now, time())
-    total_users = User_data.objects.filter(user_type="Customer")
-    suburb_data = Code.objects.all()
-    user_data_active = User_data.objects.filter(active="Active")
-    today_users = User_data.objects.filter(created_at__year=date_now.year, created_at__month=date_now.month, created_at__day=date_now.day)
-    context = {"total_users": len(total_users),
-               "today_users": len(today_users),
-               "suburb_data":suburb_data,
-               "user_data_active":user_data_active
-               }
-    return render(request, 'toh-admin/index.html',context)
+    cookies = get_cookies(request)
+    try:
+        if cookies['admin-type'] == "Admin":
+            today_start = datetime.combine(date_now, time())
+            total_users = User_data.objects.filter(user_type="Customer")
+            suburb_data = Code.objects.all()
+            user_data_active = User_data.objects.filter(active="Active")
+            today_users = User_data.objects.filter(created_at__year=date_now.year, created_at__month=date_now.month, created_at__day=date_now.day)
+            context = {"total_users": len(total_users),
+                       "today_users": len(today_users),
+                       "suburb_data":suburb_data,
+                       "user_data_active":user_data_active
+                       }
+            return render(request, 'toh-admin/index.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_categories(request):
-    if request.method=="POST":
-        categories = request.POST['categories']
-        category = Category.objects.filter(name=categories)
-        category_data = Category.objects.filter(status=0)
-        context = {"category_data": category_data,
-                   }
-        if category:
-            messages.success(request, 'Categories already added...')
+    cookies = get_cookies(request)
+    try:
+        if cookies['admin-type'] == "Admin":
+            if request.method=="POST":
+                categories = request.POST['categories']
+                category = Category.objects.filter(name=categories)
+                category_data = Category.objects.filter(status=0)
+                context = {"category_data": category_data,
+                           }
+                if category:
+                    messages.success(request, 'Categories already added...')
+                else:
+                    category_data = Category(name=categories)
+                    category_data.save()
+                    messages.success(request, 'Categories added successfully...')
+                return render(request, 'toh-admin/Categories.html', context)
+            else:
+                category_data = Category.objects.filter(status=0)
+                messages.success(request, '')
+                context = {"category_data":category_data,}
+                return render(request, 'toh-admin/Categories.html',context)
         else:
-            category_data = Category(name=categories)
-            category_data.save()
-            messages.success(request, 'Categories added successfully...')
-        return render(request, 'toh-admin/Categories.html', context)
-    else:
-        category_data = Category.objects.filter(status=0)
-        messages.success(request, '')
-        context = {"category_data":category_data,}
-        return render(request, 'toh-admin/Categories.html',context)
-
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 @csrf_exempt
 def admin_categories_edit(request):
     id = request.POST['id']
@@ -511,64 +524,85 @@ def admin_categories_edit(request):
     return render(request, 'toh-admin/Categories.html', {})
 
 def admin_categories_ed(request):
-    if request.method == "POST":
-        id = request.POST['cat_id']
-        category_data = Category.objects.filter(id=id).last()
-        category_data.name = request.POST['edit_categories']
-        category_data.save()
-        category_dt = Category.objects.filter(status=0)
-        context = {"category_data": category_dt, }
-        messages.success(request, 'Categories edit successfully.')
-        return render(request, 'toh-admin/Categories.html', context)
-    else:
-        category_dt = Category.objects.filter(status=0)
-        context = {"category_data": category_dt, }
-        return render(request, 'toh-admin/Categories.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                id = request.POST['cat_id']
+                category_data = Category.objects.filter(id=id).last()
+                category_data.name = request.POST['edit_categories']
+                category_data.save()
+                category_dt = Category.objects.filter(status=0)
+                context = {"category_data": category_dt, }
+                messages.success(request, 'Categories edit successfully.')
+                return render(request, 'toh-admin/Categories.html', context)
+            else:
+                category_dt = Category.objects.filter(status=0)
+                context = {"category_data": category_dt, }
+                return render(request, 'toh-admin/Categories.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_categories_delete(request,id):
-    category_data = Category.objects.filter(id=id).last()
-    category_data.status = 2
-    category_data.save()
-    category_data = Category.objects.filter(status=0)
-    context = {"category_data": category_data,
-               }
-    messages.success(request, 'Categories deleted successfully.')
-    return render(request, 'toh-admin/Categories.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            category_data = Category.objects.filter(id=id).last()
+            category_data.status = 2
+            category_data.save()
+            category_data = Category.objects.filter(status=0)
+            context = {"category_data": category_data,
+                       }
+            messages.success(request, 'Categories deleted successfully.')
+            return render(request, 'toh-admin/Categories.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_items(request):
-    category_data = Category.objects.filter(status=0).distinct()
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            category_data = Category.objects.filter(status=0).distinct()
 
-    if request.method == "POST":
-        category = request.POST['category']
-        name = request.POST['name']
-        price = request.POST['price']
-        description = request.POST['description']
-        delivery_type = request.POST['delivery_type']
-        category_dt = Category.objects.filter(id=category).last()
+            if request.method == "POST":
+                category = request.POST['category']
+                name = request.POST['name']
+                price = request.POST['price']
+                description = request.POST['description']
+                delivery_type = request.POST['delivery_type']
+                category_dt = Category.objects.filter(id=category).last()
 
-        menu = Menu.objects.filter(category=category_dt).filter(name=request.POST['name']).filter(price=request.POST['price'])
-        if menu:
-            messages.success(request, 'Item already added')
+                menu = Menu.objects.filter(category=category_dt).filter(name=request.POST['name']).filter(price=request.POST['price'])
+                if menu:
+                    messages.success(request, 'Item already added')
+                else:
+                    try:
+                        image = request.FILES['filename']
+                        static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                        image_path = os.path.join(static_folder, 'images', image.name)
+                        image_name = image.name
+                        with open(image_path, 'wb') as f:
+                            for chunk in image.chunks():
+                                f.write(chunk)
+                    except:
+                        image_name = ''
+                    item_data = Menu(name=name,price=price,image=image_name,description=description,category=category_dt,delivery_type=delivery_type)
+                    item_data.save()
+                    messages.success(request, 'Item added successfully...')
+
+            menu_data = Menu.objects.filter(status=0)
+            context = {"category_data": category_data,
+                       "menu_data": menu_data,
+                       }
+            return render(request, 'toh-admin/items.html',context)
         else:
-            try:
-                image = request.FILES['filename']
-                static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-                image_path = os.path.join(static_folder, 'images', image.name)
-                image_name = image.name
-                with open(image_path, 'wb') as f:
-                    for chunk in image.chunks():
-                        f.write(chunk)
-            except:
-                image_name = ''
-            item_data = Menu(name=name,price=price,image=image_name,description=description,category=category_dt,delivery_type=delivery_type)
-            item_data.save()
-            messages.success(request, 'Item added successfully...')
-
-    menu_data = Menu.objects.filter(status=0)
-    context = {"category_data": category_data,
-               "menu_data": menu_data,
-               }
-    return render(request, 'toh-admin/items.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 @csrf_exempt
 def admin_item_ajax_edit(request):
@@ -591,55 +625,69 @@ def admin_item_ajax_edit(request):
     return render(request, 'toh-admin/Categories.html', {})
 
 def admin_item_edit(request):
-    category_dt = Category.objects.filter(status=0).distinct()
-    if request.method == "POST":
-        id = request.POST['item_id']
-        aj_item = request.POST['aj_item']
-        aj_category = request.POST['aj_category']
-        aj_price = request.POST['aj_price']
-        aj_description = request.POST['aj_description']
-        aj_item_old_img = request.FILES['aj_item_old_img']
-        aj_item_img = request.POST['item_img']
-        aj_delivery_type = request.POST['aj_delivery_type']
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            category_dt = Category.objects.filter(status=0).distinct()
+            if request.method == "POST":
+                id = request.POST['item_id']
+                aj_item = request.POST['aj_item']
+                aj_category = request.POST['aj_category']
+                aj_price = request.POST['aj_price']
+                aj_description = request.POST['aj_description']
+                aj_item_old_img = request.FILES['aj_item_old_img']
+                aj_item_img = request.POST['item_img']
+                aj_delivery_type = request.POST['aj_delivery_type']
 
-        category_data = Category.objects.filter(id=aj_category).last()
-        item_data = Menu.objects.filter(id=id).last()
-        item_data.name = aj_item
-        item_data.category = category_data
-        item_data.price = aj_price
-        item_data.description = aj_description
-        item_data.delivery_type = aj_delivery_type
-        if ((aj_item_old_img== "") or (aj_item_old_img== None)):
-            item_data.image = aj_item_img
+                category_data = Category.objects.filter(id=aj_category).last()
+                item_data = Menu.objects.filter(id=id).last()
+                item_data.name = aj_item
+                item_data.category = category_data
+                item_data.price = aj_price
+                item_data.description = aj_description
+                item_data.delivery_type = aj_delivery_type
+                if ((aj_item_old_img== "") or (aj_item_old_img== None)):
+                    item_data.image = aj_item_img
+                else:
+                    image = aj_item_old_img
+                    static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                    image_path = os.path.join(static_folder, 'images', image.name)
+                    with open(image_path, 'wb') as f:
+                        for chunk in image.chunks():
+                            f.write(chunk)
+                    item_data.image = image.name
+                item_data.save()
+                item_dt = Menu.objects.filter(status=0)
+                context = {"menu_data": item_dt, "category_data":category_dt}
+                messages.success(request, 'Item edit successfully.')
+                return render(request, 'toh-admin/items.html',context)
+            else:
+                item_dt = Menu.objects.filter(status=0)
+                context = {"category_data": category_dt,
+                           "menu_data": item_dt,
+                           }
+                return render(request, 'toh-admin/items.html',context)
         else:
-            image = aj_item_old_img
-            static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-            image_path = os.path.join(static_folder, 'images', image.name)
-            with open(image_path, 'wb') as f:
-                for chunk in image.chunks():
-                    f.write(chunk)
-            item_data.image = image.name
-        item_data.save()
-        item_dt = Menu.objects.filter(status=0)
-        context = {"menu_data": item_dt, "category_data":category_dt}
-        messages.success(request, 'Item edit successfully.')
-        return render(request, 'toh-admin/items.html',context)
-    else:
-        item_dt = Menu.objects.filter(status=0)
-        context = {"category_data": category_dt,
-                   "menu_data": item_dt,
-                   }
-        return render(request, 'toh-admin/items.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_items_delete(request,id):
-    item_data = Menu.objects.filter(id=id).last()
-    item_data.status = 2
-    item_data.save()
-    menu_data = Menu.objects.filter(status=0)
-    context = {"menu_data": menu_data,
-               }
-    messages.success(request, 'Item deleted successfully.')
-    return render(request, 'toh-admin/items.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            item_data = Menu.objects.filter(id=id).last()
+            item_data.status = 2
+            item_data.save()
+            menu_data = Menu.objects.filter(status=0)
+            context = {"menu_data": menu_data,
+                       }
+            messages.success(request, 'Item deleted successfully.')
+            return render(request, 'toh-admin/items.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def all_day_meals():
     meal_dt_mon = Meals.objects.filter(status=0).filter(day="Monday").order_by('-id')
     meal_dt_tues = Meals.objects.filter(status=0).filter(day="Tuesday").order_by('-id')
@@ -651,74 +699,88 @@ def all_day_meals():
     all_meal_data = {"meal_dt_mon":meal_dt_mon,"meal_dt_tues":meal_dt_tues,"meal_dt_wed":meal_dt_wed,"meal_dt_thu":meal_dt_thu,"meal_dt_fri":meal_dt_fri,"meal_dt_sat":meal_dt_sat,"meal_dt_sun":meal_dt_sun}
     return all_meal_data
 def admin_meals(request):
-    category_data = Category.objects.filter(status=0).distinct()
-    item_data = Menu.objects.filter(status=0).values('name').distinct()
-    if request.method == "POST":
-        day = request.POST['day']
-        category = request.POST['category']
-        items = request.POST.getlist('items')
-        items1 = request.POST.getlist('itemsfixed')
-        qty = request.POST['qty']
-        fix_item_qty = request.POST['fix_item_qty']
-        price = request.POST['price']
-        meal_text = request.POST['meal_text']
-        description = request.POST['description']
-        select_delivery_type = request.POST['select_delivery_type']
-        delivery_price = request.POST['delivery_price']
-        category_dt = Category.objects.filter(id=category).last()
-        items_con = ""
-        items1_con = ""
-        if len(items) > 1:
-            for k in items:
-                items_con += k +"+"
-        elif len(items) == 1:
-            items_con = items[0]
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            category_data = Category.objects.filter(status=0).distinct()
+            item_data = Menu.objects.filter(status=0).values('name').distinct()
+            if request.method == "POST":
+                day = request.POST['day']
+                category = request.POST['category']
+                items = request.POST.getlist('items')
+                items1 = request.POST.getlist('itemsfixed')
+                qty = request.POST['qty']
+                fix_item_qty = request.POST['fix_item_qty']
+                price = request.POST['price']
+                meal_text = request.POST['meal_text']
+                description = request.POST['description']
+                select_delivery_type = request.POST['select_delivery_type']
+                delivery_price = request.POST['delivery_price']
+                category_dt = Category.objects.filter(id=category).last()
+                items_con = ""
+                items1_con = ""
+                if len(items) > 1:
+                    for k in items:
+                        items_con += k +"+"
+                elif len(items) == 1:
+                    items_con = items[0]
+                else:
+                    items_con = ''
+
+                if items_con[-1] == "+":
+                    items_con = items_con[:len(items_con) - 1]
+
+                if len(items1) > 1:
+                    for l in items1:
+                        items1_con += l +"+"
+                elif len(items1) == 1:
+                    items1_con = items[0]
+                else:
+                    items1_con = ''
+
+                if items1_con[-1] == "+":
+                    items1_con = items1_con[:len(items_con) - 1]
+
+                try:
+                    image = request.FILES['image']
+                    static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                    image_path = os.path.join(static_folder, 'images', image.name)
+                    with open(image_path, 'wb') as f:
+                        for chunk in image.chunks():
+                            f.write(chunk)
+                    image_name = image.name
+                except:
+                    image_name = ""
+                meal_data = Meals(name=category_dt, item=items_con, fixed_item=items1_con, fixed_item_quantity=fix_item_qty,description=description,image=image_name, day=day ,price=price, qty=qty,meal_text=meal_text,delivery_price=delivery_price,delivery_type=select_delivery_type)
+                meal_data.save()
+                messages.success(request, 'Meal added successfully...')
+            meal_dt = Meals.objects.filter(status=0).order_by('-id')
+            all_meal_data = all_day_meals()
+            context = {"category_data":category_data,"item_data":item_data,"meal_data": meal_dt,"all_meal_data":all_meal_data}
+            return render(request, 'toh-admin/meals.html',context)
         else:
-            items_con = ''
-
-        if items_con[-1] == "+":
-            items_con = items_con[:len(items_con) - 1]
-
-        if len(items1) > 1:
-            for l in items1:
-                items1_con += l +"+"
-        elif len(items1) == 1:
-            items1_con = items[0]
-        else:
-            items1_con = ''
-
-        if items1_con[-1] == "+":
-            items1_con = items1_con[:len(items_con) - 1]
-
-        try:
-            image = request.FILES['image']
-            static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-            image_path = os.path.join(static_folder, 'images', image.name)
-            with open(image_path, 'wb') as f:
-                for chunk in image.chunks():
-                    f.write(chunk)
-            image_name = image.name
-        except:
-            image_name = ""
-        meal_data = Meals(name=category_dt, item=items_con, fixed_item=items1_con, fixed_item_quantity=fix_item_qty,description=description,image=image_name, day=day ,price=price, qty=qty,meal_text=meal_text,delivery_price=delivery_price,delivery_type=select_delivery_type)
-        meal_data.save()
-        messages.success(request, 'Meal added successfully...')
-    meal_dt = Meals.objects.filter(status=0).order_by('-id')
-    all_meal_data = all_day_meals()
-    context = {"category_data":category_data,"item_data":item_data,"meal_data": meal_dt,"all_meal_data":all_meal_data}
-    return render(request, 'toh-admin/meals.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_meals_delete(request,id):
-    meals_data = Meals.objects.filter(id=id).last()
-    meals_data.status = 2
-    meals_data.save()
-    meal_dt = Meals.objects.filter(status=0).order_by('-id')
-    category_data = Category.objects.filter(status=0).distinct()
-    item_data = Menu.objects.filter(status=0).values('name').distinct()
-    messages.success(request, 'Suburb deleted successfully.')
-    all_meal_data = all_day_meals()
-    context = {"category_data": category_data, "item_data": item_data, "meal_data": meal_dt,"all_meal_data":all_meal_data}
-    return render(request, 'toh-admin/meals.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            meals_data = Meals.objects.filter(id=id).last()
+            meals_data.status = 2
+            meals_data.save()
+            meal_dt = Meals.objects.filter(status=0).order_by('-id')
+            category_data = Category.objects.filter(status=0).distinct()
+            item_data = Menu.objects.filter(status=0).values('name').distinct()
+            messages.success(request, 'Suburb deleted successfully.')
+            all_meal_data = all_day_meals()
+            context = {"category_data": category_data, "item_data": item_data, "meal_data": meal_dt,"all_meal_data":all_meal_data}
+            return render(request, 'toh-admin/meals.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 @csrf_exempt
 def user_admin_address_active(request):
@@ -757,112 +819,147 @@ def admin_user_update_special(request):
         return JsonResponse({'data': data})
 
 def admin_meals_edit(request,id):
-    if request.method == "POST":
-        meals_data = Meals.objects.filter(id=id).last()
-        day = request.POST['day']
-        category = request.POST['category']
-        items = request.POST.getlist('items')
-        items1 = request.POST.getlist('itemsfixed')
-        qty = request.POST['qty']
-        fix_item_qty = request.POST['fix_item_qty']
-        price = request.POST['price']
-        meal_text = request.POST['meal_text']
-        description = request.POST['description']
-        select_delivery_type = request.POST['select_delivery_type']
-        delivery_price = request.POST['delivery_price']
-        category_dt = Category.objects.filter(id=category).last()
-        items_con = ""
-        items1_con = ""
-        if len(items) > 1:
-            for k in items:
-                items_con += k + "+"
-        elif len(items) == 1:
-            items_con = items[0]
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                meals_data = Meals.objects.filter(id=id).last()
+                day = request.POST['day']
+                category = request.POST['category']
+                items = request.POST.getlist('items')
+                items1 = request.POST.getlist('itemsfixed')
+                qty = request.POST['qty']
+                fix_item_qty = request.POST['fix_item_qty']
+                price = request.POST['price']
+                meal_text = request.POST['meal_text']
+                description = request.POST['description']
+                select_delivery_type = request.POST['select_delivery_type']
+                delivery_price = request.POST['delivery_price']
+                category_dt = Category.objects.filter(id=category).last()
+                items_con = ""
+                items1_con = ""
+                if len(items) > 1:
+                    for k in items:
+                        items_con += k + "+"
+                elif len(items) == 1:
+                    items_con = items[0]
+                else:
+                    items_con = ''
+
+                if items_con[-1] == "+":
+                    items_con = items_con[:len(items_con) - 1]
+
+                if len(items1) > 1:
+                    for l in items1:
+                        items1_con += l + "+"
+                elif len(items1) == 1:
+                    items1_con = items[0]
+                else:
+                    items1_con = ''
+
+                if items1_con[-1] == "+":
+                    items1_con = items1_con[:len(items_con) - 1]
+
+                try:
+                    image = request.FILES['image']
+                    static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                    image_path = os.path.join(static_folder, 'images', image.name)
+                    with open(image_path, 'wb') as f:
+                        for chunk in image.chunks():
+                            f.write(chunk)
+                    image_name = image.name
+                except:
+                    image_name = ""
+
+                meals_data.day = day
+                meals_data.name = category_dt
+                meals_data.item = items_con
+                meals_data.fixed_item = items1_con
+                meals_data.fixed_item_quantity = fix_item_qty
+                meals_data.qty = qty
+                meals_data.meal_text = meal_text
+                meals_data.delivery_price = delivery_price
+                meals_data.description = description
+                meals_data.image = image_name
+                meals_data.price = price
+                meals_data.delivery_type = select_delivery_type
+                meals_data.save()
+            else:
+                pass
+            meal_dt = Meals.objects.filter(status=0).order_by('-id')
+            category_data = Category.objects.filter(status=0).distinct()
+            item_data = Menu.objects.filter(status=0).values('name').distinct()
+            meals_data = Meals.objects.filter(id=id).last()
+            fixed_item_list = meals_data.fixed_item.split("+")
+            item_list = meals_data.item.split("+")
+            all_meal_data = all_day_meals()
+
+            context = {"item_list":item_list,"fixed_item_list":fixed_item_list,"category_data": category_data, "item_data": item_data, "meal_data": meal_dt,"all_meal_data":all_meal_data,"meals_data":meals_data}
+            return render(request, 'toh-admin/edit-meals.html', context)
         else:
-            items_con = ''
-
-        if items_con[-1] == "+":
-            items_con = items_con[:len(items_con) - 1]
-
-        if len(items1) > 1:
-            for l in items1:
-                items1_con += l + "+"
-        elif len(items1) == 1:
-            items1_con = items[0]
-        else:
-            items1_con = ''
-
-        if items1_con[-1] == "+":
-            items1_con = items1_con[:len(items_con) - 1]
-
-        try:
-            image = request.FILES['image']
-            static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-            image_path = os.path.join(static_folder, 'images', image.name)
-            with open(image_path, 'wb') as f:
-                for chunk in image.chunks():
-                    f.write(chunk)
-            image_name = image.name
-        except:
-            image_name = ""
-
-        meals_data.day = day
-        meals_data.name = category_dt
-        meals_data.item = items_con
-        meals_data.fixed_item = items1_con
-        meals_data.fixed_item_quantity = fix_item_qty
-        meals_data.qty = qty
-        meals_data.meal_text = meal_text
-        meals_data.delivery_price = delivery_price
-        meals_data.description = description
-        meals_data.image = image_name
-        meals_data.price = price
-        meals_data.delivery_type = select_delivery_type
-        meals_data.save()
-    else:
-        pass
-    meal_dt = Meals.objects.filter(status=0).order_by('-id')
-    category_data = Category.objects.filter(status=0).distinct()
-    item_data = Menu.objects.filter(status=0).values('name').distinct()
-    meals_data = Meals.objects.filter(id=id).last()
-    fixed_item_list = meals_data.fixed_item.split("+")
-    item_list = meals_data.item.split("+")
-    all_meal_data = all_day_meals()
-
-    context = {"item_list":item_list,"fixed_item_list":fixed_item_list,"category_data": category_data, "item_data": item_data, "meal_data": meal_dt,"all_meal_data":all_meal_data,"meals_data":meals_data}
-    return render(request, 'toh-admin/edit-meals.html', context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_bal_edit(request,id):
-    bal_data = Balance.objects.filter(id=id).last()
-    user_id = bal_data.user_data.id
-    if request.method == "POST":
-        bal_data.amount = request.POST['amount']
-        bal_data.note = request.POST['bal_note']
-        bal_data.transition_type = request.POST['service_type']
-        bal_data.save()
-    return redirect('app:admin_customers_profile',user_id)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            bal_data = Balance.objects.filter(id=id).last()
+            user_id = bal_data.user_data.id
+            if request.method == "POST":
+                bal_data.amount = request.POST['amount']
+                bal_data.note = request.POST['bal_note']
+                bal_data.transition_type = request.POST['service_type']
+                bal_data.save()
+            return redirect('app:admin_customers_profile',user_id)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_bal_delete(request,id):
-    bal_data = Balance.objects.filter(id=id).last()
-    user_id = bal_data.user_data.id
-    bal_data.status = 2
-    bal_data.save()
-    return redirect('app:admin_customers_profile',user_id)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            bal_data = Balance.objects.filter(id=id).last()
+            user_id = bal_data.user_data.id
+            bal_data.status = 2
+            bal_data.save()
+            return redirect('app:admin_customers_profile',user_id)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_note_edit(request,id):
-    note_data = Note.objects.filter(id=id).last()
-    user_id = note_data.user_data.id
-    if request.method == "POST":
-        note_data.note = request.POST['note_ed']
-        note_data.save()
-    return redirect('app:admin_customers_profile',user_id)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            note_data = Note.objects.filter(id=id).last()
+            user_id = note_data.user_data.id
+            if request.method == "POST":
+                note_data.note = request.POST['note_ed']
+                note_data.save()
+            return redirect('app:admin_customers_profile',user_id)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_note_delete(request,id):
-    note_data = Note.objects.filter(id=id).last()
-    user_id = note_data.user_data.id
-    note_data.status = 2
-    note_data.save()
-    return redirect('app:admin_customers_profile',user_id)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            note_data = Note.objects.filter(id=id).last()
+            user_id = note_data.user_data.id
+            note_data.status = 2
+            note_data.save()
+            return redirect('app:admin_customers_profile',user_id)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 @csrf_exempt
 def admin_ajax_get_items(request):
@@ -887,181 +984,300 @@ def admin_ajax_get_user(request):
     return JsonResponse({'data': data})
 
 def admin_orders(request):
-    order_data_all = Order.objects.all()
-    order_data_pending = Order.objects.filter(order_status="In process")
-    order_data_takeaway = Order.objects.filter(order_status="Takeaway")
-    order_data_Declined = Order.objects.filter(order_status="Decline")
-    order_data_Delivery = Order.objects.filter(order_status="Delivery")
-    order_data_Refunded = Order.objects.filter(order_status="Refunded")
-    order_data_Delivered = Order.objects.filter(order_status="Delivered")
-    order_data_Undelivered = Order.objects.filter(order_status="Undelivered")
-    order_data_Cancelled = Order.objects.filter(order_status="Cancelled")
-    context = {"order_data_all":order_data_all,"order_data_pending":order_data_pending,"order_data_takeaway":order_data_takeaway,"order_data_Declined": order_data_Declined, "order_data_Delivery": order_data_Delivery,"order_data_Refunded": order_data_Refunded,"order_data_Delivered": order_data_Delivered, "order_data_Undelivered": order_data_Undelivered,"order_data_Cancelled": order_data_Cancelled}
-    return render(request, 'toh-admin/orders.html',context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data_all = Order.objects.all()
+            order_data_pending = Order.objects.filter(order_status="In process")
+            order_data_takeaway = Order.objects.filter(order_status="Takeaway")
+            order_data_Declined = Order.objects.filter(order_status="Decline")
+            order_data_Delivery = Order.objects.filter(order_status="Delivery")
+            order_data_Refunded = Order.objects.filter(order_status="Refunded")
+            order_data_Delivered = Order.objects.filter(order_status="Delivered")
+            order_data_Undelivered = Order.objects.filter(order_status="Undelivered")
+            order_data_Cancelled = Order.objects.filter(order_status="Cancelled")
+            context = {"order_data_all":order_data_all,"order_data_pending":order_data_pending,"order_data_takeaway":order_data_takeaway,"order_data_Declined": order_data_Declined, "order_data_Delivery": order_data_Delivery,"order_data_Refunded": order_data_Refunded,"order_data_Delivered": order_data_Delivered, "order_data_Undelivered": order_data_Undelivered,"order_data_Cancelled": order_data_Cancelled}
+            return render(request, 'toh-admin/orders.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_orders_delete(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.status = 2
-    order_data.order_status ="Cancelled"
-    order_data.save()
-    return redirect('app:admin_orders')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.status = 2
+            order_data.order_status ="Cancelled"
+            order_data.save()
+            return redirect('app:admin_orders')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_orders_decline(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.order_status ="Decline"
-    order_data.save()
-    return redirect('app:admin_orders')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.order_status ="Decline"
+            order_data.save()
+            return redirect('app:admin_orders')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_orders_refund(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.order_status ="Refunded"
-    order_data.save()
-    return redirect('app:admin_orders')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.order_status ="Refunded"
+            order_data.save()
+            return redirect('app:admin_orders')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_orders_payment(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.payment_status = "Completed"
-    order_data.save()
-    return redirect('app:driver1')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.payment_status = "Completed"
+            order_data.save()
+            return redirect('app:driver1')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def driver_orders_completed(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.order_status = "Completed"
-    order_data.save()
-    return redirect('app:driver1')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.order_status = "Completed"
+            order_data.save()
+            return redirect('app:driver1')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def driver_orders_decline(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.order_status ="Decline"
-    order_data.save()
-    return redirect('app:driver1')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.order_status ="Decline"
+            order_data.save()
+            return redirect('app:driver1')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_orders_edit(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    if request.method == "POST":
-        order_data.order_id = request.POST['order_name']
-        order_data.user_date.name = request.POST['cus_name']
-        order_data.order_address = request.POST['address']
-        # order_data.suburb = request.POST['suburb']
-        order_data.order_date = request.POST['date']
-        order_data.total_amt = request.POST['amt']
-        order_data.order_status = request.POST['order_status']
-        order_data.save()
-    context = {"order_data":order_data,"id":id}
-    return render(request, 'toh-admin/edit-orders.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            if request.method == "POST":
+                order_data.order_id = request.POST['order_name']
+                order_data.user_date.name = request.POST['cus_name']
+                order_data.order_address = request.POST['address']
+                # order_data.suburb = request.POST['suburb']
+                order_data.order_date = request.POST['date']
+                order_data.total_amt = request.POST['amt']
+                order_data.order_status = request.POST['order_status']
+                order_data.save()
+            context = {"order_data":order_data,"id":id}
+            return render(request, 'toh-admin/edit-orders.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_orders_delivered(request,id):
-    order_data = Order.objects.filter(id=id).last()
-    order_data.order_status ="Delivered"
-    order_data.save()
-    return redirect('app:admin_orders')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_data = Order.objects.filter(id=id).last()
+            order_data.order_status ="Delivered"
+            order_data.save()
+            return redirect('app:admin_orders')
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_todayreport(request):
-    order_today = Order.objects.filter(order_date=date_1)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_today = Order.objects.filter(order_date=date_1)
 
-    return render(request, 'toh-admin/todayreport.html',{"order_today":order_today})
+            return render(request, 'toh-admin/todayreport.html',{"order_today":order_today})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_dailyorder(request):
-    order_today = Order.objects.filter(order_date=date_1).filter(payment_status="Not Paid")
-    total_un_paid_amt=0
-    for ordnp in order_today:
-        total_un_paid_amt += float(ordnp.total_amt)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_today = Order.objects.filter(order_date=date_1).filter(payment_status="Not Paid")
+            total_un_paid_amt=0
+            for ordnp in order_today:
+                total_un_paid_amt += float(ordnp.total_amt)
 
-    return render(request, 'toh-admin/dailyorder.html',{"order_today":order_today,"total_un_paid_amt":total_un_paid_amt})
+            return render(request, 'toh-admin/dailyorder.html',{"order_today":order_today,"total_un_paid_amt":total_un_paid_amt})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_takeaway_close_time(request):
-    if request.method=="POST":
-        time = request.POST['time']
-        takeaway_data = Takeawayclosetime(name=time)
-        takeaway_data.save()
-    code_data = Code.objects.filter(status=0)
-    context = {"code_data":code_data}
-    return render(request, 'toh-admin/suburb.html',context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method=="POST":
+                time = request.POST['time']
+                takeaway_data = Takeawayclosetime(name=time)
+                takeaway_data.save()
+            code_data = Code.objects.filter(status=0)
+            context = {"code_data":code_data}
+            return render(request, 'toh-admin/suburb.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_suburb(request):
-    code_data = Code.objects.filter(status=0)
-    context = {"code_data":code_data}
-    return render(request, 'toh-admin/suburb.html',context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            code_data = Code.objects.filter(status=0)
+            context = {"code_data":code_data}
+            return render(request, 'toh-admin/suburb.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_suburb_delete(request,id):
-    code_data = Code.objects.filter(id=id).last()
-    code_data.status = 2
-    code_data.save()
-    code_data = Code.objects.filter(status=0)
-    context = {"code_data": code_data}
-    messages.success(request, 'Suburb deleted successfully.')
-    return render(request, 'toh-admin/suburb.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            code_data = Code.objects.filter(id=id).last()
+            code_data.status = 2
+            code_data.save()
+            code_data = Code.objects.filter(status=0)
+            context = {"code_data": code_data}
+            messages.success(request, 'Suburb deleted successfully.')
+            return render(request, 'toh-admin/suburb.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_suburb_edit(request,id):
-    code_dt = Code.objects.filter(id=id).last()
-    code_data = Code.objects.filter(status=0)
-    driver_dt = Driver.objects.filter(status=0)
-    context = {"code_data": code_data,"code_dt":code_dt,"driver_dt": driver_dt}
-    if request.method == "POST":
-        driver = Driver.objects.filter(id=request.POST['driver']).last()
-        code_dt.name = request.POST['name']
-        code_dt.code = request.POST['pincode']
-        code_dt.food_available = request.POST['food_available']
-        code_dt.driver = driver
-        code_dt.timefrom = request.POST['timefrom']
-        code_dt.timeto = request.POST['timeto']
-        code_dt.delfrom = request.POST['delfrom']
-        code_dt.delto = request.POST['delto']
-        code_dt.amount = request.POST['amount']
-        code_dt.delivery_type = request.POST['delivery_type']
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            code_dt = Code.objects.filter(id=id).last()
+            code_data = Code.objects.filter(status=0)
+            driver_dt = Driver.objects.filter(status=0)
+            context = {"code_data": code_data,"code_dt":code_dt,"driver_dt": driver_dt}
+            if request.method == "POST":
+                driver = Driver.objects.filter(id=request.POST['driver']).last()
+                code_dt.name = request.POST['name']
+                code_dt.code = request.POST['pincode']
+                code_dt.food_available = request.POST['food_available']
+                code_dt.driver = driver
+                code_dt.timefrom = request.POST['timefrom']
+                code_dt.timeto = request.POST['timeto']
+                code_dt.delfrom = request.POST['delfrom']
+                code_dt.delto = request.POST['delto']
+                code_dt.amount = request.POST['amount']
+                code_dt.delivery_type = request.POST['delivery_type']
 
-        code_dt.save()
-        messages.success(request, 'Suburb edit successfully.')
-        return render(request, 'toh-admin/suburb.html', context)
+                code_dt.save()
+                messages.success(request, 'Suburb edit successfully.')
+                return render(request, 'toh-admin/suburb.html', context)
 
-    return render(request, 'toh-admin/edit-suburb.html', context)
+            return render(request, 'toh-admin/edit-suburb.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_add_suburb(request):
-    if request.method == "POST":
-        available = request.POST['available']
-        driver = request.POST['driver']
-        name = request.POST['name']
-        pincode = request.POST['pincode']
-        timefrom = request.POST['timefrom']
-        timeto = request.POST['timeto']
-        delfrom = request.POST['delfrom']
-        delto = request.POST['delto']
-        amount = request.POST['amount']
-        deliver_type = request.POST['deliver_type']
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                available = request.POST['available']
+                driver = request.POST['driver']
+                name = request.POST['name']
+                pincode = request.POST['pincode']
+                timefrom = request.POST['timefrom']
+                timeto = request.POST['timeto']
+                delfrom = request.POST['delfrom']
+                delto = request.POST['delto']
+                amount = request.POST['amount']
+                deliver_type = request.POST['deliver_type']
 
-        driver_data = Driver.objects.filter(id=driver).last()
+                driver_data = Driver.objects.filter(id=driver).last()
 
-        loc = Code(name=name,code=pincode,food_available=available,delivery_type=deliver_type,timefrom=timefrom,timeto=timeto,delfrom=delfrom,delto=delto,amount=amount,driver=driver_data)
-        loc.save()
-        messages.success(request, 'Suburb added successfully.')
+                loc = Code(name=name,code=pincode,food_available=available,delivery_type=deliver_type,timefrom=timefrom,timeto=timeto,delfrom=delfrom,delto=delto,amount=amount,driver=driver_data)
+                loc.save()
+                messages.success(request, 'Suburb added successfully.')
 
-    driver_dt = Driver.objects.filter(status=0)
-    context = {"driver_dt":driver_dt}
-    return render(request, 'toh-admin/add-suburb.html',context)
+            driver_dt = Driver.objects.filter(status=0)
+            context = {"driver_dt":driver_dt}
+            return render(request, 'toh-admin/add-suburb.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_drivers(request):
-    if request.method=="POST":
-        email = request.POST['email']
-        name = request.POST['name']
-        password = request.POST['password']
-        service = request.POST['service']
-        driver = Driver.objects.filter(email=email)
-        if driver:
-            messages.success(request, 'Item already added')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method=="POST":
+                email = request.POST['email']
+                name = request.POST['name']
+                password = request.POST['password']
+                service = request.POST['service']
+                driver = Driver.objects.filter(email=email)
+                if driver:
+                    messages.success(request, 'Item already added')
+                else:
+                    try:
+                        image = request.FILES['filename']
+                        static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                        image_name = image.name.split(".")
+                        img_name = image_name[0]+dt_string+"."+image_name[1]
+                        image_path = os.path.join(static_folder, 'images', img_name)
+                        with open(image_path, 'wb') as f:
+                            for chunk in image.chunks():
+                                f.write(chunk)
+                    except:
+                        img_name =""
+                    driver_data = Driver(name=name, email=email, image=img_name, password=password, services=service)
+                    driver_data.save()
+                    messages.success(request, 'Driver added successfully...')
+            driver_date = Driver.objects.filter(status=0)
+            context = {"driver_date":driver_date}
+            return render(request, 'toh-admin/drivers.html',context)
         else:
-            try:
-                image = request.FILES['filename']
-                static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-                image_name = image.name.split(".")
-                img_name = image_name[0]+dt_string+"."+image_name[1]
-                image_path = os.path.join(static_folder, 'images', img_name)
-                with open(image_path, 'wb') as f:
-                    for chunk in image.chunks():
-                        f.write(chunk)
-            except:
-                img_name =""
-            driver_data = Driver(name=name, email=email, image=img_name, password=password, services=service)
-            driver_data.save()
-            messages.success(request, 'Driver added successfully...')
-    driver_date = Driver.objects.filter(status=0)
-    context = {"driver_date":driver_date}
-    return render(request, 'toh-admin/drivers.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 @csrf_exempt
 def admin_driver_ajax_edit(request):
@@ -1072,72 +1288,99 @@ def admin_driver_ajax_edit(request):
     return JsonResponse({'data': data})
 
 def admin_driver_edit(request):
-    if request.method == "POST":
-        email = request.POST['aj_email']
-        name = request.POST['aj_name']
-        password = request.POST['aj_password']
-        service = request.POST['aj_service']
-        image = request.POST['aj_img_old']
-        id = request.POST['item_id']
-        driver = Driver.objects.filter(email=email)
-        driver_data = Driver.objects.filter(id=id).last()
-        if driver:
-            messages.success(request, 'Item already added')
-        else:
-            if image == "":
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                email = request.POST['aj_email']
+                name = request.POST['aj_name']
+                password = request.POST['aj_password']
+                service = request.POST['aj_service']
                 image = request.POST['aj_img_old']
-            else:
-                image = request.FILES['aj_img']
-                static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-                image_name = image.name.split(".")
-                img_name = image_name[0] + dt_string + "." + image_name[1]
-                image_path = os.path.join(static_folder, 'images', img_name)
-                with open(image_path, 'wb') as f:
-                    for chunk in image.chunks():
-                        f.write(chunk)
-            driver_data.name = name
-            driver_data.email = email
-            driver_data.image = image
-            driver_data.password = password
-            driver_data.services = service
-            driver_data.save()
-            messages.success(request, 'Driver updated successfully...')
-    driver_dt = Driver.objects.filter(status=0)
-    context = {"driver_date": driver_dt,
-               }
-    return render(request, 'toh-admin/drivers.html', context)
+                id = request.POST['item_id']
+                driver = Driver.objects.filter(email=email)
+                driver_data = Driver.objects.filter(id=id).last()
+                if driver:
+                    messages.success(request, 'Item already added')
+                else:
+                    if image == "":
+                        image = request.POST['aj_img_old']
+                    else:
+                        image = request.FILES['aj_img']
+                        static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                        image_name = image.name.split(".")
+                        img_name = image_name[0] + dt_string + "." + image_name[1]
+                        image_path = os.path.join(static_folder, 'images', img_name)
+                        with open(image_path, 'wb') as f:
+                            for chunk in image.chunks():
+                                f.write(chunk)
+                    driver_data.name = name
+                    driver_data.email = email
+                    driver_data.image = image
+                    driver_data.password = password
+                    driver_data.services = service
+                    driver_data.save()
+                    messages.success(request, 'Driver updated successfully...')
+            driver_dt = Driver.objects.filter(status=0)
+            context = {"driver_date": driver_dt,
+                       }
+            return render(request, 'toh-admin/drivers.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_driver_delete(request,id):
-    driver_data = Driver.objects.filter(id=id).last()
-    driver_data.status = 2
-    driver_data.save()
-    driver_dt = Driver.objects.filter(status=0)
-    context = {"driver_date": driver_dt,
-               }
-    messages.success(request, 'Driver deleted successfully.')
-    return render(request, 'toh-admin/drivers.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            driver_data = Driver.objects.filter(id=id).last()
+            driver_data.status = 2
+            driver_data.save()
+            driver_dt = Driver.objects.filter(status=0)
+            context = {"driver_date": driver_dt,
+                       }
+            messages.success(request, 'Driver deleted successfully.')
+            return render(request, 'toh-admin/drivers.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_deliverytifin(request):
-    driver_dt = Driver.objects.filter(status=0)
-    context = {"driver_date": driver_dt,
-               }
-    return render(request, 'toh-admin/deliverytifin.html',context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            driver_dt = Driver.objects.filter(status=0)
+            context = {"driver_date": driver_dt,
+                       }
+            return render(request, 'toh-admin/deliverytifin.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_order_details_1(request,id):
-    code_data = Code.objects.filter(driver=id)
-    order_details = []
-    order_details_completed = []
-    for cd in code_data:
-        suburb = cd.name+"	"+cd.code
-        order_data = Order.objects.filter(order_address=suburb).filter(order_type="Home Delivery").filter(status=0)
-        for rr in order_data:
-            if rr.order_status == "In process":
-                order_details.append({"mobile":rr.user_date.mobile,"name":rr.user_date.name,'order_id':rr.order_id,"id":rr.id,"items":rr.items,"order_status":rr.order_status,"order_type":rr.order_type,"order_address":rr.order_address,"total_amt":rr.total_amt,"items":rr.meals_date.item,"fix_items":rr.meals_date.fixed_item})
-            if rr.order_status == "Completed":
-                order_details_completed.append({"mobile":rr.user_date.mobile,"name":rr.user_date.name,'order_id':rr.order_id,"id":rr.id,"items":rr.items,"order_status":rr.order_status,"order_type":rr.order_type,"order_address":rr.order_address,"total_amt":rr.total_amt,"items":rr.meals_date.item,"fix_items":rr.meals_date.fixed_item})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            code_data = Code.objects.filter(driver=id)
+            order_details = []
+            order_details_completed = []
+            for cd in code_data:
+                suburb = cd.name+"	"+cd.code
+                order_data = Order.objects.filter(order_address=suburb).filter(order_type="Home Delivery").filter(status=0)
+                for rr in order_data:
+                    if rr.order_status == "In process":
+                        order_details.append({"mobile":rr.user_date.mobile,"name":rr.user_date.name,'order_id':rr.order_id,"id":rr.id,"items":rr.items,"order_status":rr.order_status,"order_type":rr.order_type,"order_address":rr.order_address,"total_amt":rr.total_amt,"items":rr.meals_date.item,"fix_items":rr.meals_date.fixed_item})
+                    if rr.order_status == "Completed":
+                        order_details_completed.append({"mobile":rr.user_date.mobile,"name":rr.user_date.name,'order_id':rr.order_id,"id":rr.id,"items":rr.items,"order_status":rr.order_status,"order_type":rr.order_type,"order_address":rr.order_address,"total_amt":rr.total_amt,"items":rr.meals_date.item,"fix_items":rr.meals_date.fixed_item})
 
-    return render(request, 'toh-admin/order-details-1.html',{"order_details":order_details,"order_details_completed":order_details_completed})
-
+            return render(request, 'toh-admin/order-details-1.html',{"order_details":order_details,"order_details_completed":order_details_completed})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 @csrf_exempt
 def admin_ajax_order(request):
     cart = request.POST['cart']
@@ -1269,49 +1512,56 @@ def order(request):
     return render(request, 'order-details.html',{})
 
 def admin_customers(request):
-    customer_data = User_data.objects.filter(status=0).filter(user_type="Customer")
-    context = {"customer_data":customer_data,}
-    if request.method == 'POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        mobile = request.POST['mobile']
-        password = request.POST['password']
-        cpassword = request.POST['cpassword']
-        user_data = User_data.objects.filter(email=email)
-        if user_data:
-            messages.error(request, 'This user already register. Please give another email!')
-            return render(request, 'toh-admin/customers.html',context)
-        else:
-            if password == cpassword:
-                try:
-                    image = request.FILES['imgfile']
-                    static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-                    image_name = image.name.split(".")
-                    img_name = image_name[0] + dt_string + "." + image_name[1]
-                    image_path = os.path.join(static_folder, 'images', img_name)
-                    with open(image_path, 'wb') as f:
-                        for chunk in image.chunks():
-                            f.write(chunk)
-                except:
-                    img_name=""
-                user = User_data(name=name, password=password, email=email,user_type="Customer",mobile=mobile,image=img_name)
-                user.save()
-                # try:
-                #     to = (request.data['email'],)
-                #     subject = 'welcome to Teohome'
-                #     message = f'Hi, thank you for Registering'
-                #     email_from = settings.EMAIL_HOST_USER
-                #     recipient_list = to
-                #     send_mail(subject, message, email_from, recipient_list)
-                # except:
-                #     print("email send fail")
-                messages.success(request, 'Customer added successfully..')
-                return render(request, 'toh-admin/customers.html',context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            customer_data = User_data.objects.filter(status=0).filter(user_type="Customer")
+            context = {"customer_data":customer_data,}
+            if request.method == 'POST':
+                name = request.POST['name']
+                email = request.POST['email']
+                mobile = request.POST['mobile']
+                password = request.POST['password']
+                cpassword = request.POST['cpassword']
+                user_data = User_data.objects.filter(email=email)
+                if user_data:
+                    messages.error(request, 'This user already register. Please give another email!')
+                    return render(request, 'toh-admin/customers.html',context)
+                else:
+                    if password == cpassword:
+                        try:
+                            image = request.FILES['imgfile']
+                            static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                            image_name = image.name.split(".")
+                            img_name = image_name[0] + dt_string + "." + image_name[1]
+                            image_path = os.path.join(static_folder, 'images', img_name)
+                            with open(image_path, 'wb') as f:
+                                for chunk in image.chunks():
+                                    f.write(chunk)
+                        except:
+                            img_name=""
+                        user = User_data(name=name, password=password, email=email,user_type="Customer",mobile=mobile,image=img_name)
+                        user.save()
+                        # try:
+                        #     to = (request.data['email'],)
+                        #     subject = 'welcome to Teohome'
+                        #     message = f'Hi, thank you for Registering'
+                        #     email_from = settings.EMAIL_HOST_USER
+                        #     recipient_list = to
+                        #     send_mail(subject, message, email_from, recipient_list)
+                        # except:
+                        #     print("email send fail")
+                        messages.success(request, 'Customer added successfully..')
+                        return render(request, 'toh-admin/customers.html',context)
+                    else:
+                        messages.error(request, 'Password and confirm password was not same')
+                        return render(request, 'toh-admin/customers.html', context)
             else:
-                messages.error(request, 'Password and confirm password was not same')
-                return render(request, 'toh-admin/customers.html', context)
-    else:
-        return render(request, 'toh-admin/customers.html',context)
+                return render(request, 'toh-admin/customers.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_customer_dashboard(request):
     if request.method == "POST":
@@ -1331,159 +1581,227 @@ def admin_customer_dashboard(request):
         return response
 
 def admin_customers_profile(request,id):
-    user_data = User_data.objects.filter(id=id).last()
-    address_data = Address.objects.filter(user_id=user_data.id)
-    order_data = Order.objects.filter(user_date=user_data.id).order_by('-id').filter(status=0)
-    bal_data = Balance.objects.filter(user_data=user_data.id).filter(status=0)
-    note_data = Note.objects.filter(user_data=user_data.id).filter(status=0)
-    order_pd_data = Order.objects.filter(user_date=user_data.id).filter(payment_status="Not Paid").filter(status=0)
-    un_paid_amt = 0
-    for np in order_pd_data:
-        un_paid_amt += float(np.total_amt)
-    context = {"user_data":user_data,"address_data":address_data,"order_data":order_data,"id":id,"bal_data":bal_data,"note_data":note_data,"order_pd_data":order_pd_data,"un_paid_amt":un_paid_amt}
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            user_data = User_data.objects.filter(id=id).last()
+            address_data = Address.objects.filter(user_id=user_data.id)
+            order_data = Order.objects.filter(user_date=user_data.id).order_by('-id').filter(status=0)
+            bal_data = Balance.objects.filter(user_data=user_data.id).filter(status=0)
+            note_data = Note.objects.filter(user_data=user_data.id).filter(status=0)
+            order_pd_data = Order.objects.filter(user_date=user_data.id).filter(payment_status="Not Paid").filter(status=0)
+            un_paid_amt = 0
+            for np in order_pd_data:
+                un_paid_amt += float(np.total_amt)
+            context = {"user_data":user_data,"address_data":address_data,"order_data":order_data,"id":id,"bal_data":bal_data,"note_data":note_data,"order_pd_data":order_pd_data,"un_paid_amt":un_paid_amt}
 
-    return render(request, 'toh-admin/customer-profile.html',context)
-def admin_customers_password(request,id):
-    context = {"id":id}
-    if request.method=='POST':
-        password = request.POST['password']
-        cpassword = request.POST['cpassword']
-        if password == cpassword:
-            user = User_data.objects.filter(id=id).last()
-            user.password=password
-            user.save()
-            messages.success(request, 'Password update successfully')
-            return render(request, 'toh-admin/change-password.html', context)
+            return render(request, 'toh-admin/customer-profile.html',context)
         else:
-            messages.error(request, 'Password and confirm password was not same')
-            return render(request, 'toh-admin/change-password.html', context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
+def admin_customers_password(request,id):
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            context = {"id":id}
+            if request.method=='POST':
+                password = request.POST['password']
+                cpassword = request.POST['cpassword']
+                if password == cpassword:
+                    user = User_data.objects.filter(id=id).last()
+                    user.password=password
+                    user.save()
+                    messages.success(request, 'Password update successfully')
+                    return render(request, 'toh-admin/change-password.html', context)
+                else:
+                    messages.error(request, 'Password and confirm password was not same')
+                    return render(request, 'toh-admin/change-password.html', context)
 
-    return render(request, 'toh-admin/change-password.html',context)
+            return render(request, 'toh-admin/change-password.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_customers_orders_details(request,id):
-    order_details = Order.objects.filter(id=id).last()
-    grand_total = float(order_details.total_amt) + float(order_details.order_delivery_price)
-    return render(request, 'toh-admin/customer-order-details.html',{"order_details":order_details,"grand_total":grand_total})
-
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            order_details = Order.objects.filter(id=id).last()
+            grand_total = float(order_details.total_amt) + float(order_details.order_delivery_price)
+            return render(request, 'toh-admin/customer-order-details.html',{"order_details":order_details,"grand_total":grand_total})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_customers_balance(request,id):
-    if request.method == "POST":
-        balance = request.POST['balance']
-        transition_type = request.POST['transition']
-        note = request.POST['note']
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                balance = request.POST['balance']
+                transition_type = request.POST['transition']
+                note = request.POST['note']
 
-        user_data = User_data.objects.filter(id=id).last()
+                user_data = User_data.objects.filter(id=id).last()
 
-        bal = Balance(user_data=user_data, date=date_1, amount=balance, note=note, transition_type=transition_type)
-        bal.save()
+                bal = Balance(user_data=user_data, date=date_1, amount=balance, note=note, transition_type=transition_type)
+                bal.save()
 
-        return redirect('app:admin_customers_profile', id)
-
+                return redirect('app:admin_customers_profile', id)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_customers_note(request,id):
-    if request.method == "POST":
-        note = request.POST['note']
-        user_data = User_data.objects.filter(id=id).last()
-        note = Note(user_data=user_data, note=note)
-        note.save()
-        return redirect('app:admin_customers_profile', id)
+    cookies = get_cookies(request)
+    try:
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                note = request.POST['note']
+                user_data = User_data.objects.filter(id=id).last()
+                note = Note(user_data=user_data, note=note)
+                note.save()
+                return redirect('app:admin_customers_profile', id)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 
 def admin_users(request):
-    user_data=Admin_user.objects.filter(status=0)
-    return render(request, 'toh-admin/users.html',{"user_data":user_data})
-def admin_add_users(request):
-    if request.method=="POST":
-        user_data = Admin_user.objects.filter(email=request.POST['email']).last()
-        if user_data:
-            messages.success(request, 'This user already register. Please give another email!')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            user_data=Admin_user.objects.filter(status=0)
+            return render(request, 'toh-admin/users.html',{"user_data":user_data})
         else:
-            name = request.POST['name']
-            email = request.POST['email']
-            password = request.POST['password']
-            mobile = request.POST['mobile']
-            role = request.POST['role']
-            try:
-                image = request.FILES['imgfile']
-                static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-                image_name = image.name.split(".")
-                img_name = image_name[0] + dt_string + "." + image_name[1]
-                image_path = os.path.join(static_folder, 'images', img_name)
-                with open(image_path, 'wb') as f:
-                    for chunk in image.chunks():
-                        f.write(chunk)
-            except:
-                img_name = ""
-            user = Admin_user(name=name, password=password, email=email, role=role, mobile=mobile, image=img_name)
-            user.save()
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
+def admin_add_users(request):
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method=="POST":
+                user_data = Admin_user.objects.filter(email=request.POST['email']).last()
+                if user_data:
+                    messages.success(request, 'This user already register. Please give another email!')
+                else:
+                    name = request.POST['name']
+                    email = request.POST['email']
+                    password = request.POST['password']
+                    mobile = request.POST['mobile']
+                    role = request.POST['role']
+                    try:
+                        image = request.FILES['imgfile']
+                        static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                        image_name = image.name.split(".")
+                        img_name = image_name[0] + dt_string + "." + image_name[1]
+                        image_path = os.path.join(static_folder, 'images', img_name)
+                        with open(image_path, 'wb') as f:
+                            for chunk in image.chunks():
+                                f.write(chunk)
+                    except:
+                        img_name = ""
+                    user = Admin_user(name=name, password=password, email=email, role=role, mobile=mobile, image=img_name)
+                    user.save()
 
-            # new_user = User.objects.create_user(username=name,password=password,email=email,)
-            # # Save the user to the database
-            # new_user.save()
-            if not User.objects.filter(username=name).exists():
-                # Create a new superuser
-                superuser = User.objects.create_superuser(
-                    username=name,
-                    email=email,
-                    password=password
-                )
+                    # new_user = User.objects.create_user(username=name,password=password,email=email,)
+                    # # Save the user to the database
+                    # new_user.save()
+                    if not User.objects.filter(username=name).exists():
+                        # Create a new superuser
+                        superuser = User.objects.create_superuser(
+                            username=name,
+                            email=email,
+                            password=password
+                        )
 
-                # You can also set additional attributes for the superuser if needed
-                # superuser.first_name = 'Admin'
-                # superuser.last_name = 'User'
-                superuser.save()
-            messages.success(request, 'user added successfully...')
+                        # You can also set additional attributes for the superuser if needed
+                        # superuser.first_name = 'Admin'
+                        # superuser.last_name = 'User'
+                        superuser.save()
+                    messages.success(request, 'user added successfully...')
 
-    return render(request, 'toh-admin/add-user.html',{})
+            return render(request, 'toh-admin/add-user.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_sizes(request):
-    if request.method=="POST":
-        name = request.POST['name']
-        size = Size.objects.filter(name=name)
-        Size_data = Size.objects.filter(status=0)
-        context = {"Size_data": Size_data,}
-        if size:
-            messages.success(request, 'size already added...')
-        else:
-            size_data = Size(name=name)
-            size_data.save()
-            messages.success(request, 'size added successfully...')
-            Size_data = Size.objects.filter(status=0)
-            context = {"Size_data": Size_data, }
-        return render(request, 'toh-admin/sizes.html', context)
-    else:
-        Size_data = Size.objects.filter(status=0)
-        context = {"Size_data": Size_data, }
-        messages.success(request, '')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method=="POST":
+                name = request.POST['name']
+                size = Size.objects.filter(name=name)
+                Size_data = Size.objects.filter(status=0)
+                context = {"Size_data": Size_data,}
+                if size:
+                    messages.success(request, 'size already added...')
+                else:
+                    size_data = Size(name=name)
+                    size_data.save()
+                    messages.success(request, 'size added successfully...')
+                    Size_data = Size.objects.filter(status=0)
+                    context = {"Size_data": Size_data, }
+                return render(request, 'toh-admin/sizes.html', context)
+            else:
+                Size_data = Size.objects.filter(status=0)
+                context = {"Size_data": Size_data, }
+                messages.success(request, '')
 
-    return render(request, 'toh-admin/sizes.html',context)
+            return render(request, 'toh-admin/sizes.html',context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_sizes_delete(request,id):
-    size_data = Size.objects.filter(id=id).last()
-    size_data.status = 2
-    size_data.save()
-    size_dt = Size.objects.filter(status=0)
-    context = {"Size_data": size_dt,
-               }
-    messages.success(request, 'Size deleted successfully.')
-    return render(request, 'toh-admin/sizes.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            size_data = Size.objects.filter(id=id).last()
+            size_data.status = 2
+            size_data.save()
+            size_dt = Size.objects.filter(status=0)
+            context = {"Size_data": size_dt,
+                       }
+            messages.success(request, 'Size deleted successfully.')
+            return render(request, 'toh-admin/sizes.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_variations(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        variations = Variations.objects.filter(name=name)
-        variations_data = Variations.objects.filter(status=0)
-        context = {"Variations_data": variations_data, }
-        if variations:
-            messages.success(request, 'Variations already added...')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                name = request.POST['name']
+                variations = Variations.objects.filter(name=name)
+                variations_data = Variations.objects.filter(status=0)
+                context = {"Variations_data": variations_data, }
+                if variations:
+                    messages.success(request, 'Variations already added...')
+                else:
+                    variations_data = Variations(name=name)
+                    variations_data.save()
+                    messages.success(request, 'Variations added successfully...')
+                    Variations_data = Variations.objects.filter(status=0)
+                    context = {"Variations_data": Variations_data, }
+                return render(request, 'toh-admin/variations.html', context)
+            else:
+                Variations_data = Variations.objects.filter(status=0)
+                context = {"Variations_data": Variations_data, }
+                messages.success(request, '')
+            return render(request, 'toh-admin/variations.html',context)
         else:
-            variations_data = Variations(name=name)
-            variations_data.save()
-            messages.success(request, 'Variations added successfully...')
-            Variations_data = Variations.objects.filter(status=0)
-            context = {"Variations_data": Variations_data, }
-        return render(request, 'toh-admin/variations.html', context)
-    else:
-        Variations_data = Variations.objects.filter(status=0)
-        context = {"Variations_data": Variations_data, }
-        messages.success(request, '')
-    return render(request, 'toh-admin/variations.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 @csrf_exempt
 def admin_ajax_variations_edit(request):
     id = request.POST['id']
@@ -1514,86 +1832,128 @@ def admin_orders_ajax_order_make_paid(request):
     return JsonResponse({'data': data})
 
 def admin_variations_edit(request):
-    if request.method == "POST":
-        id = request.POST['vari_id']
-        variation_data = Variations.objects.filter(id=id).last()
-        variations = Variations.objects.filter(name=request.POST['aj_name'])
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                id = request.POST['vari_id']
+                variation_data = Variations.objects.filter(id=id).last()
+                variations = Variations.objects.filter(name=request.POST['aj_name'])
 
-        if variations:
-            messages.success(request, 'Variations already added...')
+                if variations:
+                    messages.success(request, 'Variations already added...')
+                else:
+                    variation_data.name = request.POST['aj_name']
+                    variation_data.save()
+                    messages.success(request, 'Variations Updated successfully.')
+
+                Variations_data = Variations.objects.filter(status=0)
+                context = {"Variations_data": Variations_data, }
+                return render(request, 'toh-admin/variations.html', context)
+            else:
+                Variations_data = Variations.objects.filter(status=0)
+                context = {"Variations_data": Variations_data, }
+                return render(request, 'toh-admin/variations.html', context)
         else:
-            variation_data.name = request.POST['aj_name']
-            variation_data.save()
-            messages.success(request, 'Variations Updated successfully.')
-
-        Variations_data = Variations.objects.filter(status=0)
-        context = {"Variations_data": Variations_data, }
-        return render(request, 'toh-admin/variations.html', context)
-    else:
-        Variations_data = Variations.objects.filter(status=0)
-        context = {"Variations_data": Variations_data, }
-        return render(request, 'toh-admin/variations.html', context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_variations_delete(request,id):
-    variations_data = Variations.objects.filter(id=id).last()
-    variations_data.status = 2
-    variations_data.save()
-    variations_dt = Variations.objects.filter(status=0)
-    context = {"Variations_data": variations_dt,
-               }
-    messages.success(request, 'Variations deleted successfully.')
-    return render(request, 'toh-admin/variations.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            variations_data = Variations.objects.filter(id=id).last()
+            variations_data.status = 2
+            variations_data.save()
+            variations_dt = Variations.objects.filter(status=0)
+            context = {"Variations_data": variations_dt,
+                       }
+            messages.success(request, 'Variations deleted successfully.')
+            return render(request, 'toh-admin/variations.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_subscription(request):
-    return render(request, 'toh-admin/subscription.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/subscription.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 
 def admin_subscription_plans(request):
-    return render(request, 'toh-admin/subscription-plans.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/subscription-plans.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 
 def admin_catering_menu(request):
-    if request.method == "POST":
-        image = request.FILES['image']
-        image_name = image.name.split(".")
-        catering_img_name = image_name[0] + dt_string + "." + image_name[1]
-        static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
-        image_path = os.path.join(static_folder, 'images', catering_img_name)
-        with open(image_path, 'wb') as f:
-            for chunk in image.chunks():
-                f.write(chunk)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                image = request.FILES['image']
+                image_name = image.name.split(".")
+                catering_img_name = image_name[0] + dt_string + "." + image_name[1]
+                static_folder = os.path.join(settings.BASE_DIR, 'app\\static')
+                image_path = os.path.join(static_folder, 'images', catering_img_name)
+                with open(image_path, 'wb') as f:
+                    for chunk in image.chunks():
+                        f.write(chunk)
 
-        catering_data = Catering_menu(image=catering_img_name)
-        catering_data.save()
+                catering_data = Catering_menu(image=catering_img_name)
+                catering_data.save()
 
-        return redirect("app:admin_index")
+                return redirect("app:admin_index")
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_promocode(request):
-    if request.method == "POST":
-        name = request.POST['promo_code']
-        enddate = request.POST['enddate']
-        endtime = request.POST['endtime']
-        min_amount = request.POST['min_amount']
-        discount = request.POST['discount']
-        amount = request.POST['amount']
-        customer = request.POST['customer']
-        promocode = Promocodes.objects.filter(promo_code=name).last()
-        user = User_data.objects.filter(id=customer).last()
-        if promocode:
-            messages.success(request, 'Promo code already added...')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                name = request.POST['promo_code']
+                enddate = request.POST['enddate']
+                endtime = request.POST['endtime']
+                min_amount = request.POST['min_amount']
+                discount = request.POST['discount']
+                amount = request.POST['amount']
+                customer = request.POST['customer']
+                promocode = Promocodes.objects.filter(promo_code=name).last()
+                user = User_data.objects.filter(id=customer).last()
+                if promocode:
+                    messages.success(request, 'Promo code already added...')
+                else:
+                    promocode_data = Promocodes(promo_code=name, end_date=enddate, end_time=endtime,
+                                                          min_amt=min_amount, discount=discount, customer=user,
+                                                          amount=amount)
+                    promocode_data.save()
+                    messages.success(request, 'Promo code added successfully...')
+                promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
+                user_data = User_data.objects.filter(status=0)
+                context = {"promocode_data": promocode_data,"user_data":user_data }
+            else:
+                promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
+                user_data = User_data.objects.filter(status=0)
+                context = {"promocode_data": promocode_data,"user_data":user_data, }
+            return render(request, 'toh-admin/promocode.html',context)
         else:
-            promocode_data = Promocodes(promo_code=name, end_date=enddate, end_time=endtime,
-                                                  min_amt=min_amount, discount=discount, customer=user,
-                                                  amount=amount)
-            promocode_data.save()
-            messages.success(request, 'Promo code added successfully...')
-        promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
-        user_data = User_data.objects.filter(status=0)
-        context = {"promocode_data": promocode_data,"user_data":user_data }
-    else:
-        promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
-        user_data = User_data.objects.filter(status=0)
-        context = {"promocode_data": promocode_data,"user_data":user_data, }
-    return render(request, 'toh-admin/promocode.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 @csrf_exempt
 def admin_ajax_promocode_edit(request):
@@ -1610,65 +1970,116 @@ def admin_ajax_promocode_edit(request):
     return JsonResponse({'data': data})
 
 def admin_promocode_edit(request):
-    if request.method == "POST":
-        name = request.POST['aj_promocode']
-        enddate = request.POST['aj_enddate']
-        endtime = request.POST['aj_endtime']
-        min_amount = request.POST['aj_minamt']
-        discount = request.POST['aj_discount']
-        amount = request.POST['aj_amt']
-        customer = request.POST['aj_customer']
-        id = request.POST['promo_id']
-        promocode = Promocodes.objects.filter(promo_code=name).last()
-        user = User_data.objects.filter(id=customer).last()
-        promocode_data=Promocodes.objects.filter(id=id).last()
-        if promocode:
-            messages.success(request, 'Promo code already added...')
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                name = request.POST['aj_promocode']
+                enddate = request.POST['aj_enddate']
+                endtime = request.POST['aj_endtime']
+                min_amount = request.POST['aj_minamt']
+                discount = request.POST['aj_discount']
+                amount = request.POST['aj_amt']
+                customer = request.POST['aj_customer']
+                id = request.POST['promo_id']
+                promocode = Promocodes.objects.filter(promo_code=name).last()
+                user = User_data.objects.filter(id=customer).last()
+                promocode_data=Promocodes.objects.filter(id=id).last()
+                if promocode:
+                    messages.success(request, 'Promo code already added...')
+                else:
+                    promocode_data.promo_code = name
+                    promocode_data.end_date = enddate
+                    promocode_data.end_time = endtime
+                    promocode_data.min_amt = min_amount
+                    promocode_data.discount = discount
+                    promocode_data.amount = amount
+                    promocode_data.customer = user
+                    promocode_data.save()
+                    messages.success(request, 'Promo code Update successfully...')
+                promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
+                user_data = User_data.objects.filter(status=0)
+                context = {"promocode_data": promocode_data,"user_data":user_data }
+            else:
+                promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
+                user_data = User_data.objects.filter(status=0)
+                context = {"promocode_data": promocode_data,"user_data":user_data, }
+            return render(request, 'toh-admin/promocode.html',context)
         else:
-            promocode_data.promo_code = name
-            promocode_data.end_date = enddate
-            promocode_data.end_time = endtime
-            promocode_data.min_amt = min_amount
-            promocode_data.discount = discount
-            promocode_data.amount = amount
-            promocode_data.customer = user
-            promocode_data.save()
-            messages.success(request, 'Promo code Update successfully...')
-        promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
-        user_data = User_data.objects.filter(status=0)
-        context = {"promocode_data": promocode_data,"user_data":user_data }
-    else:
-        promocode_data = Promocodes.objects.filter(Q(status=0) | Q(status=1))
-        user_data = User_data.objects.filter(status=0)
-        context = {"promocode_data": promocode_data,"user_data":user_data, }
-    return render(request, 'toh-admin/promocode.html',context)
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_promocode_completed(request,id):
-    promocode_data = Promocodes.objects.filter(id=id).last()
-    promocode_data.status = 1
-    promocode_data.save()
-    promocode_dt = Promocodes.objects.filter(Q(status=0) | Q(status=1))
-    user_data = User_data.objects.filter(status=0)
-    context = {"promocode_data": promocode_dt,"user_data":user_data }
-    messages.success(request, 'Promo code deleted successfully.')
-    return render(request, 'toh-admin/promocode.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            promocode_data = Promocodes.objects.filter(id=id).last()
+            promocode_data.status = 1
+            promocode_data.save()
+            promocode_dt = Promocodes.objects.filter(Q(status=0) | Q(status=1))
+            user_data = User_data.objects.filter(status=0)
+            context = {"promocode_data": promocode_dt,"user_data":user_data }
+            messages.success(request, 'Promo code deleted successfully.')
+            return render(request, 'toh-admin/promocode.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_promocode_delete(request,id):
-    promocode_data = Promocodes.objects.filter(id=id).last()
-    promocode_data.status = 2
-    promocode_data.save()
-    promocode_dt = Promocodes.objects.filter(Q(status=0) | Q(status=1))
-    user_data = User_data.objects.filter(status=0)
-    context = {"promocode_data": promocode_dt,"user_data":user_data }
-    messages.success(request, 'Promo code deleted successfully.')
-    return render(request, 'toh-admin/promocode.html', context)
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            promocode_data = Promocodes.objects.filter(id=id).last()
+            promocode_data.status = 2
+            promocode_data.save()
+            promocode_dt = Promocodes.objects.filter(Q(status=0) | Q(status=1))
+            user_data = User_data.objects.filter(status=0)
+            context = {"promocode_data": promocode_dt,"user_data":user_data }
+            messages.success(request, 'Promo code deleted successfully.')
+            return render(request, 'toh-admin/promocode.html', context)
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_salesreport(request):
-    return render(request, 'toh-admin/index.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/index.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
+
 def admin_orderreport(request):
-    return render(request, 'toh-admin/index.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/index.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_itemreport(request):
-    return render(request, 'toh-admin/index.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/index.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
+
 def admin_suburreport(request):
-    return render(request, 'toh-admin/index.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/index.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_login(request):
     if request.method == 'POST':
@@ -1678,7 +2089,31 @@ def admin_login(request):
         username = user_data.name
         user = authenticate(username=username, password=password)
         if user:
-            return redirect('/admin-index/')
+            today_start = datetime.combine(date_now, time())
+            total_users = User_data.objects.filter(user_type="Customer")
+            suburb_data = Code.objects.all()
+            user_data_active = User_data.objects.filter(active="Active")
+            today_users = User_data.objects.filter(created_at__year=date_now.year, created_at__month=date_now.month,
+                                                   created_at__day=date_now.day)
+            context = {"total_users": len(total_users),
+                       "today_users": len(today_users),
+                       "suburb_data": suburb_data,
+                       "user_data_active": user_data_active
+                       }
+
+            response = HttpResponse("Cookie Set")
+            # response.set_cookie('email', email)
+            name = user_data.email.split("@")
+            response.cookies['admin-email'] = email
+            response.cookies['admin-name'] = name[0]
+            response = render(request, 'toh-admin/index.html', context)
+            response.set_cookie('last_connection', datetime.now())
+            response.set_cookie('admin-get_email', email)
+            response.set_cookie('admin-name', name[0])
+            response.set_cookie('admin-type', 'Admin')
+
+            return response
+            # return redirect('/admin-index/')
 
         else:
             messages.error(request, 'Please Check Your User Name and Password !')
@@ -1688,49 +2123,41 @@ def admin_login(request):
         return render(request, 'toh-admin/login.html',{})
     return render(request, 'toh-admin/login.html',{})
 def admin_user_subscription_details(request):
-    return render(request, 'toh-admin/user-subscription-details.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/user-subscription-details.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 
 def admin_timing(request):
-    if request.method == "POST":
-        mon = request.POST['day']
-        mon_open_time = request.POST['mon_open_time']
-        mon_close_time = request.POST['mon_close_time']
-        delivery = request.POST['delivery']
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            if request.method == "POST":
+                mon = request.POST['day']
+                mon_open_time = request.POST['mon_open_time']
+                mon_close_time = request.POST['mon_close_time']
+                delivery = request.POST['delivery']
 
-        timing_data = Timings(day=mon,open_time=mon_open_time,close_time=mon_close_time,delivery=delivery)
-        timing_data.save()
-
-        # try:
-        #     tues = request.POST['tues']
-        #     tues_open_time = request.POST['tues_open_time']
-        #     tues_close_time = request.POST['tues_close_time']
-        # except:
-        #     pass
-        #
-        # wed = request.POST['wed']
-        # wed_open_time = request.POST['wed_open_time']
-        # wed_close_time = request.POST['wed_close_time']
-        #
-        # thu = request.POST['thu']
-        # thu_open_time = request.POST['thu_open_time']
-        # thu_close_time = request.POST['thu_close_time']
-        #
-        # fri = request.POST['fri']
-        # fri_open_time = request.POST['fri_open_time']
-        # fri_close_time = request.POST['fri_close_time']
-        #
-        # sat = request.POST['sat']
-        # sat_open_time = request.POST['sat_open_time']
-        # sat_close_time = request.POST['sat_close_time']
-        #
-        # sun = request.POST['sun']
-        # sun_open_time = request.POST['sun_open_time']
-        # sun_close_time = request.POST['sun_close_time']
-
-
-    return render(request, 'toh-admin/timing.html',{})
+                timing_data = Timings(day=mon,open_time=mon_open_time,close_time=mon_close_time,delivery=delivery)
+                timing_data.save()
+            return render(request, 'toh-admin/timing.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_closedate(request):
-    return render(request, 'toh-admin/index.html',{})
+    try:
+        cookies = get_cookies(request)
+        if cookies['admin-type'] == "Admin":
+            return render(request, 'toh-admin/index.html',{})
+        else:
+            return redirect("app:login")
+    except:
+        return redirect("app:login")
 def admin_sign_out(request):
     logout(request)
     response = render(request, 'toh-admin/login.html', {})
